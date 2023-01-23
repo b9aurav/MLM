@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\layouts",
+    "\\src\\app\\layouts\\admin-layout",
+    "\\src\\app\\pages",
+    "\\src\\app\\sidebar"
+  ],
+  "SelectedNode": "\\src\\app\\sidebar\\sidebar.component.ts",
+  "PreviewInSolutionExplorer": false
+}
