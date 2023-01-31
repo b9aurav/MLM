@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'kyc-cmp',
@@ -6,4 +7,13 @@ import { Component } from '@angular/core';
     templateUrl: 'kyc.component.html'
 })
 
-export class KYCComponent {}
+export class KYCComponent {
+
+  ngOnInit() {
+    $('input[type="file"]').on('change', function () {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).prev('input[type="text"]').val(fileName);
+    });
+  }
+
+}

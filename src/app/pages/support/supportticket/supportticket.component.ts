@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'SupportTicket',
@@ -9,7 +10,6 @@ export class SupportticketComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

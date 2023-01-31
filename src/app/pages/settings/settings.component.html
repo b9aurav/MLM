@@ -6,10 +6,8 @@
           <a *ngFor="let item of menuItems" (click)="changeMenu(item)" class="item {{item.active}}" id="{{item.name}}" semantic-ui>{{item.name}}</a>
         </div>
         <div class="ui segment">
-          <EarningDirect *ngIf="selectedMenu === 'Direct'"></EarningDirect>
-          <EarningAutopool *ngIf="selectedMenu === 'Autopool'"></EarningAutopool>
-          <EarningEdNTour *ngIf="selectedMenu === 'Education & Tour'"></EarningEdNTour>
-          <EarningGiftRewards *ngIf="selectedMenu === 'Gifts & Rewards'"></EarningGiftRewards>
+          <Profile *ngIf="selectedMenu === 'Edit Profile'"></Profile>
+          <Password *ngIf="selectedMenu === 'Change Password'"></Password>
         </div>
       </div>
     </div>

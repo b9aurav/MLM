@@ -1,21 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'team-cmp',
-    moduleId: module.id,
-    templateUrl: 'team.component.html'
+  selector: 'settings-cmp',
+  templateUrl: './settings.component.html',
+  moduleId: module.id,
 })
 
-export class TeamComponent {
-  selectedMenu = 'Direct';
+export class SettingsComponent {
+  selectedMenu = 'Edit Profile';
 
   menuItems = [
     {
-      name: 'Direct',
+      name: 'Edit Profile',
       active: 'active'
     },
-    { name: 'Level' },
-    { name: 'Autopool' },
+    { name: 'Change Password' },
   ];
 
   changeMenu(menu) {
@@ -25,4 +24,5 @@ export class TeamComponent {
     })
     document.getElementById(menu.name).classList.add('active');
   }
+  
 }

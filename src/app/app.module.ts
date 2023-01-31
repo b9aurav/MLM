@@ -10,8 +10,10 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
-
+import { UserService } from './services/user.service';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+
+// import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,24 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     NavbarModule,
     ToastrModule.forRoot(),
     FooterModule,
-    FixedPluginModule
+    FixedPluginModule,
+    // HttpClient,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+  // private userService: UserService, private http: HttpClient
+  constructor() {
+    // var param = {
+    //   "param": {
+    //     "username": "gaurav"
+    //   }
+    // }
+    // console.log(this.userService.user)
+    // this.http.post('api/GetUserDetails', param).subscribe(data => {
+    //   console.log(data);
+    // });
+  }
+}
