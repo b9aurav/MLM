@@ -7,7 +7,7 @@
             <br />
             <div class="numbers">
               <p class="card-category">Available Balance</p>
-              <p class="card-title">Rs. 730</p>
+              <p class="card-title" id="avail_bal"></p>
             </div>
           </div>
           <div class="card-footer "></div>
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="center-container">
-            <button class="btn btn-outline-danger btn-round">
+            <button class="btn btn-outline-danger btn-round" (click)="addWithdrawRequest()">
               <i class="fa fa-send"></i> Submit
             </button>
           </div>

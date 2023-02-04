@@ -13,7 +13,8 @@ import { AppRoutes } from './app.routing';
 import { UserService } from './services/user.service';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
-// import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -30,23 +31,21 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,
-    // HttpClient,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 
 export class AppModule {
-  // private userService: UserService, private http: HttpClient
-  constructor() {
-    // var param = {
-    //   "param": {
-    //     "username": "gaurav"
-    //   }
-    // }
-    // console.log(this.userService.user)
-    // this.http.post('api/GetUserDetails', param).subscribe(data => {
-    //   console.log(data);
-    // });
+  constructor(private userService: UserService, private http: HttpClient) {
+    var param = {
+      "param": {
+        "username": "abcd"
+      } 
+    }
+    this.http.post<{ data: any, message: string }>('api/GetUserDetails', param).subscribe(response => {
+      this.userService.setUser(response.data[0])
+    }, error => console.error(error));
   }
 }

@@ -8,10 +8,4 @@ export class UserService {
   setUser(user: any) {
      this.user = user;
   }
-  constructor() {
-    this.user = {
-      name: 'John Doe',
-      email: 'johndoe@example.com'
-    };
-  }
 }
