@@ -1,0 +1,54 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-primary {
+    background-color: orange;
+    border-color: orange;
+    animation: color-change 8s ease infinite;
+  }
+
+  .form-wrapper {
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  .buttons {
+    float: right;
+  }
+
+  .bg {
+    background: #ffa07a;
+    height: 100vh;
+    animation: color-change 8s ease infinite;
+  }
+  
+  @keyframes color-change {
+    0% {
+      background-color: #ffa07a;
+    }
+    25% {
+        background-color: #50ffad;
+    }
+    50% {
+        background-color: #a647ff;
+    }
+    75% {
+        background-color: #ff7ac8;
+    }
+    100% {
+        background-color: #ffa07a;
+    }
+  }

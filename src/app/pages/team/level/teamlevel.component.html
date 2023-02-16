@@ -1,51 +1,63 @@
-<div>
-  <table class="ui selectable celled table">
-    <thead>
-      <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="complex_header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 101px;">#</th><th class="sorting" tabindex="0" aria-controls="complex_header" rowspan="1" colspan="1" aria-label="Level Number.: activate to sort column ascending" style="width: 329px;">Level Number.</th><th class="sorting" tabindex="0" aria-controls="complex_header" rowspan="1" colspan="1" aria-label="Total Member: activate to sort column ascending" style="width: 318px;">Total Member</th><th class="sorting" tabindex="0" aria-controls="complex_header" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 191px;">Action</th></tr>
+<div class="table-responsive" *ngIf="!toggleTable">
+  <table class="table">
+    <thead class="text-primary">
+        <tr>
+            <th>Level No.</th>
+            <th>Total Members</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-      <tr role="row" class="odd">
-        <td class="sorting_1">1</td>
-        <td>Level 1</td>
-        <td><i class="fa fa-user"></i> 6</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=1" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
-      <tr role="row" class="even">
-        <td class="sorting_1">2</td>
-        <td>Level 2</td>
-        <td><i class="fa fa-user"></i> 2</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=2" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
-      <tr role="row" class="odd">
-        <td class="sorting_1">3</td>
-        <td>Level 3</td>
-        <td><i class="fa fa-user"></i> 0</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=3" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
-      <tr role="row" class="even">
-        <td class="sorting_1">4</td>
-        <td>Level 4</td>
-        <td><i class="fa fa-user"></i> 0</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=4" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
-      <tr role="row" class="odd">
-        <td class="sorting_1">5</td>
-        <td>Level 5</td>
-        <td><i class="fa fa-user"></i> 0</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=5" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
-      <tr role="row" class="even">
-        <td class="sorting_1">6</td>
-        <td>Level 6</td>
-        <td><i class="fa fa-user"></i> 0</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=6" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
-      <tr role="row" class="odd">
-        <td class="sorting_1">7</td>
-        <td>Level 7</td>
-        <td><i class="fa fa-user"></i> 0</td>
-        <td><a href="levelTeamDetails?MemberID=98&amp;LevelID=7" class="btn btn-primary btn-sm">More</a></td>
-      </tr>
+        <tr *ngFor="let row of rows; let i = index">
+            <td>Level {{ row.level_no }}</td>
+            <td><b>{{row.total_members}}</b></td>
+            <td>
+              <button class="ui primary button" (click)="getTeamByLevel(row.level_no)">
+                More
+              </button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<button class="ui orange icon button" (click)="toggleTable = !toggleTable" *ngIf="toggleTable">
+  <i class="arrow left icon"></i>
+</button>
+<div class="table-responsive" style="margin-top: 15px;" *ngIf="toggleTable">
+  <table class="table">
+    <thead class="text-primary">
+        <tr>
+            <th>#</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>E-Mail</th>
+            <th>Join Date</th>
+            <th>Active Status</th>
+            <th>Activation Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let member of members; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{member.user_id}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.username}}</td>
+            <td>{{member.email}}</td>
+            <td>{{member.join_date}}</td>
+            <td>{{member.is_active ? 'Active' : 'In-active'}}</td>
+            <td>{{member.activation_date}}</td>
+        </tr>
     </tbody>
   </table>
 </div>

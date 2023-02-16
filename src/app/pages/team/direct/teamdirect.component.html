@@ -1,71 +1,28 @@
-<div>
-  <table class="ui selectable celled table">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>Username</th>
-        <th>Name</th>
-        <th>E-Mail</th>
-        <th>Register Date</th>
-        <th>Active Status</th>
-        <th>Activation Date</th>
-      </tr>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="text-primary">
+        <tr>
+            <th>#</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>E-Mail</th>
+            <th>Join Date</th>
+            <th>Active Status</th>
+            <th>Activation Date</th>
+        </tr>
     </thead>
     <tbody>
-      <tr role="row" class="odd">
-        <td class="sorting_1">1</td>
-        <td>9999999999</td>
-        <td>DAMODAR</td>
-        <td>gajanan@gmail.com</td>
-        <td><i class="fa fa-clock-o"></i> 07-12-2022 23:11:37</td>
-        <td><span class="label label-success">Active</span></td>
-        <td>2023-01-02 09:31:05</td>
-      </tr>
-      <tr role="row" class="even">
-        <td class="sorting_1">2</td>
-        <td>6370592544</td>
-        <td>Jaysriram</td>
-        <td>hgfsfgg@gmail.com</td>
-        <td><i class="fa fa-clock-o"></i> 07-12-2022 21:24:55</td>
-        <td><span class="label label-danger">In-Active</span></td>
-        <td></td>
-      </tr>
-      <tr role="row" class="odd">
-        <td class="sorting_1">3</td>
-        <td>9142006963</td>
-        <td>Banti Gupta</td>
-        <td>bantigupta914200@gmail.com</td>
-        <td><i class="fa fa-clock-o"></i> 08-11-2022 05:50:16</td>
-        <td><span class="label label-success">Active</span></td>
-        <td>2022-11-08 05:56:36</td>
-      </tr>
-      <tr role="row" class="even">
-        <td class="sorting_1">4</td>
-        <td>9762019941</td>
-        <td>Sandy</td>
-        <td>sandipmlmguru@gmail.com</td>
-        <td><i class="fa fa-clock-o"></i> 07-11-2022 17:27:34</td>
-        <td><span class="label label-success">Active</span></td>
-        <td>2022-11-07 17:33:32</td>
-      </tr>
-      <tr role="row" class="odd">
-        <td class="sorting_1">5</td>
-        <td>9351974801</td>
-        <td>Naresh kumar Deval </td>
-        <td>nareshtaxwayindia15@gmail.com</td>
-        <td><i class="fa fa-clock-o"></i> 11-10-2022 16:11:02</td>
-        <td><span class="label label-danger">In-Active</span></td>
-        <td></td>
-      </tr>
-      <tr role="row" class="even">
-        <td class="sorting_1">6</td>
-        <td>9980428045</td>
-        <td>Shankarappa.Bangarakade</td>
-        <td>shankarbangarakade@gmail.com</td>
-        <td><i class="fa fa-clock-o"></i> 01-10-2022 09:50:58</td>
-        <td><span class="label label-danger">In-Active</span></td>
-        <td></td>
-      </tr>
+        <tr *ngFor="let member of members; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{member.user_id}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.username}}</td>
+            <td>{{member.email}}</td>
+            <td>{{member.join_date}}</td>
+            <td>{{member.is_active ? 'Active' : 'In-active'}}</td>
+            <td>{{member.activation_date}}</td>
+        </tr>
     </tbody>
   </table>
 </div>

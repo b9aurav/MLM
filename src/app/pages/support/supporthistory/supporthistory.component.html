@@ -1,23 +1,32 @@
-<table class="ui selectable celled table">
-    <thead>
-        <tr>
-            <th>Ticket No.</th>
-            <th>Subject</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="text-primary">
+      <tr>
+        <th>Ticket No.</th>
+        <th>Subject</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let ticket of tickets">
-            <td>{{ticket['Ticket No.']}}</td>
-            <td>{{ticket.Subject}}</td>
-            <td>{{ticket.Description}}</td>
-            <td>{{ticket.Status}}</td>
-            <td>
-                <button class="ui red icon button" fdprocessedid="23ylm" data-tooltip="Delete Ticket" data-position="top left" (click)="showDeletePopup(ticket['Ticket No.'])">
-                    <i class="trash icon"></i>
-                </button></td>
-          </tr>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ ticket["Ticket No."] }}</td>
+        <td>{{ ticket.Subject }}</td>
+        <td>{{ ticket.Description }}</td>
+        <td>{{ ticket.Status }}</td>
+        <td>
+          <button
+            class="ui red icon button"
+            fdprocessedid="23ylm"
+            data-tooltip="Delete Ticket"
+            data-position="top left"
+            (click)="showDeletePopup(ticket['Ticket No.'])"
+          >
+            <i class="trash icon"></i>
+          </button>
+        </td>
+      </tr>
     </tbody>
-</table>
+  </table>
+</div>

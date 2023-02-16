@@ -7,13 +7,13 @@
       </svg>
     </div>
     <div>
-      <label class="simple-text logo-normal">User</label>
+      <label class="simple-text logo-normal" id="userLabel"></label>
     </div>
     <div>
       <button [routerLink]="['/settings']" class="btn btn-outline-success btn-fab btn-icon btn-round">
         <i class="nc-icon nc-settings-gear-65 icon-btn"></i>
       </button>
-      <button onclick="location.href('/logout')" class="btn btn-danger btn-round">Logout</button>
+      <button (click)="logout()" class="btn btn-danger btn-round">Logout</button>
     </div>
   </div>
   <ul class="nav">

@@ -1,6 +1,9 @@
 import { style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service'
 
+import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 export interface RouteInfo {
   path: string;
@@ -31,8 +34,29 @@ export const ROUTES = [
 })
 
 export class SidebarComponent implements OnInit {
+  user: any;
   public menuItems: any[];
+
+  constructor(private userService: UserService,  private http: HttpClient, private router: Router) { 
+    this.user = this.userService.user
+  }
+
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    var param = {
+      "param": {
+        "username": localStorage.getItem('mlm_user')
+      } 
+    }
+    this.http.post<{ data: any, message: string }>('api/GetUserDetails', param).subscribe(response => {
+      this.userService.setUser(response.data[0]);
+      let userLabel = document.getElementById("userLabel") as HTMLLabelElement;
+      userLabel.innerText = this.userService.user.name
+    }, error => console.error(error));
+  }
+
+  logout() {
+    this.userService.setUser('');
+    this.router.navigate(['/login']);
   }
 }

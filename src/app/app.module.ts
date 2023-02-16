@@ -2,6 +2,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from "ngx-toastr";
+import { FormsModule } from '@angular/forms';
 
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
@@ -15,13 +16,17 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from "@angular/common/http";
+import { LoginComponent } from './pages/login/login.component';
+import { LoginRoutingModule } from './pages/login/login-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    LoginComponent,
   ],
   imports: [
+    FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
       useHash: true
@@ -32,20 +37,12 @@ import { HttpClient } from "@angular/common/http";
     FooterModule,
     FixedPluginModule,
     HttpClientModule,
+    LoginRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 
 export class AppModule {
-  constructor(private userService: UserService, private http: HttpClient) {
-    var param = {
-      "param": {
-        "username": "abcd"
-      } 
-    }
-    this.http.post<{ data: any, message: string }>('api/GetUserDetails', param).subscribe(response => {
-      this.userService.setUser(response.data[0])
-    }, error => console.error(error));
-  }
+  constructor() { }
 }
