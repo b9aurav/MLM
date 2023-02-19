@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service'
 import { Router } from '@angular/router';
-import { AppModule } from 'app/app.module';
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -38,6 +37,8 @@ export class LoginComponent implements OnInit {
   }
 
   validateUser() {
+    this.usernameInput = document.getElementById("username") as HTMLInputElement;
+    this.passwordInput = document.getElementById("password") as HTMLInputElement;
     var param = {
       "param": {
         "username": this.usernameInput.value,
@@ -62,5 +63,9 @@ export class LoginComponent implements OnInit {
     }, error => {
       console.error(error);
     });
+  }
+
+  redirectRegistration() {
+    this.router.navigate(['/registration']);
   }
 }

@@ -18,12 +18,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from "@angular/common/http";
 import { LoginComponent } from './pages/login/login.component';
 import { LoginRoutingModule } from './pages/login/login-routing.module';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { RegistrationRoutingModule } from './pages/registration/registration-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    RegistrationComponent,
   ],
   imports: [
     FormsModule,
@@ -38,6 +41,7 @@ import { LoginRoutingModule } from './pages/login/login-routing.module';
     FixedPluginModule,
     HttpClientModule,
     LoginRoutingModule,
+    RegistrationRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

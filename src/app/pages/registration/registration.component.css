@@ -60,6 +60,10 @@
     display: flex;
   }
 
+  .card label {
+    margin-bottom: 0 !important;
+  }
+
   .circle{
     position: absolute;
     border-radius: 50%;
@@ -135,7 +139,7 @@
       transform: scale(0.8);
     }
   }
-  
-  html {
-    overflow: hidden;
+
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
