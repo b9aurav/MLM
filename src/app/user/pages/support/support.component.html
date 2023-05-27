@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card demo-icons">
+      <div class="card-header">
+        <div class="ui pointing menu">
+          <a *ngFor="let item of menuItems" (click)="changeMenu(item)" class="item {{item.active}}" id="{{item.name}}" semantic-ui>{{item.name}}</a>
+        </div>
+        <div class="ui segment">
+          <SupportTicket *ngIf="selectedMenu === 'New Ticket'"></SupportTicket>
+          <SupportHistory *ngIf="selectedMenu === 'History'"></SupportHistory>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

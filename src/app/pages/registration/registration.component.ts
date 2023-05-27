@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service'
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'registration',
@@ -60,7 +61,7 @@ export class RegistrationComponent implements OnInit {
       } 
     }
     console.log(param)
-    this.http.post<{ data: any, message: string }>('api/AddUser', param).subscribe(response => {
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/AddUser', param).subscribe(response => {
       this.showMessage(response.message)
       if (response.message.startsWith('Info  : New user created')) {
         document.getElementsByTagName('form')[0].reset();

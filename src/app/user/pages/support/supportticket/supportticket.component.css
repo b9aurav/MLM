@@ -1,0 +1,8 @@
+textarea.form-control {
+  max-height: unset !important;
+}
+.btn-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}

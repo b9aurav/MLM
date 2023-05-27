@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service'
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'login',
@@ -45,8 +46,10 @@ export class LoginComponent implements OnInit {
         "password": this.passwordInput.value
       } 
     }
-    this.http.post<{ data: any, message: string }>('api/ValidateUser', param).subscribe(response => {
-      if (response.data[0][''] != 'Info  : Login validated') {
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/ValidateUser', param).subscribe(response => {
+      if (response.data[0][''] == 'Info  : Admin validated') {
+        this.router.navigate(['/admin-dashboard']);
+      } else if (response.data[0][''] != 'Info  : Login validated') {
         this.showMessage(response.data[0]['']);
       } else {
         var param = {
@@ -54,7 +57,7 @@ export class LoginComponent implements OnInit {
             "username": this.usernameInput.value
           } 
         }
-        this.http.post<{ data: any, message: string }>('api/GetUserDetails', param).subscribe(response => {
+        this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetails', param).subscribe(response => {
           this.userService.setUser(response.data[0]);
           this.router.navigate(['/dashboard']);
         }, error => console.error(error));

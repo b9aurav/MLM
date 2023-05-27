@@ -4,19 +4,24 @@ import { RouterModule } from '@angular/router';
 import { ToastrModule } from "ngx-toastr";
 import { FormsModule } from '@angular/forms';
 
-import { SidebarModule } from './sidebar/sidebar.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
+import { SidebarModule } from './user/sidebar/sidebar.module';
+import { FooterModule } from './user/shared/footer/footer.module';
+import { NavbarModule} from './user/shared/navbar/navbar.module';
+import { FixedPluginModule} from './user/shared/fixedplugin/fixedplugin.module';
+
+import { AdminSidebarModule } from './admin/sidebar/sidebar.module';
+import { AdminFooterModule } from './admin/shared/footer/footer.module';
+import { AdminNavbarModule} from './admin/shared/navbar/navbar.module';
+import { AdminFixedPluginModule} from './admin/shared/fixedplugin/fixedplugin.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { UserService } from './services/user.service';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './user/layouts/user-layout/user-layout.component';
+import { AdminLayoutComponent } from './admin/layouts/admin-layout/admin-layout.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from "@angular/common/http";
-import { LoginComponent } from './pages/login/login.component';
 import { LoginRoutingModule } from './pages/login/login-routing.module';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationRoutingModule } from './pages/registration/registration-routing.module';
@@ -25,7 +30,7 @@ import { RegistrationRoutingModule } from './pages/registration/registration-rou
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,
+    UserLayoutComponent,
     RegistrationComponent,
   ],
   imports: [
@@ -34,6 +39,10 @@ import { RegistrationRoutingModule } from './pages/registration/registration-rou
     RouterModule.forRoot(AppRoutes,{
       useHash: true
     }),
+    AdminSidebarModule,
+    AdminFooterModule,
+    AdminNavbarModule,
+    AdminFixedPluginModule,
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot(),
