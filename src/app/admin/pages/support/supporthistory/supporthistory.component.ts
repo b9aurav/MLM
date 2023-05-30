@@ -9,45 +9,46 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./supporthistory.component.css']
 })
 export class SupporthistoryComponent implements OnInit {
-  user: any;
   tickets: any[];
+  subjectInput: HTMLTextAreaElement
+  descriptionInput: HTMLTextAreaElement;
+  responseInput: HTMLTextAreaElement;
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.loadTickets();
+    this.loadRespondedTickets();
+    this.descriptionInput = document.getElementById("historydescriptionTextarea") as HTMLTextAreaElement;
+    this.subjectInput = document.getElementById("historysubjectInput") as HTMLTextAreaElement;
+    this.responseInput = document.getElementById("historyresponseTextarea") as HTMLTextAreaElement;
   }
 
-  loadTickets() {
-    var param = {
-      "param": {
-        "user_id": this.user.user_id
-      } 
-    }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetTickets', param).subscribe(response => {
+  loadRespondedTickets() {
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetRespondedTickets', null).subscribe(response => {
       this.tickets = response.data;
     }, error => {
       console.error(error);
     });
   }
 
-  showDeletePopup(ticket_no) {
-    let result = confirm("Are you sure want to delete this ticket?");
-    if (result) {
-      var param = {
-        "param": {
-          "ticket_no": ticket_no
-        } 
-      }
-      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/DeleteTicket', param).subscribe(response => {
-        alert(response.message);
-        this.loadTickets();
-      }, error => {
-        console.error(error);
-        this.loadTickets();
-      });
-    }
+  respondedTicketPopup(subject: string, description: string, response: string) {
+    console.log(subject, description, response)
+    $('.ui.modal.history').modal({
+      closable: false, 
+    }).modal('show');
+    this.descriptionInput.value = description;
+    this.subjectInput.value = subject;
+    this.responseInput.value = response;
+    $('.ui.dimmer').addClass('inverted');
+    $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
+    $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
+    $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
+  }
+
+  hidePopup() {
+    $('.ui.modal.history').modal('hide');
+    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
+    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
+    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 }

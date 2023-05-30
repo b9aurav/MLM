@@ -6,7 +6,7 @@
           <a *ngFor="let item of menuItems" (click)="changeMenu(item)" class="item {{item.active}}" id="{{item.name}}" semantic-ui>{{item.name}}</a>
         </div>
         <div class="ui segment">
-          <SupportTicket *ngIf="selectedMenu === 'New Ticket'"></SupportTicket>
+          <PendingTickets *ngIf="selectedMenu === 'Pending Tickets'"></PendingTickets>
           <SupportHistory *ngIf="selectedMenu === 'History'"></SupportHistory>
         </div>
       </div>

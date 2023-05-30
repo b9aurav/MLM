@@ -1,3 +1,30 @@
+<div class="ui tiny inverted modal history">
+  <i class="close icon"></i>
+  <div class="header">
+    Ticket
+  </div>
+  <div class="content">
+    <div class="description">
+        <div class="form-group">
+          <label for="subjectInput">Subject</label>
+          <input type="text" class="form-control" id="historysubjectInput" disabled autocomplete="off">
+          <label for="descriptionTextarea">Description</label>
+          <textarea class="form-control" id="historydescriptionTextarea" rows="7" disabled></textarea>
+        </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="description">
+        <div class="form-group">
+          <label for="descriptionTextarea">Response</label>
+          <textarea class="form-control" id="historyresponseTextarea" rows="7" disabled></textarea>
+        </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button" (click)="hidePopup()">Close</div>
+  </div>
+</div>
 <div class="table-responsive">
   <table class="table">
     <thead class="text-primary">
@@ -5,7 +32,6 @@
         <th>Ticket No.</th>
         <th>Subject</th>
         <th>Description</th>
-        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -14,16 +40,13 @@
         <td>{{ ticket["Ticket No."] }}</td>
         <td>{{ ticket.Subject }}</td>
         <td>{{ ticket.Description }}</td>
-        <td>{{ ticket.Status }}</td>
         <td>
           <button
-            class="ui red icon button"
+            class="ui blue icon button"
             fdprocessedid="23ylm"
-            data-tooltip="Delete Ticket"
-            data-position="top left"
-            (click)="showDeletePopup(ticket['Ticket No.'])"
+            (click)="respondedTicketPopup(ticket.Subject, ticket.Description, ticket.Response)"
           >
-            <i class="trash icon"></i>
+            <i class="eye icon"></i>
           </button>
         </td>
       </tr>

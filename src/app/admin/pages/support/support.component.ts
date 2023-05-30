@@ -7,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SupportComponent {
-  selectedMenu = 'New Ticket';
+  selectedMenu = 'Pending Tickets';
 
   menuItems = [
     {
-      name: 'New Ticket',
+      name: 'Pending Tickets',
       active: 'active'
     },
     { name: 'History' },

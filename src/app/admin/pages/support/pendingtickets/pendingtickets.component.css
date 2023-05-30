@@ -6,3 +6,8 @@ textarea.form-control {
     align-items: center !important;
     justify-content: center !important;
 }
+.modal {
+  top: unset;
+  left: unset;
+  height: unset;
+}

@@ -11,22 +11,7 @@ import { SupportComponent } from '../../pages/Support/Support.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TeamDirectComponent } from '../../pages/team/direct/teamdirect.component';
-import { TeamLevelComponent } from '../../pages/team/level/teamlevel.component';
-import { TeamAutopoolComponent } from '../../pages/team/autopool/teamautopool.component';
-
-import { EarningautopoolComponent } from '../../pages/earning/earningautopool/earningautopool.component';
-import { EarningdirectComponent } from '../../pages/earning/earningdirect/earningdirect.component';
-import { EarningedntourComponent } from '../../pages/earning/earningedntour/earningedntour.component';
-import { EarninggiftrewardsComponent } from '../../pages/earning/earninggiftrewards/earninggiftrewards.component';
-
-import { DepositfundComponent } from '../../pages/deposit/depositfund/depositfund.component';
-import { DeposithistoryComponent } from '../../pages/deposit/deposithistory/deposithistory.component';
-
-import { PayoutwithdrawComponent } from '../../pages/payout/payoutwithdraw/payoutwithdraw.component';
-import { PayouthistoryComponent } from '../../pages/payout/payouthistory/payouthistory.component';
-
-import { SupportticketComponent } from '../../pages/support/supportticket/supportticket.component';
+import { PendingticketsComponent } from '../../pages/support/pendingtickets/pendingtickets.component';
 import { SupporthistoryComponent } from '../../pages/support/supporthistory/supporthistory.component';
 
 import { ProfileComponent } from '../../pages/settings/profile/profile.component';
@@ -44,22 +29,7 @@ import { PasswordComponent } from '../../pages/settings/password/password.compon
     KYCComponent,
     SupportComponent,
 
-    TeamDirectComponent,
-    TeamLevelComponent,
-    TeamAutopoolComponent,
-
-    EarningautopoolComponent,
-    EarningdirectComponent,
-    EarningedntourComponent,
-    EarninggiftrewardsComponent,
-
-    DepositfundComponent,
-    DeposithistoryComponent,
-
-    PayoutwithdrawComponent,
-    PayouthistoryComponent,
-
-    SupportticketComponent,
+    PendingticketsComponent,
     SupporthistoryComponent,
 
     ProfileComponent,
