@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { KYCComponent } from '../../pages/KYC/KYC.component';
+import { KYCComponent } from '../../pages/kyc/KYC.component';
 import { SupportComponent } from '../../pages/Support/Support.component';
 import { SettingsComponent } from '../../pages/settings/settings.component';
 

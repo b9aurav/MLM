@@ -13,7 +13,7 @@ export class PendingticketsComponent implements OnInit {
   user: any;
   tickets: any[];
   selectedTicket: string;
-  subjectInput: HTMLInputElement
+  subjectInput: HTMLInputElement;
   descriptionInput: HTMLTextAreaElement;
   responseInput: HTMLTextAreaElement;
 

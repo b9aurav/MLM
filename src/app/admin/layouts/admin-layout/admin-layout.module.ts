@@ -14,6 +14,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PendingticketsComponent } from '../../pages/support/pendingtickets/pendingtickets.component';
 import { SupporthistoryComponent } from '../../pages/support/supporthistory/supporthistory.component';
 
+import { PendingkycComponent } from '../../pages/kyc/pendingkyc/pendingkyc.component';
+import { ApprovedkycComponent } from '../../pages/kyc/approvedkyc/approvedkyc.component';
+
 import { ProfileComponent } from '../../pages/settings/profile/profile.component';
 import { PasswordComponent } from '../../pages/settings/password/password.component';
 
@@ -32,6 +35,9 @@ import { PasswordComponent } from '../../pages/settings/password/password.compon
     PendingticketsComponent,
     SupporthistoryComponent,
 
+    PendingkycComponent,
+    ApprovedkycComponent,
+    
     ProfileComponent,
     PasswordComponent,
   ]

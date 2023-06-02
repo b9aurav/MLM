@@ -1,99 +1,15 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="card" *ngIf="user.is_active">
-      <div class="center-container">
-        <i class="bi bi-check2-circle" style="color: rgb(2, 189, 2); font-size: 10em;"></i>
-      </div>
-      <div class="center-container" style="margin-bottom: 15px">
-        <small class="form-text text-muted" style="font-size: 3vw;">This account is verified.</small>
-      </div>
-    </div>
-    <div class="card" *ngIf="!user.is_active">
+    <div class="card demo-icons">
       <div class="card-header">
-        <h5 class="title">Verify Account</h5>
+        <div class="ui pointing menu">
+          <a *ngFor="let item of menuItems" (click)="changeMenu(item)" class="item {{item.active}}" id="{{item.name}}" semantic-ui>{{item.name}}</a>
+        </div>
+        <div class="ui segment">
+          <PendingKYC *ngIf="selectedMenu === 'Pending KYC'"></PendingKYC>
+          <ApprovedKYC *ngIf="selectedMenu === 'Approved KYC'"></ApprovedKYC>
+        </div>
       </div>
-    </div>
-    <div class="card-body" *ngIf="!user.is_active">
-      <form class="ui form">
-        <div class="card bg-body">
-          <div class="card-header">
-            <h6>Bank Account Details</h6>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label for="bank-ac-no-input">Account No.</label>
-              <input type="number" class="form-control" id="bank-ac-no-input" placeholder="Enter bank account number">
-            </div>
-            <div class="form-group">
-              <label for="bank-ac-holder-input">Account Holder Name</label>
-              <input type="text" class="form-control" id="bank-ac-holder-input" placeholder="Enter bank account holder name">
-            </div>
-            <div class="form-group">
-              <label for="bank-name-input">Bank Name</label>
-              <input type="text" class="form-control" id="bank-name-input" placeholder="Enter bank name">
-            </div>
-            <div class="form-group">
-              <label for="bank-branch-input">Branch Name</label>
-              <input type="text" class="form-control" id="bank-branch-input" placeholder="Enter bank branch">
-            </div>
-            <div class="form-group">
-              <label for="bank-ifsc-input">IFSC Code</label>
-              <input type="text" class="form-control" id="bank-ifsc-input" placeholder="Enter IFSC Code">
-            </div>
-          </div>
-        </div>
-        <div class="card bg-body">
-          <div class="card-header">
-            <h6>Other Documents</h6>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label for="aadhar-no-input">Aadhar Card</label>
-              <input type="number" class="form-control" id="aadhar-no-input" placeholder="Enter aadhar number">
-              <div class="field" style="margin-top: 5px">
-                <div class="ui action input">
-                  <input type="text" id="aadhar-input-txt" placeholder="Upload Aadhar Card">
-                  <input type="file" id="aadhar-input-file">
-                  <div class="ui icon button">
-                    <i class="attach icon"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="pan-no-input">PAN Card</label>
-              <input type="text" class="form-control" id="pan-no-input" placeholder="Enter PAN Number">
-              <div class="field" style="margin-top: 5px">
-                <div class="ui action input">
-                  <input type="text" id="pan-input-txt" placeholder="Upload PAN Card">
-                  <input type="file" id="pan-input-file">
-                  <div class="ui icon button">
-                    <i class="attach icon"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container-fluid btn-center">
-          <button type="submit" class="btn btn-outline-danger btn-round"><i class="fa fa-send"></i> Submit</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
-<style>
-  textarea.form-control {
-    max-height: unset !important;
-  }
-  .btn-center {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .center-container {
-    justify-content: center;
-    display: flex;
-    margin-bottom: 5px;
-  }
-</style>

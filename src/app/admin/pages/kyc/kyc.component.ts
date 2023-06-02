@@ -1,8 +1,4 @@
-import { Component } from '@angular/core';
-import * as $ from 'jquery';
-import { UserService } from '../../../services/user.service'
-
-import { HttpClient } from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'kyc-cmp',
@@ -11,17 +7,21 @@ import { HttpClient } from "@angular/common/http";
 })
 
 export class KYCComponent {
-  user: any;
+  selectedMenu = 'Pending KYC';
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
+  menuItems = [
+    {
+      name: 'Pending KYC',
+      active: 'active'
+    },
+    { name: 'Approved KYC' },
+  ];
+
+  changeMenu(menu) {
+    this.selectedMenu = menu.name;
+    document.querySelectorAll('.item').forEach((element) => {
+      element.classList.remove('active');
+    })
+    document.getElementById(menu.name).classList.add('active');
   }
-
-  ngOnInit() {
-    $('input[type="file"]').on('change', function () {
-      var fileName = ($(this).val() as string).split("\\").pop();
-      $(this).prev('input[type="text"]').val(fileName);
-    });
-  }
-
 }
