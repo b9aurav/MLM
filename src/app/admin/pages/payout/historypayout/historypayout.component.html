@@ -1,0 +1,34 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead class="text-primary">
+      <tr>
+        <th>Request ID</th>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>Amount</th>
+        <th>Time & Date</th>
+        <th>Status</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="requests.length > 0; else noData">
+        <tr *ngFor="let request of requests">
+          <td>{{ request["ID."] }}</td>
+          <td>{{ request.user_id }}</td>
+          <td>{{ request.username }}</td>
+          <td>{{ request.Amount }}</td>
+          <td>{{ request.Date }}</td>
+          <td>{{ request.status }}</td>
+          <td>{{ request.remarks }}</td>
+        </tr>
+      </ng-container>
+      
+      <ng-template #noData>
+        <tr>
+          <td colspan="7">No data found.</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>

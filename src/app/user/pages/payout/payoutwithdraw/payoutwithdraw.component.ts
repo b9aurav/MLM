@@ -27,8 +27,7 @@ export class PayoutwithdrawComponent implements OnInit {
   addWithdrawRequest() {
     var param = {
       "param": {
-        "payout": this.amountInput.value,
-        "remarks": "",
+        "amount": this.amountInput.value,
         "user_id": this.user.user_id
       } 
     }

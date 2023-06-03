@@ -18,7 +18,7 @@
         <td>{{ transaction.Status }}</td>
         <td>{{ transaction.Remarks }}</td>
         <td>
-          <button
+          <button *ngIf="transaction.Status == 'Pending'"
             class="ui red icon button"
             fdprocessedid="23ylm"
             data-tooltip="Delete Request"

@@ -225,9 +225,7 @@
 }
 
 .table-responsive {
-  overflow: scroll;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: auto;
   height: 73vh;
 }
 
