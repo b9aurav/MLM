@@ -9,7 +9,6 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./pendingpayout.component.css']
 })
 export class PendingpayoutComponent implements OnInit {
-  user: any;
   requests: any[];
   selectedRequest: string;
   requestidInput: HTMLInputElement;
