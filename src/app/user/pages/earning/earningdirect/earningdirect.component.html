@@ -1,1 +1,72 @@
-<p>earningdirect works!</p>
+<div class="row">
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i
+                style="vertical-align: middle"
+                class="nc-icon nc-money-coins text-success"
+              ></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Direct Income</p>
+              <p class="card-title" id="directIncomeText"></p>
+            </div>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i
+                style="vertical-align: middle"
+                class="nc-icon nc-circle-10 text-warning"
+              ></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Direct Members</p>
+              <p class="card-title" id="directMembersText"></p>
+            </div>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table-responsive" style="height: 60vh;">
+  <table class="table">
+    <thead class="text-primary">
+      <tr>
+        <th>#</th>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Join Date</th>
+        <th>Active Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ member.user_id }}</td>
+        <td>{{ member.name }}</td>
+        <td>{{ member.username }}</td>
+        <td>{{ member.join_date }}</td>
+        <td>{{ member.is_active ? "Active" : "In-active" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
