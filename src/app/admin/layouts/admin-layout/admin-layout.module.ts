@@ -9,6 +9,7 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { KYCComponent } from '../../pages/KYC/KYC.component';
 import { SupportComponent } from '../../pages/Support/Support.component';
 import { PayoutComponent } from '../../pages/Payout/Payout.component';
+import { DepositComponent } from '../../pages/deposit/Deposit.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,6 +21,9 @@ import { ApprovedkycComponent } from '../../pages/kyc/approvedkyc/approvedkyc.co
 
 import { PendingpayoutComponent } from '../../pages/payout/pendingpayout/pendingpayout.component';
 import { HistorypayoutComponent } from '../../pages/payout/historypayout/historypayout.component';
+
+import { PendingdepositComponent } from '../../pages/deposit/pendingdeposit/pendingdeposit.component';
+import { HistorydepositComponent } from '../../pages/deposit/historydeposit/historydeposit.component';
 
 import { ProfileComponent } from '../../pages/settings/profile/profile.component';
 import { PasswordComponent } from '../../pages/settings/password/password.component';
@@ -36,6 +40,7 @@ import { PasswordComponent } from '../../pages/settings/password/password.compon
     KYCComponent,
     SupportComponent,
     PayoutComponent,
+    DepositComponent,
 
     PendingticketsComponent,
     SupporthistoryComponent,
@@ -45,6 +50,9 @@ import { PasswordComponent } from '../../pages/settings/password/password.compon
 
     PendingpayoutComponent,
     HistorypayoutComponent,
+    
+    HistorydepositComponent,
+    PendingdepositComponent,
     
     ProfileComponent,
     PasswordComponent,
