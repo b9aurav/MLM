@@ -225,8 +225,11 @@
 }
 
 .table-responsive {
+  border-radius: 10px;
+  border: 1px solid lightgrey;
   overflow: auto;
-  height: 73vh;
+  max-height: 73vh;
+  padding-bottom: 0 !important;
 }
 
 .table-responsive .text-primary {
@@ -236,14 +239,27 @@
   background-color: #f9fafb;
 }
 
+.table {
+  margin-bottom: 0 !important;
+
+}
+
 th {
   border: 1px solid lightgrey !important;
+  text-align: center;
 }
 
 td {
   border: 1px solid lightgrey !important;
 }
 
+tr:nth-child(even) {
+  border-radius: 10px;
+  background-color: rgb(240, 238, 238)
+}
+
 tr:hover {
-  background-color: rgb(240, 238, 238);
+  background-color: #ef8157;
+  color: white;
+  transition: all 0.3s ease-in-out;
 }
