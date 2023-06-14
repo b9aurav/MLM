@@ -1,1 +1,19 @@
-<p>earningedntour works!</p>
+<div class="table-responsive">
+    <table class="table">
+      <thead class="text-primary">
+        <tr>
+          <th>Members Required</th>
+          <th>Ranking</th>
+          <th>Tour</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td>{{ row['Direct Members'] }} Direct</td>
+          <td>{{ row.Ranking }}</td>
+          <td>{{ row.Tour }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  
