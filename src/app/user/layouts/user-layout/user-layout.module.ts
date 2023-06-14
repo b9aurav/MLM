@@ -22,6 +22,7 @@ import { TeamLevelComponent } from '../../pages/team/level/teamlevel.component';
 import { TeamAutopoolComponent } from '../../pages/team/autopool/teamautopool.component';
 
 import { EarningautopoolComponent } from '../../pages/earning/earningautopool/earningautopool.component';
+import { EarninglevelComponent } from '../../pages/earning/earninglevel/earninglevel.component';
 import { EarningdirectComponent } from '../../pages/earning/earningdirect/earningdirect.component';
 import { EarningedntourComponent } from '../../pages/earning/earningedntour/earningedntour.component';
 import { EarninggiftrewardsComponent } from '../../pages/earning/earninggiftrewards/earninggiftrewards.component';
@@ -62,6 +63,7 @@ import { LoginComponent } from '../../../pages/login/login.component';
     TeamAutopoolComponent,
 
     EarningautopoolComponent,
+    EarninglevelComponent,
     EarningdirectComponent,
     EarningedntourComponent,
     EarninggiftrewardsComponent,

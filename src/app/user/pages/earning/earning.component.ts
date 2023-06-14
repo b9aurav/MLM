@@ -14,6 +14,7 @@ export class EarningComponent {
       name: 'Direct',
       active: 'active'
     },
+    { name: 'Level' },
     { name: 'Autopool' },
     { name: 'Education & Tour' },
     { name: 'Gifts & Rewards' }
