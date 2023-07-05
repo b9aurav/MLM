@@ -5,7 +5,7 @@ import { Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
-    selector: 'navbar-cmp',
+    selector: 'admin-navbar-cmp',
     templateUrl: 'navbar.component.html'
 })
 
@@ -33,7 +33,7 @@ export class AdminNavbarComponent implements OnInit{
           this.sidebarClose();
        });
     }
-    getTitle(){
+    getAdminPanelTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );

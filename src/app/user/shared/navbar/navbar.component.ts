@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import { title } from 'process';
 
 @Component({
     moduleId: module.id,
@@ -35,6 +36,7 @@ export class NavbarComponent implements OnInit{
     }
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+      console.log(titlee);
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
@@ -43,7 +45,7 @@ export class NavbarComponent implements OnInit{
           return this.listTitles[item].title;
         }
       }
-      return 'Dashboard';
+      return 'CHECK';
     }
     sidebarToggle() {
         if (this.sidebarVisible === false) {
