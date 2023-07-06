@@ -31,7 +31,7 @@ export class TeamAutopoolComponent implements OnInit {
         "user_id": 1
       } 
     }
-    this.http.post<{ data: any, count: string, message: string }>(environment.apiBaseUrl + '/api/GetUserDetails', param).subscribe(response => {
+    this.http.post<{ data: any, count: string, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsByUserID', param).subscribe(response => {
       this.members = response.data;
       this.toggleTable = false;
     }, error => {

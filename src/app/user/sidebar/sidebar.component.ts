@@ -23,7 +23,7 @@ export const ROUTES = [
   { path: '/payout', title: 'Payout', icon: 'bi bi-cash-coin', class: '' },
   { path: '/kyc', title: 'KYC', icon: 'bi bi-file-earmark-check-fill', class: '' },
   { path: '/support', title: 'Support', icon: 'bi bi-envelope-paper-fill', class: '' },
-  { path: '/utility', title: 'Utility', icon: 'bi bi-tools', class: '' },
+  // { path: '/utility', title: 'Utility', icon: 'bi bi-tools', class: '' },
 ];
 
 @Component({
