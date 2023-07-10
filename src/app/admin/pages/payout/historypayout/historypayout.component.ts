@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'HistoryPayout',
@@ -9,13 +10,16 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./historypayout.component.css']
 })
 export class HistorypayoutComponent implements OnInit {
-  user: any;
   requests: any[];
 
-  constructor(private userService: UserService,  private http: HttpClient) { }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.loadRespondedRequests();
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadRespondedRequests();
+    }
   }
 
   loadRespondedRequests() {

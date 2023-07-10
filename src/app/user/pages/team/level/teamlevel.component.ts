@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'TeamLevel',
@@ -9,29 +10,30 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./teamlevel.component.css']
 })
 export class TeamLevelComponent implements OnInit {
-  user: any;
   rows: any[];
   levels: number = 5;
   members: any[];
   toggleTable: boolean = false;
   searchTerm: string;
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-    this.rows = [];
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {   this.rows = [];
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getLevelInfo();
-    }, 100);
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      setTimeout(() => {
+        this.getLevelInfo();
+      }, 100);
+    }
   }
 
   getLevelInfo() {
     for (let levelRow = 1; levelRow <= this.levels; levelRow++) {
       var param = {
         "param": {
-          "user_id": this.userService.user.user_id,
+          "user_id": this.authService.userData.user_id,
           "level": levelRow
         } 
       }
@@ -51,7 +53,7 @@ export class TeamLevelComponent implements OnInit {
   getTeamByLevel(level) {
     var param = {
       "param": {
-        "user_id": this.userService.user.user_id,
+        "user_id": this.authService.userData.user_id,
         "level": level
       } 
     }

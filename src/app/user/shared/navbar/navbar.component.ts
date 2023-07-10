@@ -36,7 +36,6 @@ export class NavbarComponent implements OnInit{
     }
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
-      console.log(titlee);
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
@@ -45,7 +44,7 @@ export class NavbarComponent implements OnInit{
           return this.listTitles[item].title;
         }
       }
-      return 'CHECK';
+      return 'Settings';
     }
     sidebarToggle() {
         if (this.sidebarVisible === false) {
@@ -83,7 +82,6 @@ export class NavbarComponent implements OnInit{
       collapse(){
         this.isCollapsed = !this.isCollapsed;
         const navbar = document.getElementsByTagName('nav')[0];
-        console.log(navbar);
         if (!this.isCollapsed) {
           navbar.classList.remove('navbar-transparent');
           navbar.classList.add('bg-white');

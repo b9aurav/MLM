@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../../../../environments/environment';
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'Password',
@@ -9,26 +10,27 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./password.component.css']
 })
 export class PasswordComponent implements OnInit {
-  user: any;
   oldPasswordInput: HTMLInputElement;
   newPasswordInput: HTMLInputElement;
   confirmPasswordInput: HTMLInputElement;
 
-  constructor(private userService: UserService, private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.oldPasswordInput = document.getElementById('oldPassword') as HTMLInputElement
-    this.newPasswordInput = document.getElementById('newPassword') as HTMLInputElement
-    this.confirmPasswordInput = document.getElementById('confirmPassword') as HTMLInputElement
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.oldPasswordInput = document.getElementById('oldPassword') as HTMLInputElement
+      this.newPasswordInput = document.getElementById('newPassword') as HTMLInputElement
+      this.confirmPasswordInput = document.getElementById('confirmPassword') as HTMLInputElement
+    }
   }
 
   changePassword() {
     if (this.newPasswordInput.value == this.confirmPasswordInput.value) {
       var params = {
         "param": {
-            "username": this.user.username,
+            "username": this.authService.userData.username,
             "OldPassword": this.oldPasswordInput.value,
             "NewPassword": this.newPasswordInput.value
         }

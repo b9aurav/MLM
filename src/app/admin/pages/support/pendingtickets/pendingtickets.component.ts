@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import * as semantic from "semantic-ui-modal"
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'PendingTickets',
@@ -10,20 +11,23 @@ import * as semantic from "semantic-ui-modal"
   styleUrls: ['./pendingtickets.component.css']
 })
 export class PendingticketsComponent implements OnInit {
-  user: any;
   tickets: any[];
   selectedTicket: string;
   subjectInput: HTMLInputElement;
   descriptionInput: HTMLTextAreaElement;
   responseInput: HTMLTextAreaElement;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadTickets();
-    this.descriptionInput = document.getElementById("descriptionTextarea") as HTMLTextAreaElement;
-    this.subjectInput = document.getElementById("subjectInput") as HTMLInputElement;
-    this.responseInput = document.getElementById("responseTextarea") as HTMLTextAreaElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadTickets();
+      this.descriptionInput = document.getElementById("descriptionTextarea") as HTMLTextAreaElement;
+      this.subjectInput = document.getElementById("subjectInput") as HTMLInputElement;
+      this.responseInput = document.getElementById("responseTextarea") as HTMLTextAreaElement;
+    }
   }
 
   loadTickets() {

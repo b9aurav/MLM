@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'PayoutWithdraw',
@@ -9,26 +10,26 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./payoutwithdraw.component.css']
 })
 export class PayoutwithdrawComponent implements OnInit {
-  user: any;
   available_bal: HTMLParagraphElement;
   amountInput: HTMLInputElement;
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void { 
-    this.available_bal = document.getElementById("avail_bal") as HTMLParagraphElement;
-    this.amountInput = document.getElementById("amount-input") as HTMLInputElement;
-
-    this.available_bal.innerText = `Rs. ${this.user.available_balance}`
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.available_bal = document.getElementById("avail_bal") as HTMLParagraphElement;
+      this.amountInput = document.getElementById("amount-input") as HTMLInputElement;
+      this.available_bal.innerText = `Rs. ${this.authService.userData.available_balance}`
+    }
   }
 
   addWithdrawRequest() {
     var param = {
       "param": {
         "amount": this.amountInput.value,
-        "user_id": this.user.user_id
+        "user_id": this.authService.userData.user_id
       } 
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/WithdrawRequest', param).subscribe(response => {

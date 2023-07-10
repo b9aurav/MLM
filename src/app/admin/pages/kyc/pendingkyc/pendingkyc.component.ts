@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import * as semantic from "semantic-ui-modal"
+import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'PendingKYC',
@@ -27,24 +29,28 @@ export class PendingkycComponent {
   aadharNoInput: HTMLInputElement;
   panNoInput: HTMLInputElement;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.loadKYCRequests();
-    this.nameInput = document.getElementById("nameInput") as HTMLInputElement;
-    this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
-    this.usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
-    this.phoneInput = document.getElementById("phoneInput") as HTMLInputElement;
-    this.emailInput = document.getElementById("emailInput") as HTMLInputElement;
-    this.registeredonInput = document.getElementById("joindateInput") as HTMLInputElement;
-    this.sponsoridInput = document.getElementById("sponsorInput") as HTMLInputElement;
-    this.bankAcNoInput = document.getElementById("bankAcInput") as HTMLInputElement;
-    this.banknameInput = document.getElementById("banknameInput") as HTMLInputElement;
-    this.branchInput = document.getElementById("branchInput") as HTMLInputElement;
-    this.ifscInput = document.getElementById("ifscInput") as HTMLInputElement;
-    this.acHolderNameInput = document.getElementById("holderInput") as HTMLInputElement;
-    this.aadharNoInput = document.getElementById("aadharInput") as HTMLInputElement;
-    this.panNoInput = document.getElementById("panInput") as HTMLInputElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadKYCRequests();
+      this.nameInput = document.getElementById("nameInput") as HTMLInputElement;
+      this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
+      this.usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
+      this.phoneInput = document.getElementById("phoneInput") as HTMLInputElement;
+      this.emailInput = document.getElementById("emailInput") as HTMLInputElement;
+      this.registeredonInput = document.getElementById("joindateInput") as HTMLInputElement;
+      this.sponsoridInput = document.getElementById("sponsorInput") as HTMLInputElement;
+      this.bankAcNoInput = document.getElementById("bankAcInput") as HTMLInputElement;
+      this.banknameInput = document.getElementById("banknameInput") as HTMLInputElement;
+      this.branchInput = document.getElementById("branchInput") as HTMLInputElement;
+      this.ifscInput = document.getElementById("ifscInput") as HTMLInputElement;
+      this.acHolderNameInput = document.getElementById("holderInput") as HTMLInputElement;
+      this.aadharNoInput = document.getElementById("aadharInput") as HTMLInputElement;
+      this.panNoInput = document.getElementById("panInput") as HTMLInputElement;
+    }
   }
 
   loadKYCRequests() {

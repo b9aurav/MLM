@@ -1,8 +1,8 @@
-import { style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service'
 import { environment } from '../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 export interface RouteInfo {
   path: string;
@@ -33,29 +33,23 @@ export const ROUTES = [
 })
 
 export class SidebarComponent implements OnInit {
-  user: any;
   public menuItems: any[];
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-    var param = {
-      "param": {
-        "username": localStorage.getItem('mlm_user')
-      } 
+  async ngOnInit() {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetails', param).subscribe(response => {
-      this.userService.setUser(response.data[0]);
-      let userLabel = document.getElementById("userLabel") as HTMLLabelElement;
-      userLabel.innerText = this.userService.user.name
-    }, error => console.error(error));
+    await this.authService.loadUserData();
+    let userLabel = document.getElementById("userLabel") as HTMLLabelElement;
+    userLabel.innerText = this.authService.userData.name
   }
 
   logout() {
-    this.userService.setUser('');
-    window.location.href = '/';
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

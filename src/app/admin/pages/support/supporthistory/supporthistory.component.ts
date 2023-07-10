@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'SupportHistory',
@@ -14,13 +15,17 @@ export class SupporthistoryComponent implements OnInit {
   descriptionInput: HTMLTextAreaElement;
   responseInput: HTMLTextAreaElement;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loadRespondedTickets();
-    this.descriptionInput = document.getElementById("historydescriptionTextarea") as HTMLTextAreaElement;
-    this.subjectInput = document.getElementById("historysubjectInput") as HTMLTextAreaElement;
-    this.responseInput = document.getElementById("historyresponseTextarea") as HTMLTextAreaElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadRespondedTickets();
+      this.descriptionInput = document.getElementById("historydescriptionTextarea") as HTMLTextAreaElement;
+      this.subjectInput = document.getElementById("historysubjectInput") as HTMLTextAreaElement;
+      this.responseInput = document.getElementById("historyresponseTextarea") as HTMLTextAreaElement;
+    }
   }
 
   loadRespondedTickets() {
@@ -32,7 +37,6 @@ export class SupporthistoryComponent implements OnInit {
   }
 
   respondedTicketPopup(subject: string, description: string, response: string) {
-    console.log(subject, description, response)
     $('.ui.modal.history').modal({
       closable: false, 
     }).modal('show');

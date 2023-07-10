@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service'
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
-import { environment } from '../../../environments/environment';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'login',
@@ -11,16 +10,14 @@ import { environment } from '../../../environments/environment';
 })
 
 export class LoginComponent implements OnInit {
-  user: any;
-  showPassword:boolean;
+  showPassword: boolean;
   password: string;
   usernameInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
 
-  constructor(private userService: UserService, private http: HttpClient, private router: Router) { 
+  constructor(private router: Router, private authService: AuthService) {
     this.showPassword = false;
     this.password = ""
-    this.user = this.userService.user
   }
 
   ngOnInit(): void {
@@ -44,28 +41,22 @@ export class LoginComponent implements OnInit {
       "param": {
         "username": this.usernameInput.value,
         "password": this.passwordInput.value
-      } 
-    }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/ValidateUser', param).subscribe(response => {
-      if (response.data[0][''] == 'Info  : Admin validated') {
-        this.router.navigate(['/admin-dashboard']);
-      } else if (response.data[0][''] != 'Info  : Login validated') {
-        this.showMessage(response.data[0]['']);
-      } else {
-        var param = {
-          "param": {
-            "username": this.usernameInput.value
-          } 
-        }
-        this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetails', param).subscribe(response => {
-          this.userService.setUser(response.data[0]);
-          this.router.navigate(['/dashboard']);
-        }, error => console.error(error));
-        
       }
-    }, error => {
-      console.error(error);
-    });
+    }
+
+    this.authService.login(param)
+      .then((value) => {
+        if (value.isAdmin && value.isAuthenticated) {
+          this.router.navigate(['/admin-dashboard']);
+          this.authService.startTokenExpirationTimer();
+        } else if (!value.isAdmin && value.isAuthenticated) {
+          this.router.navigate(['/dashboard']);
+          this.authService.startTokenExpirationTimer();
+        } else {
+          this.showMessage('Error : Invalid username or password!');
+        }
+      })
+      .catch(error => console.error(error));
   }
 
   redirectRegistration() {

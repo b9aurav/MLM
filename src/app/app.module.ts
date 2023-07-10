@@ -16,12 +16,10 @@ import { AdminFixedPluginModule} from './admin/shared/fixedplugin/fixedplugin.mo
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
-import { UserService } from './services/user.service';
 import { UserLayoutComponent } from './user/layouts/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './admin/layouts/admin-layout/admin-layout.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from "@angular/common/http";
 import { LoginRoutingModule } from './pages/login/login-routing.module';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationRoutingModule } from './pages/registration/registration-routing.module';
@@ -52,7 +50,6 @@ import { RegistrationRoutingModule } from './pages/registration/registration-rou
     LoginRoutingModule,
     RegistrationRoutingModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 

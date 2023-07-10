@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import * as semantic from "semantic-ui-modal"
+import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
     selector: 'ApprovedKYC',
@@ -28,25 +30,29 @@ export class ApprovedkycComponent {
   aadharNoInput: HTMLInputElement;
   panNoInput: HTMLInputElement;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.loadKYCRequests();
-    this.nameInput = document.getElementById("approvednameInput") as HTMLInputElement;
-    this.useridInput = document.getElementById("approveduseridInput") as HTMLInputElement;
-    this.usernameInput = document.getElementById("approvedusernameInput") as HTMLInputElement;
-    this.phoneInput = document.getElementById("approvedphoneInput") as HTMLInputElement;
-    this.emailInput = document.getElementById("approvedemailInput") as HTMLInputElement;
-    this.approvedOnInput = document.getElementById("approvedOnInput") as HTMLInputElement;
-    this.registeredonInput = document.getElementById("approvedjoindateInput") as HTMLInputElement;
-    this.sponsoridInput = document.getElementById("approvedsponsorInput") as HTMLInputElement;
-    this.bankAcNoInput = document.getElementById("approvedbankAcInput") as HTMLInputElement;
-    this.banknameInput = document.getElementById("approvedbanknameInput") as HTMLInputElement;
-    this.branchInput = document.getElementById("approvedbranchInput") as HTMLInputElement;
-    this.ifscInput = document.getElementById("approvedifscInput") as HTMLInputElement;
-    this.acHolderNameInput = document.getElementById("approvedholderInput") as HTMLInputElement;
-    this.aadharNoInput = document.getElementById("approvedaadharInput") as HTMLInputElement;
-    this.panNoInput = document.getElementById("approvedpanInput") as HTMLInputElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadKYCRequests();
+      this.nameInput = document.getElementById("approvednameInput") as HTMLInputElement;
+      this.useridInput = document.getElementById("approveduseridInput") as HTMLInputElement;
+      this.usernameInput = document.getElementById("approvedusernameInput") as HTMLInputElement;
+      this.phoneInput = document.getElementById("approvedphoneInput") as HTMLInputElement;
+      this.emailInput = document.getElementById("approvedemailInput") as HTMLInputElement;
+      this.approvedOnInput = document.getElementById("approvedOnInput") as HTMLInputElement;
+      this.registeredonInput = document.getElementById("approvedjoindateInput") as HTMLInputElement;
+      this.sponsoridInput = document.getElementById("approvedsponsorInput") as HTMLInputElement;
+      this.bankAcNoInput = document.getElementById("approvedbankAcInput") as HTMLInputElement;
+      this.banknameInput = document.getElementById("approvedbanknameInput") as HTMLInputElement;
+      this.branchInput = document.getElementById("approvedbranchInput") as HTMLInputElement;
+      this.ifscInput = document.getElementById("approvedifscInput") as HTMLInputElement;
+      this.acHolderNameInput = document.getElementById("approvedholderInput") as HTMLInputElement;
+      this.aadharNoInput = document.getElementById("approvedaadharInput") as HTMLInputElement;
+      this.panNoInput = document.getElementById("approvedpanInput") as HTMLInputElement;
+    }
   }
 
   loadKYCRequests() {

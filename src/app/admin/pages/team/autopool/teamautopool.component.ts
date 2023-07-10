@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'TeamAutopool',
@@ -8,7 +10,6 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./teamautopool.component.css']
 })
 export class TeamAutopoolComponent implements OnInit {
-  user: any;
   rows: any[];
   levels: number = 7;
   members: any[];
@@ -16,13 +17,17 @@ export class TeamAutopoolComponent implements OnInit {
   searchTerm: string;
   userTracker: number[];
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { 
     this.rows = [];
     this.userTracker = [];
   }
 
   ngOnInit(): void {
-    this.getFirstUserDetails()
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.getFirstUserDetails()
+    }
   }
 
   getFirstUserDetails() {

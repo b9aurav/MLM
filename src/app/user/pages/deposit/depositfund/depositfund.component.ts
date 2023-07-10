@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../../../../environments/environment';
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'DepositFund',
@@ -9,22 +10,23 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./depositfund.component.css']
 })
 export class DepositfundComponent implements OnInit {
-  user: any;
   transactionNoInput: HTMLInputElement;
   
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
-
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
+  
   ngOnInit(): void {
-    this.transactionNoInput = document.getElementById("transaction-no-input") as HTMLInputElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.transactionNoInput = document.getElementById("transaction-no-input") as HTMLInputElement;
+    }
   }
 
   depositRequest() {
     var param = {
       "param": {
         "transaction_no": this.transactionNoInput.value,
-        "user_id": this.user.user_id
+        "user_id": this.authService.userData.user_id
       } 
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/DepositRequest', param).subscribe(response => {

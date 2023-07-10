@@ -1,8 +1,6 @@
-import { style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service'
-import { environment } from '../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
 
 export interface RouteInfo {
   path: string;
@@ -31,10 +29,9 @@ export const ROUTES = [
 })
 
 export class AdminSidebarComponent implements OnInit {
-  user: any;
   public menuItems: any[];
 
-  constructor(private userService: UserService,  private http: HttpClient) { }
+  constructor(private authService: AuthService,  private http: HttpClient) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -43,7 +40,7 @@ export class AdminSidebarComponent implements OnInit {
   }
 
   logout() {
-    this.userService.setUser('');
+    this.authService.logout();
     window.location.href = '/';
   }
 }

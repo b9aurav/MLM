@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
-import { UserService } from '../../../services/user.service'
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'kyc-cmp',
@@ -11,7 +12,7 @@ import { HttpClient } from "@angular/common/http";
 })
 
 export class KYCComponent implements OnInit {
-  user: any;
+  isUserActive: boolean
   bankACNoInput: HTMLInputElement;
   bankACHolderInput: HTMLInputElement;
   bankNameInput: HTMLInputElement;
@@ -20,15 +21,18 @@ export class KYCComponent implements OnInit {
   aadharNoInput: HTMLInputElement;
   panNoInput: HTMLInputElement;
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-    $('input[type="file"]').on('change', function () {
-      var fileName = ($(this).val() as string).split("\\").pop();
-      $(this).prev('input[type="text"]').val(fileName);
-    });
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      $('input[type="file"]').on('change', function () {
+        var fileName = ($(this).val() as string).split("\\").pop();
+        $(this).prev('input[type="text"]').val(fileName);
+      });
+      this.isUserActive = this.authService.userData.isActive;
+    }
   }
 
   KYCRequest() {
@@ -41,7 +45,7 @@ export class KYCComponent implements OnInit {
     this.panNoInput = document.getElementById("pan-no-input") as HTMLInputElement;
     var param = {
       "param": {
-        "userid": this.user.user_id,
+        "userid": this.authService.userData.user_id,
         "bank_ac_holder_name": this.bankACHolderInput.value,
         "ifsc": this.bankIFSCInput.value,
         "bank_name": this.bankNameInput.value,

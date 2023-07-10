@@ -1,27 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
-import { UserService } from '../../../services/user.service';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'dashboard-cmp',
-    moduleId: module.id,
-    templateUrl: 'dashboard.component.html'
+  selector: 'dashboard-cmp',
+  moduleId: module.id,
+  templateUrl: 'dashboard.component.html'
 })
 
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) { }
 
-  user: any;
-  public canvas : any;
-  public ctx;
-  public chartColor;
-  public chartEmail;
-  public chartHours;
-
-  constructor(private userService: UserService, private http: HttpClient) {
-  }
-
-    ngOnInit(){
-      
+  ngOnInit() {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
     }
+  }
 }

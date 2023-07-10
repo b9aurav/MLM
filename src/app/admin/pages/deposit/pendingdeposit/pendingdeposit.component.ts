@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'PendingDeposit',
@@ -21,18 +22,22 @@ export class PendingdepositComponent implements OnInit {
   statusDropdown: HTMLSelectElement;
   remarksTextArea: HTMLTextAreaElement;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loadPendingDepositRequests()
-    this.requestidInput = document.getElementById("requestidInput") as HTMLInputElement;
-    this.datetimeInput = document.getElementById("DateTimeInput") as HTMLInputElement;
-    this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
-    this.usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
-    this.transactionNoInput = document.getElementById("transactionNoInput") as HTMLInputElement;
-    this.amountInput = document.getElementById("amountInput") as HTMLInputElement;
-    this.statusDropdown = document.getElementById("statusDropdown") as HTMLSelectElement;
-    this.remarksTextArea = document.getElementById("remarksTextarea") as HTMLTextAreaElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.loadPendingDepositRequests()
+      this.requestidInput = document.getElementById("requestidInput") as HTMLInputElement;
+      this.datetimeInput = document.getElementById("DateTimeInput") as HTMLInputElement;
+      this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
+      this.usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
+      this.transactionNoInput = document.getElementById("transactionNoInput") as HTMLInputElement;
+      this.amountInput = document.getElementById("amountInput") as HTMLInputElement;
+      this.statusDropdown = document.getElementById("statusDropdown") as HTMLSelectElement;
+      this.remarksTextArea = document.getElementById("remarksTextarea") as HTMLTextAreaElement;
+    }
   }
 
   loadPendingDepositRequests() {

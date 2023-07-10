@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service'
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'registration',
@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   sponsorInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
 
-  constructor(private userService: UserService, private http: HttpClient, private router: Router) {
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router) {
     this.showPassword = false;
     this.password = "" 
   }
@@ -60,13 +60,11 @@ export class RegistrationComponent implements OnInit {
         "password": this.passwordInput.value
       } 
     }
-    console.log(param)
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/AddUser', param).subscribe(response => {
       this.showMessage(response.message)
       if (response.message.startsWith('Info  : New user created')) {
         document.getElementsByTagName('form')[0].reset();
       }
-      console.log(response);
     }, error => {
       console.error(error);
     });

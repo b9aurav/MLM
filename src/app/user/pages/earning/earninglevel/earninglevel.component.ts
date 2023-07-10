@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'EarningLevel',
@@ -9,23 +10,24 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./Earninglevel.component.css']
 })
 export class EarninglevelComponent implements OnInit {
-  user: any;
   rows: any[];
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getLevelEarnings();
-    }, 100);
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      setTimeout(() => {
+        this.getLevelEarnings();
+      }, 100);
+    }
   }
 
   getLevelEarnings() {
     var param = {
       "param": {
-        "user_id": this.userService.user.user_id
+        "user_id": this.authService.userData.user_id
       } 
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetIncomeByLevel', param).subscribe(response => {

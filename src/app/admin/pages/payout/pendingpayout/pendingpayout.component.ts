@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'PendingPayout',
@@ -20,18 +21,22 @@ export class PendingpayoutComponent implements OnInit {
   statusDropdown: HTMLSelectElement;
   remarksTextArea: HTMLTextAreaElement;
 
-  constructor(private userService: UserService,  private http: HttpClient) { }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void { 
-    this.loadPendingWithdrawRequests()
-    this.requestidInput = document.getElementById("requestidInput") as HTMLInputElement;
-    this.datetimeInput = document.getElementById("DateTimeInput") as HTMLInputElement;
-    this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
-    this.usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
-    this.amountInput = document.getElementById("amountInput") as HTMLInputElement;
-    this.userbalanceInput = document.getElementById("userbalanceInput") as HTMLInputElement;
-    this.statusDropdown = document.getElementById("statusDropdown") as HTMLSelectElement;
-    this.remarksTextArea = document.getElementById("remarksTextarea") as HTMLTextAreaElement;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadPendingWithdrawRequests()
+      this.requestidInput = document.getElementById("requestidInput") as HTMLInputElement;
+      this.datetimeInput = document.getElementById("DateTimeInput") as HTMLInputElement;
+      this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
+      this.usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
+      this.amountInput = document.getElementById("amountInput") as HTMLInputElement;
+      this.userbalanceInput = document.getElementById("userbalanceInput") as HTMLInputElement;
+      this.statusDropdown = document.getElementById("statusDropdown") as HTMLSelectElement;
+      this.remarksTextArea = document.getElementById("remarksTextarea") as HTMLTextAreaElement;
+    }
   }
 
   loadPendingWithdrawRequests() {

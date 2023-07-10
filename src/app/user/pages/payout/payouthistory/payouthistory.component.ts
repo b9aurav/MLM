@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'PayoutHistory',
@@ -9,21 +10,22 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./payouthistory.component.css']
 })
 export class PayouthistoryComponent implements OnInit {
-  user: any;
   transactions: any[];
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-  }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.loadTransactions();
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      this.loadTransactions();
+    }
   }
 
   loadTransactions() {
     var param = {
       "param": {
-        "user_id": this.user.user_id
+        "user_id": this.authService.userData.user_id
       } 
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetWithdrawRequests', param).subscribe(response => {

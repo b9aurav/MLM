@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'TeamAutopool',
@@ -9,22 +10,23 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./teamautopool.component.css']
 })
 export class TeamAutopoolComponent implements OnInit {
-  user: any;
   rows: any[];
   levels: number = 7;
   members: any[];
   toggleTable: boolean = false;
   searchTerm: string;
 
-  constructor(private userService: UserService,  private http: HttpClient) { 
-    this.user = this.userService.user
-    this.rows = [];
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {   this.rows = [];
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getLevelInfo();
-    }, 100);
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else { 
+      setTimeout(() => {
+        this.getLevelInfo();
+      }, 100);
+    }
   }
 
   getLevelInfo() {
@@ -32,12 +34,11 @@ export class TeamAutopoolComponent implements OnInit {
       setTimeout(() => {
         var param = {
           "param": {
-            "user_id": this.userService.user.user_id,
+            "user_id": this.authService.userData.user_id,
             "level": levelRow
           } 
         }
         this.http.post<{ data: any, count: string, message: string }>(environment.apiBaseUrl + '/api/GetAutopoolTeamByLevel', param).subscribe(response => {
-          console.log(response)
           var data = {
             "level_no": levelRow,
             "total_members": response.count
@@ -54,7 +55,7 @@ export class TeamAutopoolComponent implements OnInit {
   getAutopoolTeamByLevel(level) {
     var param = {
       "param": {
-        "user_id": this.userService.user.user_id,
+        "user_id": this.authService.userData.user_id,
         "level": level
       } 
     }
