@@ -1,0 +1,7 @@
+.modal {
+  top: 0;
+  left: unset;
+  height: unset;
+  /* --bs-modal-width: unset;
+  width: unset; */
+}

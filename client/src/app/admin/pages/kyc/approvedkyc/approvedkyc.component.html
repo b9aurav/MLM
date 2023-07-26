@@ -1,0 +1,136 @@
+<div class="ui tiny inverted modal approved-kyc">
+  <i class="close icon"></i>
+  <div class="header">KYC Details</div>
+  <div class="content">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approvednameInput">Name</label>
+        <input type="text" class="form-control" id="approvednameInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedOnInput">Approved On</label>
+        <input type="text" class="form-control" id="approvedOnInput" disabled />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approveduseridInput">User ID</label>
+        <input type="text" class="form-control" id="approveduseridInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedusernameInput">Username</label>
+        <input type="text" class="form-control" id="approvedusernameInput" disabled />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approvedphoneInput">Phone</label>
+        <input type="number" class="form-control" id="approvedphoneInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedemailInput">E-Mail</label>
+        <input type="email" class="form-control" id="approvedemailInput" disabled />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approvedjoindateInput">Registered On</label>
+        <input type="text" class="form-control" id="approvedjoindateInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedsponsorInput">Sponsor ID</label>
+        <input type="text" class="form-control" id="approvedsponsorInput" disabled />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approvedbankAcInput">Bank A/c. No</label>
+        <input type="number" class="form-control" id="approvedbankAcInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedbanknameInput">Bank Name</label>
+        <input type="text" class="form-control" id="approvedbanknameInput" disabled />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approvedbranchInput">Bank Branch</label>
+        <input type="text" class="form-control" id="approvedbranchInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedifscInput">IFSC Code</label>
+        <input type="text" class="form-control" id="approvedifscInput" disabled />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="approvedholderInput">Bank A/c. Holder Name</label>
+      <input type="text" class="form-control" id="approvedholderInput" disabled />
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="approvedaadharInput">Aadhar No.</label>
+        <input type="number" class="form-control" id="approvedaadharInput" disabled />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="approvedpanInput">PAN No.</label>
+        <input type="text" class="form-control" id="approvedpanInput" disabled />
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button" (click)="hidePopup()">Close</div>
+    <div class="ui red button" (click)="deactivateKYC()">Deactivate</div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="text-primary">
+      <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Approved On</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td>{{ request["User ID"] }}</td>
+        <td>{{ request.Name }}</td>
+        <td>{{ request.Username }}</td>
+        <td>{{ request["Phone No"] }}</td>
+        <td>{{ request.Email }}</td>
+        <td>{{ request["Approved On"] }}</td>
+        <td>
+          <button
+            class="ui green icon button"
+            fdprocessedid="23ylm"
+            (click)="
+              showDetailedPopup(
+                request['User ID'],
+                request.Name,
+                request['Phone No'],
+                request.Email,
+                request['Approved On'],
+                request.Sponsor,
+                request.Username,
+                request['Registered On'],
+                request.bank_ac_holder_name,
+                request.ifsc_code,
+                request.bank_name,
+                request.branch,
+                request.ac_no,
+                request.pan_no,
+                request.aadhar_no
+              )
+            "
+          >
+            <i class="eye icon"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

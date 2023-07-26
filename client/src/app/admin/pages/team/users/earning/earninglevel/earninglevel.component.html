@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead class="text-primary">
+      <tr>
+        <th>Level</th>
+        <th>Members Required</th>
+        <th>Members</th>
+        <th>Income per Member</th>
+        <th>Payout</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows">
+        <td>Level {{ row.level }}</td>
+        <td>{{ row.member_condition }} Direct</td>
+        <td>{{ row.members }}</td>
+        <td>Rs. {{ row.income }}</td>
+        <td>Rs. {{ row.payout }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

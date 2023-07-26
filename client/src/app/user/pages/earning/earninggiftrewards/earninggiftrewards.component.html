@@ -1,0 +1,19 @@
+<div class="table-responsive">
+    <table class="table">
+      <thead class="text-primary">
+        <tr>
+          <th>Members Required</th>
+          <th>Ranking</th>
+          <th>Gifts / Rewards</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows; let i = index">
+          <td>{{ row.members }} (Level {{i + 4}})</td>
+          <td>{{ row.ranking }}</td>
+          <td>{{ row.gift_rewards }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  

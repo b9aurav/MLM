@@ -1,0 +1,15 @@
+.center-container {
+  justify-content: center;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.red-font { 
+  color: red;
+}
+
+.modal {
+  top: unset;
+  left: unset;
+  height: unset;
+}
