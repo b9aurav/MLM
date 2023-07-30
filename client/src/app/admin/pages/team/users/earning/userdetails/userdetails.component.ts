@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'UserDetails',
-  templateUrl: './Userdetails.component.html',
-  styleUrls: ['./Userdetails.component.css']
+  templateUrl: './userdetails.component.html',
+  styleUrls: ['./userdetails.component.css']
 })
 export class UserDetails implements OnInit {
   rows: any[];

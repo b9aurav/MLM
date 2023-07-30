@@ -6,14 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { UserLayoutRoutes } from './user-layout.routing';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { DepositComponent } from '../../pages/deposit/Deposit.component';
-import { EarningComponent } from '../../pages/earning/Earning.Component';
-import { KYCComponent } from '../../pages/KYC/KYC.component';
-import { PayoutComponent } from '../../pages/Payout/Payout.component';
-import { SupportComponent } from '../../pages/Support/Support.component';
-import { TeamComponent } from '../../pages/Team/Team.component';
-import { UtilityComponent } from '../../pages/Utility/Utility.component';
-import { SettingsComponent } from '../../pages/Settings/Settings.component';
+import { DepositComponent } from '../../pages/deposit/deposit.component';
+import { EarningComponent } from '../../pages/earning/earning.component';
+import { KYCComponent } from '../../pages/kyc/kyc.component';
+import { PayoutComponent } from '../../pages/payout/payout.component';
+import { SupportComponent } from '../../pages/support/support.component';
+import { TeamComponent } from '../../pages/team/team.component';
+import { SettingsComponent } from '../../pages/settings/settings.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -55,7 +54,6 @@ import { LoginComponent } from '../../../pages/login/login.component';
     PayoutComponent,
     SupportComponent,
     TeamComponent,
-    UtilityComponent,
     SettingsComponent,
     LoginComponent,
     TeamDirectComponent,

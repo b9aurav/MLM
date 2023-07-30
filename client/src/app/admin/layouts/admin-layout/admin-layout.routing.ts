@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { KYCComponent } from '../../pages/kyc/KYC.component';
-import { SupportComponent } from '../../pages/Support/Support.component';
+import { KYCComponent } from '../../pages/kyc/kyc.component';
+import { SupportComponent } from '../../pages/support/support.component';
 import { TeamComponent } from '../../pages/team/team.component';
 import { SettingsComponent } from '../../pages/settings/settings.component';
-import { PayoutComponent } from '../../pages/Payout/Payout.component';
-import { DepositComponent } from '../../pages/deposit/Deposit.component';
+import { PayoutComponent } from '../../pages/payout/payout.component';
+import { DepositComponent } from '../../pages/deposit/deposit.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'admin-dashboard', component: DashboardComponent },

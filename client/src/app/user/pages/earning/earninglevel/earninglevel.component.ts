@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'EarningLevel',
-  templateUrl: './Earninglevel.component.html',
-  styleUrls: ['./Earninglevel.component.css']
+  templateUrl: './earninglevel.component.html',
+  styleUrls: ['./earninglevel.component.css']
 })
 export class EarninglevelComponent implements OnInit {
   rows: any[];

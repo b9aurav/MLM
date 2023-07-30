@@ -1,14 +1,43 @@
 version: '3'
+
 services:
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+  db:
+    image: mcr.microsoft.com/mssql/server:latest
+    hostname: localhost
     ports:
-      - '8080:4200'
+      - 5500:1433
+    volumes:
+      - mlm_data:/var/opt/mssql
+      - ./database/backupfile.bak:/var/opt/mssql/backup/backupfile.bak
+      - ./entrypoint.sh:/usr/src/entrypoint.sh
+    env_file:
+      - ./api/.env
+    networks:
+      - network
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - 3000:3000
+    depends_on:
+      - db
+    networks:
+      - network
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    depends_on:
+      - api
+    networks:
+      - network
+
+volumes:
+  mlm_data:
+
+networks:
+  network:

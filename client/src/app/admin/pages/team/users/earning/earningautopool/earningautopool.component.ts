@@ -7,8 +7,8 @@ import { UserService } from '../../user.service';
 
 @Component({
   selector: 'EarningAutopool',
-  templateUrl: './Earningautopool.component.html',
-  styleUrls: ['./Earningautopool.component.css']
+  templateUrl: './earningautopool.component.html',
+  styleUrls: ['./earningautopool.component.css']
 })
 export class EarningautopoolComponent implements OnInit {
   rows: any[];

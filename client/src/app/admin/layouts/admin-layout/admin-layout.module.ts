@@ -6,11 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { KYCComponent } from '../../pages/KYC/KYC.component';
-import { TeamComponent } from '../../pages/Team/Team.component';
-import { SupportComponent } from '../../pages/Support/Support.component';
-import { PayoutComponent } from '../../pages/Payout/Payout.component';
-import { DepositComponent } from '../../pages/deposit/Deposit.component';
+import { KYCComponent } from '../../pages/kyc/kyc.component';
+import { TeamComponent } from '../../pages/team/team.component';
+import { SupportComponent } from '../../pages/support/support.component';
+import { PayoutComponent } from '../../pages/payout/payout.component';
+import { DepositComponent } from '../../pages/deposit/deposit.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
