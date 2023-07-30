@@ -3,18 +3,42 @@ version: '3'
 services:
   db:
     image: mcr.microsoft.com/mssql/server:latest
-    hostname: localhost
+    container_name: db
+    restart: always
     ports:
-      - 5500:1433
+      - 1433:1433
     volumes:
       - mlm_data:/var/opt/mssql
       - ./database/backupfile.bak:/var/opt/mssql/backup/backupfile.bak
-      - ./entrypoint.sh:/usr/src/entrypoint.sh
     env_file:
       - ./api/.env
     networks:
-      - network
+      - mlm_network
+    command:
+      - /bin/bash
+      - -c
+      - |
+        /opt/mssql/bin/sqlservr &
+        pid=$$!
+
+        echo "Waiting for MS SQL to be available ⏳"
+        /opt/mssql-tools/bin/sqlcmd -l 30 -S localhost -h-1 -V1 -U $$MSSQL_USER -P $$MSSQL_SA_PASSWORD -Q "SET NOCOUNT ON SELECT \"YAY WE ARE UP\" , @@servername"
+        is_up=$$?
+        while [ $$is_up -ne 0 ] ; do
+          echo -e $$(date)
+          /opt/mssql-tools/bin/sqlcmd -l 30 -S localhost -h-1 -V1 -U $$MSSQL_USER -P $$MSSQL_SA_PASSWORD -Q "SET NOCOUNT ON SELECT \"YAY WE ARE UP\" , @@servername"
+          is_up=$$?
+          sleep 5
+        done
+
+        /opt/mssql-tools/bin/sqlcmd -l 30 -S localhost -h-1 -V1 -U $$MSSQL_USER -P $$MSSQL_SA_PASSWORD -Q "RESTORE DATABASE MLM FROM DISK='/var/opt/mssql/backup/backupfile.bak' WITH MOVE 'MLM' TO '/var/opt/mssql/data/MLM.mdf', MOVE 'MLM_log' TO '/var/opt/mssql/data/MLM_log.ldf'"
+        echo "Backup Restored. Waiting for MS SQL(pid $$pid) to terminate."
+
+        wait $$pid
+
   api:
+    restart: always
+    container_name: api
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -23,8 +47,12 @@ services:
     depends_on:
       - db
     networks:
-      - network
+      - mlm_network
+    links:
+      - db
+
   client:
+    container_name: client
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -34,10 +62,11 @@ services:
     depends_on:
       - api
     networks:
-      - network
+      - mlm_network
 
 volumes:
   mlm_data:
 
 networks:
-  network:
+  mlm_network:
+    name: mlm_network
