@@ -27,6 +27,9 @@ import { RegistrationRoutingModule } from './pages/registration/registration-rou
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './loading.interceptor';
 
+import * as semantic from "semantic-ui-modal";
+import * as $ from 'jquery';
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   sponsorInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
 
-  constructor(private authService: AuthService, private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.showPassword = false;
     this.password = "" 
   }
@@ -48,7 +48,7 @@ export class RegistrationComponent implements OnInit {
     this.sponsorInput = document.getElementById("sponsor") as HTMLInputElement;
     var sponsor = this.sponsorInput.value;
     if (this.sponsorInput.value == '') {
-      sponsor = null
+      this.showMessage('Error : Sponsor ID Required!')
     }
     var param = {
       "param": {

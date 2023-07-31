@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
-import * as semantic from "semantic-ui-modal"
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 
