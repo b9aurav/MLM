@@ -11,13 +11,75 @@ import { Router } from '@angular/router';
 })
 export class TeamDirectComponent implements OnInit {
   members: any[];
+  settings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      index: {
+        title: '#',
+        width: '30px',
+        type: 'text',
+        valuePrepareFunction: (value, row, cell) => {
+          return cell.row.index + 1;
+        },
+        filter: false
+      },
+      user_id: {
+        title: 'ID',
+        width: '80px'
+      },
+      name: {
+        title: 'Name'
+      },
+      username: {
+        title: 'Username'
+      },
+      email: {
+        title: 'E-Mail'
+      },
+      join_date: {
+        title: 'Joining Date',
+        width: '40px'
+      },
+      is_active: {
+        title: 'Status',
+        width: '70px',
+        type: 'html',
+        valuePrepareFunction: (cell) => {
+          return cell ? 'Active' : 'Inactive';
+        },
+        filter: {
+          type: 'checkbox',
+          config: {
+            true: 'true',
+            false: 'false',
+            resetText: 'All',
+          },
+        },
+      },
+      activation_date: {
+        title: 'Activation Date',
+        width: '40px'
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+    noDataMessage: 'No members available.',
+  };
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
-    } else { 
+    } else {
       setTimeout(() => {
         this.getDirectTeam();
       }, 100);
@@ -28,7 +90,7 @@ export class TeamDirectComponent implements OnInit {
     var param = {
       "param": {
         "user_id": this.authService.userData.user_id
-      } 
+      }
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetDirectTeam', param).subscribe(response => {
       this.members = response.data;

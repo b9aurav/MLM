@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'PendingDeposit',
@@ -21,6 +22,60 @@ export class PendingdepositComponent implements OnInit {
   amountInput: HTMLInputElement;
   statusDropdown: HTMLSelectElement;
   remarksTextArea: HTMLTextAreaElement;
+
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "ID.": {
+        title: 'Request ID',
+        width: '80px'
+      },
+      user_id: {
+        title: 'User ID',
+        width: '80px'
+      },
+      username: {
+        title: 'Username',
+        width: '30%'
+      },
+      "Transaction No.": {
+        title: 'Transaction No',
+        filter: false,
+      },
+      Date: {
+        title: 'Date',
+      },
+      action: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'Proceed';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => this.showPopup(
+            instance.rowData["ID."],
+            instance.rowData.user_id,
+            instance.rowData.username,
+            instance.rowData["Transaction No."],
+            instance.rowData.Date
+          ));
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 

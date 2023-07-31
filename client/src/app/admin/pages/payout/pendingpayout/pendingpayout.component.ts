@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'PendingPayout',
@@ -20,6 +21,64 @@ export class PendingpayoutComponent implements OnInit {
   userbalanceInput: HTMLInputElement;
   statusDropdown: HTMLSelectElement;
   remarksTextArea: HTMLTextAreaElement;
+
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "ID.": {
+        title: 'Request ID',
+        width: '80px'
+      },
+      user_id: {
+        title: 'User ID'
+      },
+      username: {
+        title: 'Username',
+        width: '30%'
+      },
+      Amount: {
+        title: 'Amount',
+        filter: false,
+      },
+      "User Balance": {
+        title: 'User Balance',
+        filter: false
+      },
+      Date: {
+        title: 'Date',
+      },
+      action: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'Proceed';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => this.showPopup(
+            instance.rowData["ID."],
+            instance.rowData.user_id,
+            instance.rowData.username,
+            instance.rowData.Amount,
+            instance.rowData["User Balance"],
+            instance.rowData.Date
+          ));
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 

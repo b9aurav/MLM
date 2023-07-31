@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'TeamAutopool',
@@ -16,6 +17,55 @@ export class TeamAutopoolComponent implements OnInit {
   toggleTable: boolean = false;
   searchTerm: string;
   userTracker: number[];
+
+  settings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      user_id: {
+        title: 'ID',
+        width: '80px'
+      },
+      name: {
+        title: 'Name'
+      },
+      username: {
+        title: 'Username'
+      },
+      email: {
+        title: 'E-Mail',
+      },
+      join_date: {
+        title: 'Joining Date'
+      },
+      activation_date: {
+        title: 'Activation Date'
+      },
+      actions: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'More';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => this.getAutopoolTeam(instance.rowData.user_id, false));
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+    noDataMessage: 'No users available.',
+  };
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { 
     this.rows = [];

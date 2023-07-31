@@ -14,6 +14,62 @@ export class EarningdirectComponent implements OnInit {
   directEarningsText: HTMLParagraphElement;
   referralText: HTMLParagraphElement;
 
+  membersSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      index: {
+        title: '#',
+        width: '30px',
+        type: 'text',
+        valuePrepareFunction: (value, row, cell) => {
+          return cell.row.index + 1;
+        },
+        filter: false
+      },
+      user_id: {
+        title: 'ID',
+        width: '80px'
+      },
+      name: {
+        title: 'Name'
+      },
+      username: {
+        title: 'Username'
+      },
+      join_date: {
+        title: 'Joining Date',
+        width: '40px'
+      },
+      is_active: {
+        title: 'Status',
+        width: '70px',
+        type: 'html',
+        valuePrepareFunction: (cell) => {
+          return cell ? 'Active' : 'Inactive';
+        },
+        filter: {
+          type: 'checkbox',
+          config: {
+            true: 'true',
+            false: 'false',
+            resetText: 'All',
+          },
+        },
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+    noDataMessage: 'No members available.',
+  };
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {

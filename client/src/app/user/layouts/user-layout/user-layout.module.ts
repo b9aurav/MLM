@@ -39,12 +39,15 @@ import { ProfileComponent } from '../../pages/settings/profile/profile.component
 import { PasswordComponent } from '../../pages/settings/password/password.component';
 import { LoginComponent } from '../../../pages/login/login.component';
 
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(UserLayoutRoutes),
     FormsModule,
     NgbModule,
+    Ng2SmartTableModule,
   ],
   declarations: [
     DashboardComponent,

@@ -1,0 +1,2 @@
+<button *ngIf="rowData.Status === 'Pending' && hidable" class="ui primary button" style="float: right" (click)="onClick.emit()">{{ buttonText }}</button>
+<button *ngIf="!hidable" class="ui primary button" style="float: right" (click)="onClick.emit()">{{ buttonText }}</button>

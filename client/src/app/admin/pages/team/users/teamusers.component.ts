@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
@@ -14,8 +14,9 @@ import { UserService } from './user.service';
 export class TeamUsersComponent implements OnInit {
   users: any[];
   selectedUserId: number;
-  searchTerm: string = '';
   settings = {
+    mode: 'external',
+    selectedRowIndex: -1,
     columns: {
       user_id: {
         title: 'ID',
@@ -56,9 +57,6 @@ export class TeamUsersComponent implements OnInit {
       add: false,
       edit: false,
       delete: false,
-      // custom: [
-      //   { name: 'morebutton', title: '<i class="fa fa-eye"></i>' },
-      // ],
       position: 'right'
     },
     editable: false,

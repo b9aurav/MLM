@@ -26,7 +26,8 @@
   </div>
 </div>
 <div class="table-responsive">
-  <table class="table">
+  <ng2-smart-table [settings]="requestSettings" [source]="tickets"></ng2-smart-table>
+  <!-- <table class="table">
     <thead class="text-primary">
       <tr>
         <th>Ticket No.</th>
@@ -51,5 +52,5 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 </div>

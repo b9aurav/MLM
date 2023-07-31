@@ -53,34 +53,5 @@
   </div>
 </div>
 <div class="table-responsive">
-  <table class="table">
-    <thead class="text-primary">
-      <tr>
-        <th>Request ID</th>
-        <th>User ID</th>
-        <th>User Name</th>
-        <th>Transaction No.</th>
-        <th>Time & Date</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let request of requests" [ngClass]="{'red-font': request.Amount > request['User Balance']}">
-        <td>{{ request["ID."] }}</td>
-        <td>{{ request.user_id }}</td>
-        <td>{{ request.username }}</td>
-        <td>{{ request["Transaction No."] }}</td>
-        <td>{{ request.Date }}</td>
-        <td>
-          <button
-            class="ui green icon button"
-            fdprocessedid="23ylm"
-            (click)="showPopup(request['ID.'], request.user_id, request.username, request['Transaction No.'], request.Date)"
-          >
-            <i class="right arrow icon"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ng2-smart-table [settings]="requestSettings" [source]="requests"></ng2-smart-table>
 </div>

@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'PayoutHistory',
@@ -11,6 +12,54 @@ import { Router } from '@angular/router';
 })
 export class PayouthistoryComponent implements OnInit {
   transactions: any[];
+
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "Request ID.": {
+        title: 'Request ID',
+        width: '80px'
+      },
+      Amount: {
+        title: 'Amount'
+      },
+      Date: {
+        title: 'Date Time',
+        width: '170px'
+      },
+      Status: {
+        title: 'Status',
+        filter: false,
+        width: '80px'
+      },
+      Remarks: {
+        title: 'Remarks',
+        width: '50%'
+      },
+      actions: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'Delete';
+          instance.rowData = instance.row;
+          instance.onClick.subscribe(() => this.showDeletePopup(instance.rowData));
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 

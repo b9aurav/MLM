@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'SupportHistory',
@@ -14,6 +15,60 @@ export class SupporthistoryComponent implements OnInit {
   subjectInput: HTMLTextAreaElement
   descriptionInput: HTMLTextAreaElement;
   responseInput: HTMLTextAreaElement;
+
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "Ticket No.": {
+        title: 'User ID',
+        width: '80px'
+      },
+      Subject: {
+        title: 'Subject',
+        width: '30%',
+        type: 'html',
+        valuePrepareFunction : (cell, row) => {
+          return '<p class="truncate">' + cell + '</p>';
+        }
+      },
+      Description: {
+        title: 'Description',
+        type: 'html',
+        valuePrepareFunction : (cell, row) => {
+          return '<p class="truncate">' + cell + '</p>';
+        }
+      },
+      action: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'View';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => {
+            this.respondedTicketPopup(
+              instance.rowData.Subject,
+              instance.rowData.Description,
+              instance.rowData.Response
+            );
+          })
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 

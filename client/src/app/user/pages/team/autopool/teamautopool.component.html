@@ -1,5 +1,6 @@
 <div class="table-responsive" *ngIf="!toggleTable">
-  <table class="table">
+  <ng2-smart-table [settings]="levelSettings" [source]="level_data"></ng2-smart-table>
+  <!-- <table class="table">
     <thead class="text-primary">
         <tr>
             <th>Level No.</th>
@@ -18,13 +19,14 @@
             </td>
         </tr>
     </tbody>
-  </table>
+  </table> -->
 </div>
 <button class="ui orange icon button" (click)="toggleTable = !toggleTable" *ngIf="toggleTable">
   <i class="arrow left icon"></i>
 </button>
 <div class="table-responsive" style="margin-top: 15px;" *ngIf="toggleTable">
-  <table class="table">
+  <ng2-smart-table [settings]="membersSettings" [source]="members"></ng2-smart-table>
+  <!-- <table class="table">
     <thead class="text-primary">
         <tr>
             <th>#</th>
@@ -49,5 +51,5 @@
             <td>{{member.activation_date}}</td>
         </tr>
     </tbody>
-  </table>
+  </table> -->
 </div>

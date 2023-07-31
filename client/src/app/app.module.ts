@@ -29,6 +29,7 @@ import { LoadingInterceptor } from './loading.interceptor';
 
 import * as semantic from "semantic-ui-modal";
 import * as $ from 'jquery';
+import { TableButtonComponent } from './components/table-button/table-button.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import * as $ from 'jquery';
     UserLayoutComponent,
     RegistrationComponent,
     SpinnerComponent,
+    TableButtonComponent,
   ],
   imports: [
     FormsModule,

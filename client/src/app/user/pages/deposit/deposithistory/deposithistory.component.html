@@ -1,35 +1,3 @@
 <div class="table-responsive">
-  <table class="table">
-    <thead class="text-primary">
-      <tr>
-        <th>Request ID</th>
-        <th>Transaction No.</th>
-        <th>Time & Date</th>
-        <th>Status</th>
-        <th>Remarks</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let transaction of transactions">
-        <td>{{ transaction["Request ID."] }}</td>
-        <td>{{ transaction["Transaction No."] }}</td>
-        <td>{{ transaction.Date }}</td>
-        <td>{{ transaction.Status }}</td>
-        <td>{{ transaction.Remarks }}</td>
-        <td>
-          <button
-            *ngIf="transaction.Status == 'Pending'"
-            class="ui red icon button"
-            fdprocessedid="23ylm"
-            data-tooltip="Delete Request"
-            data-position="top left"
-            (click)="showDeletePopup(transaction['Request ID.'])"
-          >
-            <i class="trash icon"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ng2-smart-table [settings]="requestSettings" [source]="transactions"></ng2-smart-table>
 </div>

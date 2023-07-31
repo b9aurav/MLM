@@ -77,49 +77,5 @@
   </div>
 </div>
 <div class="table-responsive">
-  <table class="table">
-    <thead class="text-primary">
-      <tr>
-        <th>User ID</th>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let request of requests">
-        <td>{{ request["User ID"] }}</td>
-        <td>{{ request.Name }}</td>
-        <td>{{ request.Username }}</td>
-        <td>{{ request["Phone No"] }}</td>
-        <td>{{ request.Email }}</td>
-        <td>
-          <button
-            class="ui green icon button"
-            fdprocessedid="23ylm"
-            (click)="showDetailedPopup(
-              request['User ID'],
-              request.Name,
-              request['Phone No'],
-              request.Email,
-              request.Sponsor,
-              request.Username,
-              request['Registered On'],
-              request.bank_ac_holder_name,
-              request.ifsc_code,
-              request.bank_name,
-              request.branch,
-              request.ac_no,
-              request.pan_no,
-              request.aadhar_no
-            )"
-          >
-            <i class="eye icon"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ng2-smart-table [settings]="requestSettings" [source]="requests"></ng2-smart-table>
 </div>

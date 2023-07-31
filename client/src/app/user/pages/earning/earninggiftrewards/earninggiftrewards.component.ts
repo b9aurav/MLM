@@ -12,6 +12,32 @@ import { Router } from '@angular/router';
 export class EarninggiftrewardsComponent implements OnInit {
   rows: any[];
 
+  levelSettings = {
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      members: {
+        title: 'Members Required'
+      },
+      ranking: {
+        title: 'Ranking'
+      },
+      gift_rewards: {
+        title: 'Gift Rewards'
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {

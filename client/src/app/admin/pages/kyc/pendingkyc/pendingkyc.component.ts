@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'PendingKYC',
@@ -27,6 +28,71 @@ export class PendingkycComponent {
   acHolderNameInput: HTMLInputElement;
   aadharNoInput: HTMLInputElement;
   panNoInput: HTMLInputElement;
+
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "User ID": {
+        title: 'User ID',
+        width: '80px'
+      },
+      Name: {
+        title: 'Name',
+        width: '30%'
+      },
+      Username: {
+        title: 'Username',
+        width: '30%'
+      },
+      "Phone No.": {
+        title: 'Phone No',
+        filter: false,
+      },
+      Email: {
+        title: 'E-Mail',
+      },
+      action: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'Proceed';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => {
+            this.showDetailedPopup(
+              instance.rowData["User ID"],
+              instance.rowData.Name,
+              instance.rowData["Phone No"],
+              instance.rowData.Email,
+              instance.rowData.Sponsor,
+              instance.rowData.Username,
+              instance.rowData["Registered On"],
+              instance.rowData.bank_ac_holder_name,
+              instance.rowData.ifsc_code,
+              instance.rowData.bank_name,
+              instance.rowData.branch,
+              instance.rowData.ac_no,
+              instance.rowData.pan_no,
+              instance.rowData.aadhar_no,
+            );
+          })
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 

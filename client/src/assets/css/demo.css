@@ -273,6 +273,13 @@ ng2-smart-table-pager {
   justify-content: center !important;
 }
 
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .page-link-prev, .page-link-next {
   font-size: 14px !important;
 }
@@ -287,6 +294,11 @@ ng2-smart-table-pager {
 
 ng2-st-tbody-custom {
   font-size: 20px;
+}
+
+.ui.pointing.menu {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 table > tbody > tr:hover {

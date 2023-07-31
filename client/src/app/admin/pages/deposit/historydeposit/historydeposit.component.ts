@@ -12,6 +12,49 @@ import { Router } from '@angular/router';
 export class HistorydepositComponent implements OnInit {
   requests: any[];
 
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "ID.": {
+        title: 'Request ID',
+        width: '80px'
+      },
+      user_id: {
+        title: 'User ID',
+        width: '80px'
+      },
+      username: {
+        title: 'Username',
+        width: "25%"
+      },
+      "Transaction No.": {
+        title: 'Transaction No',
+      },
+      Date: {
+        title: 'Date',
+      },
+      status: {
+        title: 'Status',
+        width: '80px'
+      },
+      remarks: {
+        title: 'Remarks',
+        width: '35%'
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
+
+
   constructor(private authService: AuthService,  private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {

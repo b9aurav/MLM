@@ -12,6 +12,50 @@ import { Router } from '@angular/router';
 export class HistorypayoutComponent implements OnInit {
   requests: any[];
 
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "ID.": {
+        title: 'Request ID',
+        width: '80px'
+      },
+      user_id: {
+        title: 'User ID'
+      },
+      username: {
+        title: 'Username',
+        width: '30%'
+      },
+      Amount: {
+        title: 'Amount',
+        filter: false,
+      },
+      Date: {
+        title: 'Date',
+        filter: false,
+      },
+      status: {
+        title: 'Status',
+        filter: false,
+      },
+      remarks: {
+        title: 'Remarks',
+        filter: false,
+        width: '30%'
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {

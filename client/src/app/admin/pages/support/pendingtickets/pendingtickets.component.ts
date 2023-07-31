@@ -3,6 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
 
 @Component({
   selector: 'PendingTickets',
@@ -15,6 +16,64 @@ export class PendingticketsComponent implements OnInit {
   subjectInput: HTMLInputElement;
   descriptionInput: HTMLTextAreaElement;
   responseInput: HTMLTextAreaElement;
+
+  requestSettings = {
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      "Ticket No.": {
+        title: 'User ID',
+        width: '80px'
+      },
+      User: {
+        title: 'Name',
+        width: '30%'
+      },
+      Subject: {
+        title: 'Subject',
+        width: '30%',
+        type: 'html',
+        valuePrepareFunction : (cell, row) => {
+          return '<p class="truncate">' + cell + '</p>';
+        }
+      },
+      Description: {
+        title: 'Description',
+        type: 'html',
+        valuePrepareFunction : (cell, row) => {
+          return '<p class="truncate">' + cell + '</p>';
+        }
+      },
+      action: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'Respond';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => {
+            this.respondTicketPopup(
+              instance.rowData["Ticket No."],
+              instance.rowData.Subject,
+              instance.rowData.Description,
+            );
+          })
+        },
+      }
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
