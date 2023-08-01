@@ -13,6 +13,38 @@ import { UserService } from '../../user.service';
 export class EarninglevelComponent implements OnInit {
   rows: any[];
 
+  levelSettings = {
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      level: {
+        title: 'Level'
+      },
+      member_condition: {
+        title: 'Members Required'
+      },
+      members: {
+        title: 'Members Joined'
+      },
+      income: {
+        title: 'Income per Member'
+      },
+      payout: {
+        title: 'Payout'
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private selectedUser: UserService) { }
 
   ngOnInit(): void {

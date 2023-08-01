@@ -13,6 +13,39 @@ import { UserService } from '../../user.service';
 export class EarningautopoolComponent implements OnInit {
   rows: any[];
 
+  levelSettings = {
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      level: {
+        title: 'Level'
+      },
+      member: {
+        title: 'Members Joined'
+      },
+      tour: {
+        title: 'Education Tour'
+      },
+      achieved: {
+        title: 'Status',
+        type: 'html',
+        valuePrepareFunction: (cell) => {
+          return cell ? 'Achieved' : 'Not Achieved';
+        }
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private selectedUser: UserService) { }
 
   ngOnInit(): void {

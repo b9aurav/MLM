@@ -59,5 +59,6 @@ router.post("/api/GetRespondedDepositRequests", depositController.getRespondedDe
 router.post("/api/GetAutopoolMembers", teamController.getAutopoolMembers);
 
 router.post("/api/GetUserDetailsByUserID", userController.getUserDetailsByUserID);
+router.post("/api/GetUserDetailsForAdmin", userController.getUserDetailsForAdmin);
 
 module.exports = router;

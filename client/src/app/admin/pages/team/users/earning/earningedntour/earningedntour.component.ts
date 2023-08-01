@@ -13,6 +13,32 @@ import { UserService } from '../../user.service';
 export class EarningedntourComponent implements OnInit {
   rows: any[];
 
+  levelSettings = {
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      members: {
+        title: 'Members Required'
+      },
+      ranking: {
+        title: 'Ranking'
+      },
+      education: {
+        title: 'Education Tour'
+      },
+    },
+    pager: {
+      perPage: 15,
+    },
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    editable: false,
+  };
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private selectedUser: UserService) { }
 
   ngOnInit(): void {

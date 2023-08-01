@@ -1,22 +1,3 @@
 <div class="table-responsive">
-    <table class="table">
-      <thead class="text-primary">
-        <tr>
-          <th>Level</th>
-          <th>Members</th>
-          <th>Tour</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of rows">
-          <td>Level {{ row.level }}</td>
-          <td>{{ row.member }}</td>
-          <td>{{ row.tour }}</td>
-          <td><span *ngIf="row.achieved" style="color: green">Achieved</span>
-            <span *ngIf="!row.achieved" style="color: red">Not Achieved</span></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <ng2-smart-table [settings]="levelSettings" [source]="rows"></ng2-smart-table>
+</div>

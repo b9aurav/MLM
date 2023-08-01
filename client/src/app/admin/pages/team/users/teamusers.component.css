@@ -1,5 +1,5 @@
 .modal {
-  top: 0;
+  top: unset;
   left: unset;
   height: unset;
   /* --bs-modal-width: unset;

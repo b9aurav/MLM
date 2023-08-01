@@ -280,6 +280,15 @@ ng2-smart-table-pager {
   text-overflow: ellipsis;
 }
 
+.ui.dimmer { 
+  z-index: 9999 !important;
+}
+
+.popup-segment {
+  max-height: 56vh;
+  overflow: auto;
+}
+
 .page-link-prev, .page-link-next {
   font-size: 14px !important;
 }

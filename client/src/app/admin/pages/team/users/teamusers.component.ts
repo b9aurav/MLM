@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { UserService } from './user.service';
+import { TableButtonComponent } from 'app/components/table-button/table-button.component';
+import { EarningComponent } from './earning/earning.component';
 
 @Component({
   selector: 'TeamUsers',
@@ -11,7 +13,10 @@ import { UserService } from './user.service';
   styleUrls: ['./teamusers.component.css'],
 })
 
-export class TeamUsersComponent implements OnInit {
+export class TeamUsersComponent implements OnInit, OnDestroy {
+  @ViewChild('childContainer', { read: ViewContainerRef, static: false }) childContainer: ViewContainerRef;
+  childComponentRef: ComponentRef<EarningComponent>;
+
   users: any[];
   selectedUserId: number;
   settings = {
@@ -48,6 +53,21 @@ export class TeamUsersComponent implements OnInit {
           },
         },
       },
+      action: {
+        title: 'Actions',
+        filter: false,
+        type: 'custom',
+        width: '80px',
+        renderComponent: TableButtonComponent,
+        onComponentInitFunction: (instance) => {
+          instance.buttonText = 'Details';
+          instance.rowData = instance.row;
+          instance.hidable = false;
+          instance.onClick.subscribe(() => {
+            this.showDetailsPopup(instance.rowData);
+          })
+        },
+      }
     },
     pager: {
       perPage: 15,
@@ -63,7 +83,7 @@ export class TeamUsersComponent implements OnInit {
     noDataMessage: 'No users available.',
   };
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private selectedUser: UserService) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private selectedUser: UserService, private componentFactoryResolver: ComponentFactoryResolver) {
     this.users = [];
     this.selectedUser.user.subscribe(value => {
       this.selectedUserId = value;
@@ -78,6 +98,10 @@ export class TeamUsersComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.destroyChildComponent();
+  }
+
   getUsers() {
     this.http.post<{ data: any, count: string, message: string }>(environment.apiBaseUrl + '/api/GetUsers', null).subscribe(response => {
       this.users = response.data;
@@ -86,38 +110,32 @@ export class TeamUsersComponent implements OnInit {
     });
   }
 
-  onView(event) {
-    console.log(event);
-    this.showDetailsPopup(null)
-  }
-
-  showDetailsPopup(user_id: number) {
-    document.getElementById('userModal').style.display = 'block'
-    document.getElementById('userModal').classList.add('show')
-    $('#userModal').on('show.bs.modal', function (event) {
-      // var button = $(event.relatedTarget) // Button that triggered the modal
-      // var recipient = button.data('whatever') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      // var modal = $(this)
-      // modal.find('.modal-title').text('New message to ' + recipient)
-      // modal.find('.modal-body input').val(recipient)
-    })
-    // $('.ui.modal.user-details').modal({
-    //   closable: false, 
-    // }).modal('show');
-    this.selectedUser.user.next(user_id);
-    $('.ui.dimmer').addClass('inverted');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-    $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
+  showDetailsPopup(user) {
+    this.selectedUser.user.next(user.user_id);
+    this.createChildComponent();
   }
 
   hidePopup() {
     this.selectedUser.user.next(null);
     $('.ui.modal.user-details').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
+    $('.ui.modal.user-details').modal('destroy');
+    this.destroyChildComponent();
+  }
+
+  private createChildComponent() {
+    this.destroyChildComponent();
+
+    const childComponentFactory = this.componentFactoryResolver.resolveComponentFactory(EarningComponent);
+    this.childComponentRef = this.childContainer.createComponent(childComponentFactory);
+
+    $('.ui.modal.user-details').modal({
+      closable: false,
+    }).modal('show');
+  }
+
+  private destroyChildComponent() {
+    if (this.childComponentRef) {
+      this.childComponentRef.destroy();
+    }
   }
 }
