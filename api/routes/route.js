@@ -45,8 +45,10 @@ router.post("/api/respondTicket", ticketController.respondTicket);
 
 router.post("/api/GetPendingKYCRequests", userController.getPendingKYCRequests);
 router.post("/api/ApproveKYC", userController.approveKYC);
+router.post("/api/RevokeKYC", userController.revokeKYC);
 router.post("/api/GetApprovedKYCRequests", userController.getApprovedKYCRequests);
 router.post("/api/DeactivateUser", userController.deactivateUser);
+router.post("/api/ActivateUser", userController.activateUser);
 
 router.post("/api/GetPendingWithdrawRequests", payoutController.getPendingWithdrawRequests);
 router.post("/api/RespondWithdrawRequest", payoutController.respondWithdrawRequest);

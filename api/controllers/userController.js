@@ -314,6 +314,41 @@ exports.approveKYC = function (req, res) {
     });
 };
 
+// Revoke KYC
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+    }
+}
+*/
+exports.revokeKYC = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("user_id", sql.VarChar, param.user_id);
+            request.output('Message', sql.NVarChar(sql.MAX))
+            request.execute("RevokeKYC", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};
+
 // Get Approved KYC
 exports.getApprovedKYCRequests = function (req, res) {
     var param = req.body.param;
@@ -358,6 +393,41 @@ exports.deactivateUser = function (req, res) {
             request.input("user_id", sql.VarChar, param.user_id);
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("DeactivateUser", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};
+
+// Activate User Account
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+    }
+}
+*/
+exports.activateUser = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("user_id", sql.VarChar, param.user_id);
+            request.output('Message', sql.NVarChar(sql.MAX))
+            request.execute("ActivateUser", function (err, result) {
                 if (err) {
                     console.error(err);
                     sql.close();
