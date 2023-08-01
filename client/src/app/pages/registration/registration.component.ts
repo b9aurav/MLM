@@ -47,8 +47,14 @@ export class RegistrationComponent implements OnInit {
     this.phoneInput = document.getElementById("phone") as HTMLInputElement;
     this.sponsorInput = document.getElementById("sponsor") as HTMLInputElement;
     var sponsor = this.sponsorInput.value;
-    if (this.sponsorInput.value == '') {
-      this.showMessage('Error : Sponsor ID Required!')
+    if (this.sponsorInput.value == '' ||
+        this.usernameInput.value == '' ||
+        this.passwordInput.value == '' ||
+        this.nameInput.value == '' ||
+        this.emailInput.value == '' ||
+        this.phoneInput.value == '') {
+      this.showMessage('Error : Enter required details!')
+      return;
     }
     var param = {
       "param": {

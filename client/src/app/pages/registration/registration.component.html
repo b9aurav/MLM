@@ -13,27 +13,27 @@
             <form onkeypress="return event.keyCode != 13;">
                 <div class="form-group">
                     <label for="name">Name<span style="color: red"> *</span></label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Full Name" >
+                    <input type="text" class="form-control" id="name" placeholder="Enter Full Name" required>
                 </div>
               <div class="form-group">
                 <label for="username">Username<span style="color: red"> *</span></label>
-                <input type="text" class="form-control" id="username" placeholder="Enter Username" autocomplete="off">
+                <input type="text" class="form-control" id="username" placeholder="Enter Username" autocomplete="off" required>
               </div>
               <div class="form-group">
                 <label for="phone">Phone<span style="color: red"> *</span></label>
-                <input type="number" class="form-control" id="phone" placeholder="Enter Phone No." autocomplete="off">
+                <input type="number" class="form-control" id="phone" placeholder="Enter Phone No." autocomplete="off" required>
               </div>
               <div class="form-group">
                 <label for="email">E-mail<span style="color: red"> *</span></label>
-                <input type="email" class="form-control" id="email" placeholder="Enter E-mail Address">
+                <input type="email" class="form-control" id="email" placeholder="Enter E-mail Address" required>
               </div>
               <div class="form-group">
-                <label for="sponsor">Sponsor ID</label>
-                <input type="text" class="form-control" id="sponsor" placeholder="Enter Sponsor ID" autocomplete="off">
+                <label for="sponsor">Sponsor ID<span style="color: red"> *</span></label>
+                <input type="text" class="form-control" id="sponsor" placeholder="Enter Sponsor ID" autocomplete="off" required>
               </div>
               <div class="form-group">
                 <label for="password">Password<span style="color: red"> *</span></label>
-                <input class="form-control" type="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Password"><br>
+                <input class="form-control" type="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Password" required><br>
                 <div class=""><input type="checkbox" id="togglePasswordShow" [(ngModel)]="showPassword"> Show Password</div>
               </div>
               <div class="form-group">
