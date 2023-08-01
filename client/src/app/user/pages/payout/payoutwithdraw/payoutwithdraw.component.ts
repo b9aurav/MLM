@@ -28,16 +28,31 @@ export class PayoutwithdrawComponent implements OnInit {
   addWithdrawRequest() {
     var param = {
       "param": {
-        "amount": this.amountInput.value,
         "user_id": this.authService.userData.user_id
       } 
     }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/WithdrawRequest', param).subscribe(response => {
-      alert(response.message);
-      document.getElementsByTagName('form')[0].reset();
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsForAdmin', param).subscribe(response => {
+      if (response.data[0].activate_kyc) {
+        var param = {
+          "param": {
+            "amount": this.amountInput.value,
+            "user_id": this.authService.userData.user_id
+          } 
+        }
+        this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/WithdrawRequest', param).subscribe(response => {
+          alert(response.message);
+          document.getElementsByTagName('form')[0].reset();
+        }, error => {
+          console.error(error);
+          document.getElementsByTagName('form')[0].reset();
+        });
+      } else {
+        alert('Error : KYC Required for withdraw!')
+      }
     }, error => {
       console.error(error);
       document.getElementsByTagName('form')[0].reset();
     });
+    
   }
 }

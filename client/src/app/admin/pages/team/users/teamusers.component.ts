@@ -113,6 +113,7 @@ export class TeamUsersComponent implements OnInit, OnDestroy {
   showDetailsPopup(user) {
     this.selectedUser.user.next(user.user_id);
     this.createChildComponent();
+    $('.ui.modal.user-details').modal('refresh');
   }
 
   hidePopup() {
@@ -120,6 +121,7 @@ export class TeamUsersComponent implements OnInit, OnDestroy {
     $('.ui.modal.user-details').modal('hide');
     $('.ui.modal.user-details').modal('destroy');
     this.destroyChildComponent();
+    this.ngOnInit();
   }
 
   private createChildComponent() {

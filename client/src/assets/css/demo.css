@@ -285,8 +285,18 @@ ng2-smart-table-pager {
 }
 
 .popup-segment {
-  max-height: 56vh;
+  max-height: 60vh;
   overflow: auto;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui.pointing.menu ::-webkit-scrollbar {
+  height: 20px;
 }
 
 .page-link-prev, .page-link-next {

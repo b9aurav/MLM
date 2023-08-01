@@ -61,7 +61,7 @@ export class ApprovedkycComponent {
         width: '80px',
         renderComponent: TableButtonComponent,
         onComponentInitFunction: (instance) => {
-          instance.buttonText = 'Proceed';
+          instance.buttonText = 'View';
           instance.rowData = instance.row;
           instance.hidable = false;
           instance.onClick.subscribe(() => {
@@ -168,18 +168,11 @@ export class ApprovedkycComponent {
       this.aadharNoInput.value = aadhar_no;
       this.panNoInput.value = pan_no;
       this.selectedRequest = user_id;
-      $('.ui.dimmer').addClass('inverted');
-      $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-      $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-      $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
   }
 
   hidePopup() {
     this.selectedRequest = null;
     $('.ui.modal.approved-kyc').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 
   deactivateKYC() {
@@ -188,7 +181,7 @@ export class ApprovedkycComponent {
         "user_id": this.selectedRequest
       } 
     }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/DeactivateUser', param).subscribe(response => {
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/RevokeKYC', param).subscribe(response => {
       alert(response.message);
       this.hidePopup();
       this.loadKYCRequests();

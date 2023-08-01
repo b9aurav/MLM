@@ -124,18 +124,11 @@ export class PendingpayoutComponent implements OnInit {
     this.usernameInput.value = username;
     this.amountInput.value = amount;
     this.userbalanceInput.value = balance;
-    $('.ui.dimmer').addClass('inverted');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-    $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
   }
 
   hidePopup() {
     this.selectedRequest = null;
     $('.ui.modal.pending-withdrawrequest').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 
   submit() {

@@ -45,7 +45,7 @@ export class PendingkycComponent {
         title: 'Username',
         width: '30%'
       },
-      "Phone No.": {
+      "Phone No": {
         title: 'Phone No',
         filter: false,
       },
@@ -161,18 +161,11 @@ export class PendingkycComponent {
       this.aadharNoInput.value = aadhar_no;
       this.panNoInput.value = pan_no;
       this.selectedRequest = user_id;
-      $('.ui.dimmer').addClass('inverted');
-      $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-      $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-      $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
   }
 
   hidePopup() {
     this.selectedRequest = null;
     $('.ui.modal.pending-kyc').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 
   approveKYC() {

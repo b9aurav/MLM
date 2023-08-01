@@ -119,18 +119,11 @@ export class PendingdepositComponent implements OnInit {
     this.useridInput.value = user_id;
     this.usernameInput.value = username;
     this.transactionNoInput.value = transaction_no;
-    $('.ui.dimmer').addClass('inverted');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-    $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
   }
 
   hidePopup() {
     this.selectedRequest = null;
     $('.ui.modal.pending-depositrequest').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 
   submit() {

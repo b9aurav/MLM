@@ -31,7 +31,16 @@ export class KYCComponent implements OnInit {
         var fileName = ($(this).val() as string).split("\\").pop();
         $(this).prev('input[type="text"]').val(fileName);
       });
-      this.isUserActive = this.authService.userData.isActive;
+      var param = {
+        "param": {
+          "user_id": this.authService.userData.user_id
+        }
+      }
+      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsForAdmin', param).subscribe(response => {
+        this.isUserActive = response.data[0].activate_kyc
+      }, error => {
+        console.error(error);
+      });
     }
   }
 

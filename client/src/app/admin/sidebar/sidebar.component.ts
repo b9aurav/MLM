@@ -36,7 +36,6 @@ export class AdminSidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     let userLabel = document.getElementById("userLabel") as HTMLLabelElement;
-    userLabel.innerText = 'ADMIN'
   }
 
   logout() {

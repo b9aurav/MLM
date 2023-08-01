@@ -84,12 +84,12 @@ export class PayouthistoryComponent implements OnInit {
     });
   }
 
-  showDeletePopup(request_id) {
+  showDeletePopup(request) {
     let result = confirm("Are you sure want to delete this request?");
     if (result) {
       var param = {
         "param": {
-          "request_id": request_id
+          "request_id": request["Request ID."]
         } 
       }
       this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/DeleteWithdrawRequest', param).subscribe(response => {

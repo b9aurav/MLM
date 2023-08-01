@@ -103,18 +103,11 @@ export class PendingticketsComponent implements OnInit {
     this.selectedTicket = ticket_no;
     this.descriptionInput.value = description;
     this.subjectInput.value = subject;
-    $('.ui.dimmer').addClass('inverted');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-    $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
   }
 
   hidePopup() {
     this.selectedTicket = null;
     $('.ui.modal.pending').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 
   respondTicket() {

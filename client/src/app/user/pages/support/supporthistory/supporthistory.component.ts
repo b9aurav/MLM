@@ -88,12 +88,12 @@ export class SupporthistoryComponent implements OnInit {
     });
   }
 
-  showDeletePopup(ticket_no) {
+  showDeletePopup(ticket) {
     let result = confirm("Are you sure want to delete this ticket?");
     if (result) {
       var param = {
         "param": {
-          "ticket_no": ticket_no
+          "ticket_no": ticket["Ticket No."]
         } 
       }
       this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/DeleteTicket', param).subscribe(response => {

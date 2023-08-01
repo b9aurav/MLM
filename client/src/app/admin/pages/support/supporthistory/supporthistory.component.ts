@@ -98,16 +98,9 @@ export class SupporthistoryComponent implements OnInit {
     this.descriptionInput.value = description;
     this.subjectInput.value = subject;
     this.responseInput.value = response;
-    $('.ui.dimmer').addClass('inverted');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(0.5)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(0.5)' })
-    $('.nav').css({ 'filter': 'opacity(0.5)', 'pointer-events': 'none' })
   }
 
   hidePopup() {
     $('.ui.modal.history').modal('hide');
-    $('.sidebar-wrapper').css({ 'filter': 'opacity(1)' })
-    $('.logo.sidebar-top').css({ 'filter': 'opacity(1)' })
-    $('.nav').css({ 'filter': 'opacity(1)', 'pointer-events': 'auto' })
   }
 }
