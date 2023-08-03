@@ -21,11 +21,11 @@ export class EarninglevelComponent implements OnInit {
       level: {
         title: 'Level'
       },
-      member_condition: {
-        title: 'Members Required'
+      direct_members: {
+        title: 'Required Direct Members'
       },
-      members: {
-        title: 'Members Joined'
+      level_members: {
+        title: 'Required Level Members'
       },
       income: {
         title: 'Income per Member'

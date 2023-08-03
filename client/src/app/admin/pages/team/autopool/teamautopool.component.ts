@@ -16,7 +16,7 @@ export class TeamAutopoolComponent implements OnInit {
   members: any[];
   toggleTable: boolean = false;
   searchTerm: string;
-  userTracker: number[];
+  userTracker: any[];
 
   settings = {
     mode: 'external',
@@ -105,7 +105,7 @@ export class TeamAutopoolComponent implements OnInit {
       this.toggleTable = true
       if (!isPrev) {
         if (rootUser != 1 || this.userTracker.length != 1) {
-          this.userTracker.push(parseInt(rootUser));
+          this.userTracker.push(rootUser);
         }
       } else {
         this.userTracker.pop();

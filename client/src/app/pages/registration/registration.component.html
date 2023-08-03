@@ -28,8 +28,24 @@
                 <input type="email" class="form-control" id="email" placeholder="Enter E-mail Address" required>
               </div>
               <div class="form-group">
-                <label for="sponsor">Sponsor ID<span style="color: red"> *</span></label>
-                <input type="text" class="form-control" id="sponsor" placeholder="Enter Sponsor ID" autocomplete="off" required>
+                  <label for="sponsor">Sponsor<span style="color: red"> *</span></label>
+                  <div class="row">
+                    <div class="col-md-10">
+                    <input type="text" class="form-control" id="sponsor" placeholder="Enter Sponsor Username" autocomplete="off" required>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="ui primary button" (click)="getSponsorDetails()"><i style="margin: 0" class="search icon"></i></button>
+                    </div>
+                  </div>
+                  <label id="sponsor_name" style="color: darkslategray;
+                  font-weight: 600;
+                  font-size: small;
+                  width: 100%;
+                  margin-top: 8px;
+                  padding: 10px;
+                  background: lightgray;
+                  border-radius: 14px;
+                  display: none;"></label>
               </div>
               <div class="form-group">
                 <label for="password">Password<span style="color: red"> *</span></label>
@@ -51,7 +67,7 @@
                   </div>
                   <div class="buttons" style="float:right">
                 <button (click)="redirectLogin()" class="btn btn-block">Login</button>
-                <button (click)="registerUser()" class="btn btn-danger btn-block"><i class="check icon"></i> Register</button>
+                <button (click)="registerUser()" id="registerBtn" class="btn btn-danger btn-block" disabled><i class="check icon"></i> Register</button>
               </div>
             </form>
           </div>

@@ -21,8 +21,11 @@ export class EarningautopoolComponent implements OnInit {
       level: {
         title: 'Level'
       },
-      member: {
-        title: 'Members Joined'
+      direct_members: {
+        title: 'Required Direct Members'
+      },
+      level_members: {
+        title: 'Required Level Members'
       },
       tour: {
         title: 'Education Tour'

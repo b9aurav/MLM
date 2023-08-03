@@ -91,6 +91,7 @@ exports.getAutopoolTeamByLevel = async function (req, res) {
       request.input('user_id', sql.VarChar, param.user_id);
       request.input('level', sql.VarChar, param.level);
       request.output('memberCount', sql.NVarChar(10))
+      request.output('directCount', sql.NVarChar(10))
       request.output('Message', sql.NVarChar(sql.MAX))
       const result = await request.execute("GetAutopoolMemberCountsByLevel");
       sql.close();

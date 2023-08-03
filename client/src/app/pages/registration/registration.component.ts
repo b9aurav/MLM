@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   emailInput: HTMLInputElement;
   sponsorInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
+  sponsor_id: string;
 
   constructor(private http: HttpClient, private router: Router) {
     this.showPassword = false;
@@ -61,7 +62,7 @@ export class RegistrationComponent implements OnInit {
         "name": this.nameInput.value,
         "email": this.emailInput.value,
         "phone": this.phoneInput.value,
-        "sponsor_id": sponsor,
+        "sponsor_id": this.sponsor_id,
         "username": this.usernameInput.value,
         "password": this.passwordInput.value
       } 
@@ -70,6 +71,30 @@ export class RegistrationComponent implements OnInit {
       this.showMessage(response.message)
       if (response.message.startsWith('Info  : New user created')) {
         document.getElementsByTagName('form')[0].reset();
+        document.getElementById('sponsor_name').style.display = 'none'
+      }
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  getSponsorDetails() {
+    var sponsor_username = document.getElementById('sponsor') as HTMLInputElement
+    var param = {
+      "param": {
+        "username": sponsor_username.value
+      } 
+    }
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetails', param).subscribe(response => {
+      if (response.data.length === 1) {
+        document.getElementById('sponsor_name').textContent = response.data[0].user_id + ' - ' + response.data[0].name
+        document.getElementById('sponsor_name').style.display = 'block'
+        this.sponsor_id = response.data[0].user_id;
+        document.getElementById('registerBtn').removeAttribute('disabled');
+      } else {
+        document.getElementById('sponsor_name').textContent = 'No user found with given sponsor id!'
+        document.getElementById('sponsor_name').style.display = 'block'
+        document.getElementById('registerBtn').setAttribute('disabled', 'disabled');
       }
     }, error => {
       console.error(error);
