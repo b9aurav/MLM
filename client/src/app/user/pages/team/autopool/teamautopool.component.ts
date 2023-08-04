@@ -13,7 +13,7 @@ import { TableButtonComponent } from 'app/components/table-button/table-button.c
 })
 export class TeamAutopoolComponent implements OnInit {
   rows: any[] = [];
-  levels: number = 5;
+  levels: number = 7;
   level_data: LocalDataSource = new LocalDataSource();
   members: any[];
   toggleTable: boolean = false;
