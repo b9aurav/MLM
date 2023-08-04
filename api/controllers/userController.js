@@ -77,7 +77,7 @@ exports.getUserDetailsByUserID = function (req, res) {
         if (err) console.error(err);
         else {
             var request = new sql.Request();
-            request.input("user_id", sql.Int, param.user_id);
+            request.input("user_id", sql.NVarChar(50), param.user_id);
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("GetUserDetailsByUserID", function (err, result) {
                 if (err) {
@@ -107,7 +107,8 @@ PARAMETERS :
         "phone": ,
         "email": "",
         "sponsor_id": "",
-        "password": ""
+        "password": "",
+        "pin": ""
     }
 } 
 */
@@ -123,6 +124,7 @@ exports.addUser = function (req, res) {
             request.input("email", sql.VarChar, param.email);
             request.input("sponsor_id", sql.VarChar, param.sponsor_id);
             request.input("password", sql.VarChar, param.password);
+            request.input("pin", sql.VarChar, param.pin);
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("AddUser", function (err, result) {
                 if (err) {

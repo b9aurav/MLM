@@ -38,9 +38,6 @@ export class TeamAutopoolComponent implements OnInit {
       join_date: {
         title: 'Joining Date'
       },
-      activation_date: {
-        title: 'Activation Date'
-      },
       actions: {
         title: 'Actions',
         filter: false,

@@ -7,6 +7,7 @@ import { TeamComponent } from '../../pages/team/team.component';
 import { SettingsComponent } from '../../pages/settings/settings.component';
 import { PayoutComponent } from '../../pages/payout/payout.component';
 import { DepositComponent } from '../../pages/deposit/deposit.component';
+import { PinManagementComponent } from 'app/admin/pages/pin-management/pin.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'admin-dashboard', component: DashboardComponent },
@@ -15,5 +16,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'admin-support', component: SupportComponent },
     { path: 'admin-payout', component: PayoutComponent},
     { path: 'admin-deposit', component: DepositComponent},
+    { path: 'admin-manage-pins', component: PinManagementComponent },
     { path: 'admin-settings', component: SettingsComponent }
 ];

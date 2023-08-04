@@ -13,6 +13,7 @@ import { PayoutComponent } from '../../pages/payout/payout.component';
 import { SupportComponent } from '../../pages/support/support.component';
 import { TeamComponent } from '../../pages/team/team.component';
 import { SettingsComponent } from '../../pages/settings/settings.component';
+import { PinManagementComponent } from 'app/user/pages/pin-management/pin.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,6 +40,9 @@ import { ProfileComponent } from '../../pages/settings/profile/profile.component
 import { PasswordComponent } from '../../pages/settings/password/password.component';
 import { LoginComponent } from '../../../pages/login/login.component';
 
+import { PinRequestComponent } from 'app/user/pages/pin-management/pinrequest/pinrequest.component';
+import { MyPinsComponent } from 'app/user/pages/pin-management/mypins/mypins.component';
+
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
@@ -62,6 +66,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     TeamDirectComponent,
     TeamLevelComponent,
     TeamAutopoolComponent,
+    PinManagementComponent,
 
     EarningautopoolComponent,
     EarninglevelComponent,
@@ -80,6 +85,9 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 
     ProfileComponent,
     PasswordComponent,
+
+    PinRequestComponent,
+    MyPinsComponent,
   ]
 })
 

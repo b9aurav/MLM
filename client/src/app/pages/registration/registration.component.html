@@ -37,19 +37,37 @@
                       <button class="ui primary button" (click)="getSponsorDetails()"><i style="margin: 0" class="search icon"></i></button>
                     </div>
                   </div>
-                  <label id="sponsor_name" style="color: darkslategray;
+                  <label id="sponsor_name" style="color: white;
                   font-weight: 600;
                   font-size: small;
                   width: 100%;
                   margin-top: 8px;
                   padding: 10px;
-                  background: lightgray;
                   border-radius: 14px;
                   display: none;"></label>
               </div>
               <div class="form-group">
+                <label for="sponsor">PIN<span style="color: red"> *</span></label>
+                <div class="row">
+                  <div class="col-md-10">
+                  <input type="text" (input)="formatPin()" class="form-control" id="pin" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" required>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="ui primary button" (click)="validatePin()"><i style="margin: 0" class="check icon"></i></button>
+                  </div>
+                </div>
+                <label id="pin_msg" style="color: white;
+                font-weight: 600;
+                font-size: small;
+                width: 100%;
+                margin-top: 8px;
+                padding: 10px;
+                border-radius: 14px;
+                display: none;"></label>
+            </div>
+              <div class="form-group">
                 <label for="password">Password<span style="color: red"> *</span></label>
-                <input class="form-control" type="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Password" required><br>
+                <input class="form-control" type="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Enter New Password" required><br>
                 <div class=""><input type="checkbox" id="togglePasswordShow" [(ngModel)]="showPassword"> Show Password</div>
               </div>
               <div class="form-group">

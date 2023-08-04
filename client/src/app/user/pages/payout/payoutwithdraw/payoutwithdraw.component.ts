@@ -21,7 +21,18 @@ export class PayoutwithdrawComponent implements OnInit {
     } else { 
       this.available_bal = document.getElementById("avail_bal") as HTMLParagraphElement;
       this.amountInput = document.getElementById("amount-input") as HTMLInputElement;
-      this.available_bal.innerText = `Rs. ${this.authService.userData.available_balance}`
+      var param = {
+        "param": {
+          "user_id": this.authService.userData.user_id
+        } 
+      }
+      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsForAdmin', param).subscribe(response => {
+        console.log
+        this.available_bal.innerText = `Rs. ${response.data[0].available_balance}`
+      }, error => {
+        console.error(error);
+        document.getElementsByTagName('form')[0].reset();
+      });
     }
   }
 

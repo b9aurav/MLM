@@ -11,6 +11,7 @@ import { TeamComponent } from '../../pages/team/team.component';
 import { SupportComponent } from '../../pages/support/support.component';
 import { PayoutComponent } from '../../pages/payout/payout.component';
 import { DepositComponent } from '../../pages/deposit/deposit.component';
+import { PinManagementComponent } from 'app/admin/pages/pin-management/pin.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -30,6 +31,9 @@ import { HistorypayoutComponent } from '../../pages/payout/historypayout/history
 import { PendingdepositComponent } from '../../pages/deposit/pendingdeposit/pendingdeposit.component';
 import { HistorydepositComponent } from '../../pages/deposit/historydeposit/historydeposit.component';
 
+import { ManagePinsComponent } from 'app/admin/pages/pin-management/managepins/managepins.component';
+import { GeneratePinsComponent } from 'app/admin/pages/pin-management/generatepins/generatepins.component';
+
 import { ProfileComponent } from '../../pages/settings/profile/profile.component';
 import { PasswordComponent } from '../../pages/settings/password/password.component';
 import { EarningdirectComponent } from 'app/admin/pages/team/users/earning/earningdirect/earningdirect.component';
@@ -40,6 +44,7 @@ import { EarninggiftrewardsComponent } from 'app/admin/pages/team/users/earning/
 import { UserDetails } from 'app/admin/pages/team/users/earning/userdetails/userdetails.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedpins.component';
 
 @NgModule({
   imports: [
@@ -56,6 +61,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     TeamComponent,
     PayoutComponent,
     DepositComponent,
+    PinManagementComponent,
 
     PendingticketsComponent,
     SupporthistoryComponent,
@@ -78,6 +84,10 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     
     HistorydepositComponent,
     PendingdepositComponent,
+
+    GeneratePinsComponent,
+    ManagePinsComponent,
+    UsedPinsComponent,
     
     ProfileComponent,
     PasswordComponent,

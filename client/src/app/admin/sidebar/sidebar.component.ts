@@ -17,7 +17,7 @@ export const ROUTES = [
   { path: '/admin-dashboard', title: 'Dashboard', icon: 'bi bi-speedometer', class: '' },
   { path: '/admin-team', title: 'Teams', icon: 'bi bi-people-fill', class: '' },
   { path: '/admin-payout', title: 'Payout', icon: 'bi bi-cash-coin', class: '' },
-  { path: '/admin-deposit', title: 'Deposit', icon: 'bi bi-piggy-bank-fill', class: '' },
+  { path: '/admin-manage-pins', title: 'Pin Management', icon: 'bi bi-key-fill', class: '' },
   { path: '/admin-kyc', title: 'KYC', icon: 'bi bi-file-earmark-check-fill', class: '' },
   { path: '/admin-support', title: 'Support', icon: 'bi bi-envelope-paper-fill', class: '' },
 ];

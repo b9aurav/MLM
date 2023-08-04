@@ -31,18 +31,8 @@ export class TeamAutopoolComponent implements OnInit {
         },
         filter: false
       },
-      user_id: {
-        title: 'ID',
-        width: '80px'
-      },
       name: {
         title: 'Name'
-      },
-      username: {
-        title: 'Username'
-      },
-      email: {
-        title: 'E-Mail'
       },
       join_date: {
         title: 'Joining Date',

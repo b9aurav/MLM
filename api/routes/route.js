@@ -7,6 +7,7 @@ var payoutController = require('../controllers/payoutController');
 var teamController = require('../controllers/teamController');
 var depositController = require('../controllers/depositController');
 var earningController = require('../controllers/earningController');
+var pinController = require('../controllers/pinController');
 
 // Users
 router.post("/api/GetUsers", userController.getUsers);
@@ -62,5 +63,12 @@ router.post("/api/GetAutopoolMembers", teamController.getAutopoolMembers);
 
 router.post("/api/GetUserDetailsByUserID", userController.getUserDetailsByUserID);
 router.post("/api/GetUserDetailsForAdmin", userController.getUserDetailsForAdmin);
+
+router.post("/api/GeneratePins", pinController.generatePins);
+router.post("/api/GetUsedPins", pinController.getUsedPins);
+router.post("/api/GetUnusedPins", pinController.getUnusedPins);
+router.post("/api/TogglePin", pinController.togglePin);
+router.post("/api/GetPinsForUser", pinController.getPinsForUser);
+router.post("/api/ValidatePin", pinController.validatePin);
 
 module.exports = router;

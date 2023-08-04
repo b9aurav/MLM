@@ -1,0 +1,27 @@
+<div class="center-container">
+  <div class="card">
+    <div class="card-body">
+      <label>Username</label>
+      <input type="text" class="form-control" id="username-input"/> 
+      <button class="ui primary button" style="margin-top: 5px; width: 100%;" (click)="getUserDetails()">Search</button>
+    </div>
+  </div>
+</div>
+<div id="generate-form" style="display: none;">
+  <div class="table-responsive">
+    <ng2-smart-table [settings]="settings" [source]="member"></ng2-smart-table>
+  </div>
+  <form>
+    <div class="center-container">
+      <div class="form-group" style="margin: 15px">
+        <input type="number" class="form-control" id="qty-input" placeholder="Enter Pin Quantity">
+      </div>
+    </div>
+    <div class="center-container">
+      <button class="btn btn-outline-danger btn-round" (click)="generatePins()" style="margin: 0">
+        Generate
+      </button>
+    </div>
+  </form>
+  <textarea class="form-control" style="padding: 5px; max-height: 200px; font-family: monospace; display: none;" disabled rows="10" id="pins"></textarea>
+</div>
