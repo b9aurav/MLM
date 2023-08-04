@@ -462,7 +462,7 @@ exports.getUserDetailsForAdmin = function (req, res) {
         if (err) console.error(err);
         else {
             var request = new sql.Request();
-            request.input("user_id", sql.VarChar, param.user_id);
+            request.input("user_id", sql.NVarChar, param.user_id);
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("GetUserDetailsForAdmin", function (err, result) {
                 if (err) {
@@ -474,7 +474,7 @@ exports.getUserDetailsForAdmin = function (req, res) {
                     console.info(result.output.Message)
                     return res.status(200).send({
                         message: result.output.Message,
-                        data: result.recordset
+                        data: result.recordsets[result.recordsets.length - 1]
                     });
                 }
             });

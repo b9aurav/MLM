@@ -56,7 +56,8 @@ exports.getIncomeByLevel = function (req, res) {
         else {
             var request = new sql.Request();
             request.input("user_id", sql.VarChar, param.user_id);
-            request.output('Message', sql.NVarChar(sql.MAX))
+            request.output('totalLevelIncome', sql.BigInt)
+            request.output('Message', sql.NVarChar(sql.MAX));
             request.execute("GetIncomeByLevel", function (err, result) {
                 if (err) {
                     console.error(err);
@@ -68,6 +69,7 @@ exports.getIncomeByLevel = function (req, res) {
                     console.info(result.output.Message)
                     return res.status(200).send({
                         message: result.output.Message,
+                        totalLevelIncome: result.output.totalLevelIncome,
                         data: responseData
                     });
                 }

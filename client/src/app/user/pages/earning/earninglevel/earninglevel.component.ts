@@ -62,7 +62,8 @@ export class EarninglevelComponent implements OnInit {
         "user_id": this.authService.userData.user_id
       } 
     }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetIncomeByLevel', param).subscribe(response => {
+    this.http.post<{ data: any, totalLevelIncome: any, message: string }>(environment.apiBaseUrl + '/api/GetIncomeByLevel', param).subscribe(response => {
+      document.getElementById('levelIncomeText').innerText = 'Rs. ' + response.totalLevelIncome;
       this.rows = response.data
     }, error => {
       console.error(error);
