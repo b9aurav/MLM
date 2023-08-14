@@ -90,6 +90,7 @@ export class RegistrationComponent implements OnInit {
 
   getSponsorDetails() {
     var sponsor_username = document.getElementById('sponsor') as HTMLInputElement
+
     var param = {
       "param": {
         "username": sponsor_username.value
@@ -97,10 +98,26 @@ export class RegistrationComponent implements OnInit {
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetails', param).subscribe(response => {
       if (response.data.length === 1) {
-        document.getElementById('sponsor_name').textContent = response.data[0].user_id + ' - ' + response.data[0].name
-        document.getElementById('sponsor_name').style.display = 'block'
-        document.getElementById('sponsor_name').style.backgroundColor = 'seagreen'
-        this.sponsor_id = response.data[0].user_id;
+        var sponsor = response.data[0];
+        var param = {
+          "param": {
+            "user_id": sponsor.user_id
+          } 
+        }
+        this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetDirectTeam', param).subscribe(response => {
+          if (response.data.length >= 10) {
+            document.getElementById('sponsor_name').textContent = 'Sponsor has already achieved direct members limit!'
+            document.getElementById('sponsor_name').style.display = 'block'
+            document.getElementById('sponsor_name').style.backgroundColor = 'indianred'
+          } else {
+            document.getElementById('sponsor_name').textContent = sponsor.user_id + ' - ' + sponsor.name
+            document.getElementById('sponsor_name').style.display = 'block'
+            document.getElementById('sponsor_name').style.backgroundColor = 'seagreen'
+            this.sponsor_id = sponsor.user_id;
+          }
+        }, error => {
+          console.error(error);
+        });
       } else {
         document.getElementById('sponsor_name').textContent = 'No user found with given sponsor id!'
         document.getElementById('sponsor_name').style.display = 'block'

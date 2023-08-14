@@ -41,23 +41,7 @@ export class EarningdirectComponent implements OnInit {
       join_date: {
         title: 'Joining Date',
         width: '40px'
-      },
-      is_active: {
-        title: 'Status',
-        width: '70px',
-        type: 'html',
-        valuePrepareFunction: (cell) => {
-          return cell ? 'Active' : 'Inactive';
-        },
-        filter: {
-          type: 'checkbox',
-          config: {
-            true: 'true',
-            false: 'false',
-            resetText: 'All',
-          },
-        },
-      },
+      }
     },
     pager: {
       perPage: 15,

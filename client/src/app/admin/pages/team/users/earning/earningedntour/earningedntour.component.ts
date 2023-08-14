@@ -27,6 +27,13 @@ export class EarningedntourComponent implements OnInit {
       education: {
         title: 'Education Tour'
       },
+      status: {
+        title: 'Status',
+        type: 'html',
+        valuePrepareFunction: (cell) => {
+          return cell ? 'Achieved' : 'Not Achieved';
+        }
+      }
     },
     pager: {
       perPage: 15,

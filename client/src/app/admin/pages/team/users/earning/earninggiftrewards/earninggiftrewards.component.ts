@@ -27,6 +27,13 @@ export class EarninggiftrewardsComponent implements OnInit {
       gift_rewards: {
         title: 'Gift Rewards'
       },
+      status: {
+        title: 'Status',
+        type: 'html',
+        valuePrepareFunction: (cell) => {
+          return cell ? 'Achieved' : 'Not Achieved';
+        }
+      }
     },
     pager: {
       perPage: 15,
