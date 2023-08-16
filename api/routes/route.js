@@ -8,6 +8,7 @@ var teamController = require('../controllers/teamController');
 var depositController = require('../controllers/depositController');
 var earningController = require('../controllers/earningController');
 var pinController = require('../controllers/pinController');
+var reportController = require('../controllers/reportController');
 
 // Users
 router.post("/api/GetUsers", userController.getUsers);
@@ -70,5 +71,7 @@ router.post("/api/GetUnusedPins", pinController.getUnusedPins);
 router.post("/api/TogglePin", pinController.togglePin);
 router.post("/api/GetPinsForUser", pinController.getPinsForUser);
 router.post("/api/ValidatePin", pinController.validatePin);
+
+router.post("/api/GetReportData", reportController.getReportData);
 
 module.exports = router;

@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="form-group col-md-5">
+    <label for="fromPicker">From</label>
+    <input type="date" class="form-control" id="fromPicker" placeholder="dd-mm-yyyy" />
+  </div>
+  <div class="form-group col-md-5">
+    <label for="toPicker">To</label>
+    <input type="date" class="form-control" id="toPicker" />
+  </div>
+  <div class="form-group col-md-2">
+    <label style="color: transparent;">generate</label>
+    <button class="btn btn-outline-danger btn-round" style="width: 100%; margin: 0;"
+      (click)="generateReport()">Generate</button>
+  </div>
+</div>
+<div style="padding: 10px;
+  background-color: #f0eeee;
+  margin: 10px;
+  border-radius: 10px;" *ngIf="dataFetched">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <div class="report-amount-div">
+        <label for="totalamountLabel">Total amount: </label>
+        <label style="font-weight: bold; float: right;" id="totalamountLabel"></label>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <div class="report-amount-div">
+        <label for="adminLabel">Admin: </label>
+        <label style="font-weight: bold; float: right;" id="adminLabel"></label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <div class="report-amount-div">
+        <label for="perGSTLabelkeyamountLabel">GST: </label>
+        <label style="font-weight: bold; float: right;" id="GSTLabel"></label>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <div class="report-amount-div">
+        <label for="TDSLabel">TDS: </label>
+        <label style="font-weight: bold; float: right;" id="TDSLabel"></label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-4" style="align-items: center; justify-content: center; display: flex;">
+      <input type="checkbox" id="adminCheckbox" checked><span style="margin-left: 5px;">Admin</span>
+    </div>
+    <div class="form-group col-md-4" style="align-items: center; justify-content: center; display: flex;">
+      <input type="checkbox" id="gstCheckbox" checked><span style="margin-left: 5px;">GST</span>
+    </div>
+    <div class="form-group col-md-4" style="align-items: center; justify-content: center; display: flex;">
+      <input type="checkbox" id="tdsCheckbox" checked><span style="margin-left: 5px;">TDS</span>
+    </div>
+  </div>
+  <div style="align-items: center; justify-content: center; display: flex;">
+    <button class="btn btn-outline-danger btn-round" style="margin: 0;" (click)="exportToExcel()">Export to XLSX</button>
+  </div>
+</div>
+<div class="table-responsive" style="max-height: 60vh;" *ngIf="dataFetched">
+  <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+</div>

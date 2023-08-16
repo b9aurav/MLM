@@ -1,0 +1,18 @@
+textarea.form-control {
+  max-height: unset !important;
+}
+.btn-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.modal {
+  top: unset;
+  left: unset;
+  height: unset;
+}
+.report-amount-div {
+  background: white;
+  border-radius: 5px;
+  padding: 0 10px;
+}

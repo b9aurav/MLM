@@ -12,6 +12,7 @@ import { SupportComponent } from '../../pages/support/support.component';
 import { PayoutComponent } from '../../pages/payout/payout.component';
 import { DepositComponent } from '../../pages/deposit/deposit.component';
 import { PinManagementComponent } from 'app/admin/pages/pin-management/pin.component';
+import { ReportComponent } from 'app/admin/pages/report/report.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -33,6 +34,8 @@ import { HistorydepositComponent } from '../../pages/deposit/historydeposit/hist
 
 import { ManagePinsComponent } from 'app/admin/pages/pin-management/managepins/managepins.component';
 import { GeneratePinsComponent } from 'app/admin/pages/pin-management/generatepins/generatepins.component';
+
+import { ExportReportComponent } from 'app/admin/pages/report/export/export.component';
 
 import { ProfileComponent } from '../../pages/settings/profile/profile.component';
 import { PasswordComponent } from '../../pages/settings/password/password.component';
@@ -62,6 +65,7 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     PayoutComponent,
     DepositComponent,
     PinManagementComponent,
+    ReportComponent,
 
     PendingticketsComponent,
     SupporthistoryComponent,
@@ -89,6 +93,8 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     ManagePinsComponent,
     UsedPinsComponent,
     
+    ExportReportComponent,
+
     ProfileComponent,
     PasswordComponent,
   ]
