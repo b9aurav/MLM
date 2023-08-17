@@ -17,6 +17,7 @@ router.post("/api/AddUser", userController.addUser);
 router.post("/api/ChangeUserPassword", userController.changeUserPassword);
 router.post("/api/ValidateUser", userController.validateUser);
 router.post("/api/KYCRequest", userController.KYCRequest);
+router.post("/api/GetDashboardData", userController.getDashboardData);
 
 router.post("/api/GetTickets", ticketController.getTickets);
 router.post("/api/AddTicket", ticketController.addTicket);

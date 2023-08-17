@@ -481,3 +481,58 @@ exports.getUserDetailsForAdmin = function (req, res) {
         }
     });
 };
+
+// Fetch Dashboard Info
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+    }
+}
+*/
+exports.getDashboardData = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("user_id", sql.NVarChar, param.user_id);
+            request.output('availableBal', sql.BigInt);
+            request.output('directMembers', sql.Int);
+            request.output('directEarnings', sql.BigInt);
+            request.output('levelEarnings', sql.BigInt);
+            request.output('autopoolLevel', sql.Int);
+            request.output('autopoolReward', sql.NVarChar(50));
+            request.output('eduReward', sql.NVarChar(50));
+            request.output('eduRank', sql.NVarChar(30));
+            request.output('giftReward', sql.NVarChar(50));
+            request.output('giftRewardRank', sql.NVarChar(30));
+            request.output('Message', sql.NVarChar(sql.MAX));
+            request.execute("GetDashboardData", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        availableBal: result.output.availableBal,
+                        directMembers: result.output.directMembers,
+                        directEarnings: result.output.directEarnings,
+                        levelEarnings: result.output.levelEarnings,
+                        autopoolLevel: result.output.autopoolLevel,
+                        autopoolReward: result.output.autopoolReward,
+                        eduReward: result.output.eduReward,
+                        eduRank: result.output.eduRank,
+                        giftReward: result.output.giftReward,
+                        giftRewardRank: result.output.giftRewardRank,
+                        data: result.recordsets[result.recordsets.length - 1]
+                    });
+                }
+            });
+        }
+    });
+};
