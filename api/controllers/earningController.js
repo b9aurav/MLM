@@ -185,3 +185,77 @@ exports.getAutopoolIncome = function (req, res) {
         }
     });
 };
+
+// Get Achievement
+/*
+PARAMETERS :
+{
+    "param": {
+        "achievementType": "",
+    }
+}
+*/
+exports.getAchievements = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("achievementType", sql.VarChar, param.achievementType);
+            request.output('Message', sql.NVarChar(sql.MAX))
+            request.execute("GetAchievements", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    var responseData = result.recordsets.reverse()[1];
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: responseData
+                    });
+                }
+            });
+        }
+    });
+};
+
+// Mark as Rewarded Achievement
+/*
+PARAMETERS :
+{
+    "param": {
+        "achievementId": "",
+        "remarks": "",
+    }
+}
+*/
+exports.markAsRewardedAchievement = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("achievementId", sql.Int, param.achievementId);
+            request.input("remarks", sql.VarChar, param.remarks);
+            request.output('Message', sql.NVarChar(sql.MAX))
+            request.execute("MarkAsRewardedAchievement", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    var responseData = result.recordsets.reverse()[1];
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: responseData
+                    });
+                }
+            });
+        }
+    });
+};

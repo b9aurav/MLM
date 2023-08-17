@@ -8,6 +8,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { KYCComponent } from '../../pages/kyc/kyc.component';
 import { TeamComponent } from '../../pages/team/team.component';
+import { AchievementComponent } from 'app/admin/pages/achievements/achievement.component';
 import { SupportComponent } from '../../pages/support/support.component';
 import { PayoutComponent } from '../../pages/payout/payout.component';
 import { DepositComponent } from '../../pages/deposit/deposit.component';
@@ -25,6 +26,10 @@ import { ApprovedkycComponent } from '../../pages/kyc/approvedkyc/approvedkyc.co
 import { TeamAutopoolComponent } from '../../pages/team/autopool/teamautopool.component';
 import { TeamUsersComponent } from '../../pages/team/users/teamusers.component';
 import { EarningComponent } from '../../pages/team/users/earning/earning.component';
+
+import { AchievementautopoolComponent } from 'app/admin/pages/achievements/achievementautopool/achievementautopool.component';
+import { AchievementedntourComponent } from 'app/admin/pages/achievements/achievementedntour/achievementedntour.component';
+import { AchievementgiftrewardsComponent } from 'app/admin/pages/achievements/achievementgiftrewards/achievementgiftrewards.component';
 
 import { PendingpayoutComponent } from '../../pages/payout/pendingpayout/pendingpayout.component';
 import { HistorypayoutComponent } from '../../pages/payout/historypayout/historypayout.component';
@@ -62,6 +67,7 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     KYCComponent,
     SupportComponent,
     TeamComponent,
+    AchievementComponent,
     PayoutComponent,
     DepositComponent,
     PinManagementComponent,
@@ -82,6 +88,10 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     EarningedntourComponent,
     EarninggiftrewardsComponent,
     UserDetails,
+
+    AchievementautopoolComponent,
+    AchievementedntourComponent,
+    AchievementgiftrewardsComponent,
 
     PendingpayoutComponent,
     HistorypayoutComponent,

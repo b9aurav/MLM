@@ -9,11 +9,13 @@ import { PayoutComponent } from '../../pages/payout/payout.component';
 import { DepositComponent } from '../../pages/deposit/deposit.component';
 import { PinManagementComponent } from 'app/admin/pages/pin-management/pin.component';
 import { ReportComponent } from 'app/admin/pages/report/report.component';
+import { AchievementComponent } from 'app/admin/pages/achievements/achievement.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'admin-dashboard', component: DashboardComponent },
     { path: 'admin-kyc', component: KYCComponent },
     { path: 'admin-team', component: TeamComponent },
+    { path: 'admin-achievements', component: AchievementComponent },
     { path: 'admin-support', component: SupportComponent },
     { path: 'admin-payout', component: PayoutComponent},
     { path: 'admin-deposit', component: DepositComponent},

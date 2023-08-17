@@ -57,6 +57,9 @@ router.post("/api/GetPendingWithdrawRequests", payoutController.getPendingWithdr
 router.post("/api/RespondWithdrawRequest", payoutController.respondWithdrawRequest);
 router.post("/api/GetRespondedWithdrawRequests", payoutController.getRespondedWithdrawRequests);
 
+router.post("/api/MarkAsRewardedAchievement", earningController.markAsRewardedAchievement);
+router.post("/api/GetAchievements", earningController.getAchievements);
+
 router.post("/api/GetPendingDepositRequests", depositController.getPendingDepositRequests);
 router.post("/api/RespondDepositRequest", depositController.respondDepositRequest);
 router.post("/api/GetRespondedDepositRequests", depositController.getRespondedDepositRequests);
