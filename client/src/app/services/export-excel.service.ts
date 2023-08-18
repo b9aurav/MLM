@@ -10,7 +10,7 @@ export class ExportExcelService {
 
   constructor() { }
 
-  async export(excelData, total, gst, admin, tds, digitalToken) {
+  async export(excelData, total, gst, admin, tds, digitalToken, earnings) {
     const title = excelData.title;
     const header = excelData.headers
     const data = excelData.data;
@@ -52,17 +52,17 @@ export class ExportExcelService {
       }
     })
 
-    let adminRow;
-    admin != null ? adminRow = worksheet.addRow(['Admin (10%):', 'Rs. ' + admin]) : adminRow = worksheet.addRow(['', '']);
-    adminRow.eachCell((cell, number) => {
+    let earningsRow;
+    earnings != null ? earningsRow = worksheet.addRow(['User Earnings :', 'Rs. ' + earnings]) : earningsRow = worksheet.addRow(['', '']);
+    earningsRow.eachCell((cell, number) => {
       if (number == 2) {
         cell.alignment = { horizontal: 'right' };
       }
     })
 
-    let tdsRow;
-    tds != null ? tdsRow = worksheet.addRow(['TDS (5%):', 'Rs. ' + tds]) : tdsRow = worksheet.addRow(['', '']);
-    tdsRow.eachCell((cell, number) => {
+    let adminRow;
+    admin != null ? adminRow = worksheet.addRow(['Admin (10%):', 'Rs. ' + admin]) : adminRow = worksheet.addRow(['', '']);
+    adminRow.eachCell((cell, number) => {
       if (number == 2) {
         cell.alignment = { horizontal: 'right' };
       }
@@ -74,11 +74,25 @@ export class ExportExcelService {
       }
     })
 
+    let tdsRow;
+    tds != null ? tdsRow = worksheet.addRow(['TDS (5%):', 'Rs. ' + tds]) : tdsRow = worksheet.addRow(['', '']);
+    tdsRow.eachCell((cell, number) => {
+      if (number == 2) {
+        cell.alignment = { horizontal: 'right' };
+      }
+    })
+
     let digitalTokenRow;
     digitalToken != null ? digitalTokenRow = worksheet.addRow(['Digital Token (10%):', 'Rs. ' + digitalToken]) : digitalTokenRow = worksheet.addRow(['', '']);
     digitalTokenRow.eachCell((cell, number) => {
       if (number == 2) {
         cell.alignment = { horizontal: 'right' };
+      }
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'f0eeee' },
+        bgColor: { argb: '' }
       }
     })
 
@@ -89,11 +103,22 @@ export class ExportExcelService {
       buffer: buffer,
       extension: 'png',
     });
-    worksheet.addImage(logo, 'C4:D8');
+    worksheet.addImage(logo, 'C5:D8');
 
     worksheet.addRow('');
 
-    let headerRow = worksheet.addRow(header);
+    var newRow = [];
+    newRow.push(header[0]);
+    newRow.push(header[1]);
+    newRow.push(header[2]);
+    newRow.push(header[3]);
+    if (gst !== null) newRow.push(header[4]);
+    if (earnings !== null) newRow.push(header[5]);
+    if (admin !== null) newRow.push(header[6]);
+    if (tds !== null) newRow.push(header[7]);
+    if (digitalToken !== null) newRow.push(header[8]);
+
+    let headerRow = worksheet.addRow(newRow);
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
@@ -106,34 +131,36 @@ export class ExportExcelService {
         color: { argb: 'FFFFFF' },
         size: 12
       }
+      cell.border = {
+        top: { style: 'thin' },
+        bottom: { style: 'thin' },
+        left: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     })
 
     data.forEach(d => {
-      let dataRow = worksheet.addRow(d);
-      dataRow.getCell('A').border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      dataRow.getCell('B').border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      dataRow.getCell('C').border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      dataRow.getCell('D').border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
+      var newRow = [];
+      newRow.push(d[0]);
+      newRow.push(d[1]);
+      newRow.push(d[2]);
+      newRow.push(d[3]);
+      if (gst !== null) newRow.push(d[4]);
+      if (earnings !== null) newRow.push(d[5]);
+      if (admin !== null) newRow.push(d[6]);
+      if (tds !== null) newRow.push(d[7]);
+      if (digitalToken !== null) newRow.push(d[8]);
+
+      let dataRow = worksheet.addRow(newRow);
+
+      dataRow.eachCell(cell => {
+        cell.border = {
+          top: { style: 'thin' },
+          bottom: { style: 'thin' },
+          left: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+      });
     });
 
     workbook.xlsx.writeBuffer().then((data) => {

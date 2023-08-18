@@ -22,33 +22,53 @@ export class ExportReportComponent {
   gst: number;
   admin: number;
   tds: number;
+  earnings: number;
   digitalToken: number;
   gstCheckbox: HTMLInputElement;
   tdsCheckbox: HTMLInputElement;
   adminCheckbox: HTMLInputElement;
   digitalTokenCheckbox: HTMLInputElement;
+  earningsCheckbox: HTMLInputElement;
   dataFetched: boolean = false;
 
   settings = {
     mode: 'external',
     selectedRowIndex: -1,
     columns: {
-      "Used By": {
-        title: 'User',
+      "User ID": {
+        title: 'ID'
+      },
+      "Name": {
+        title: 'Name',
         width: '30%'
       },
-      "Generated On": {
-        title: 'Date Time',
-        filter: false,
+      "Registered On": {
+        title: 'Registered On',
       },
-      "Amount": {
+      Amount: {
         title: 'Amount',
         filter: false,
       },
-      "GST": {
+      GST: {
         title: 'GST',
         filter: false,
-      }
+      },
+      "User Earnings": {
+        title: 'Earnings',
+        filter: false
+      },
+      Admin: {
+        title: 'Admin (10%)',
+        filter: false
+      },
+      TDS: {
+        title: 'TDS (5%)',
+        filter: false
+      },
+      "Digital Token": {
+        title: 'Digital Token (10%)',
+        filter: false
+      },
     },
     pager: {
       perPage: 10,
@@ -89,6 +109,7 @@ export class ExportReportComponent {
         this.admin = response.admin;
         this.tds = response.tds;
         this.digitalToken = response.digitalToken;
+        this.earnings = response.userEarnings;
         this.dataFetched = true;
         setTimeout(() => {
           document.getElementById('GSTLabel').textContent = 'Rs. ' + response.gst.toString() + ' (18%)'
@@ -117,15 +138,17 @@ export class ExportReportComponent {
       data: this.excelData,
       headers: Object.keys(this.data[0])
     }
-    var gstAmt, tdsAmt, adminAmt, digitalTokenAmt;
+    var gstAmt, tdsAmt, adminAmt, digitalTokenAmt, earnings;
     this.adminCheckbox = document.getElementById('adminCheckbox') as HTMLInputElement;
     this.tdsCheckbox = document.getElementById('tdsCheckbox') as HTMLInputElement;
     this.gstCheckbox = document.getElementById('gstCheckbox') as HTMLInputElement;
     this.digitalTokenCheckbox = document.getElementById('DigitalTokenCheckbox') as HTMLInputElement;
+    this.earningsCheckbox = document.getElementById('earningsCheckbox') as HTMLInputElement;
     if (this.gstCheckbox.checked) gstAmt = this.gst; else gstAmt = null
     if (this.tdsCheckbox.checked) tdsAmt = this.tds; else tdsAmt = null
     if (this.adminCheckbox.checked) adminAmt = this.admin; else adminAmt = null
     if (this.digitalTokenCheckbox.checked) digitalTokenAmt = this.digitalToken; else digitalTokenAmt = null
-    this.excelService.export(reportData, this.total, gstAmt, adminAmt, tdsAmt, digitalTokenAmt);
+    if (this.earningsCheckbox.checked) earnings = this.earnings; else earnings = null
+    this.excelService.export(reportData, this.total, gstAmt, adminAmt, tdsAmt, digitalTokenAmt, earnings);
   }
 }

@@ -42,7 +42,7 @@ exports.getReportData = function (req, res) {
                         tds: result.output.tds,
                         digitalToken: result.output.digitalToken,
                         userEarnings: result.output.userEarnings,
-                        data: result.recordset
+                        data: result.recordsets.reverse()[1]
                     });
                 }
             });
