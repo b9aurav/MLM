@@ -10,7 +10,7 @@ export class ExportExcelService {
 
   constructor() { }
 
-  async export(excelData, total, gst, admin, tds) {
+  async export(excelData, total, gst, admin, tds, digitalToken) {
     const title = excelData.title;
     const header = excelData.headers
     const data = excelData.data;
@@ -74,6 +74,14 @@ export class ExportExcelService {
       }
     })
 
+    let digitalTokenRow;
+    digitalToken != null ? digitalTokenRow = worksheet.addRow(['Digital Token (10%):', 'Rs. ' + digitalToken]) : digitalTokenRow = worksheet.addRow(['', '']);
+    digitalTokenRow.eachCell((cell, number) => {
+      if (number == 2) {
+        cell.alignment = { horizontal: 'right' };
+      }
+    })
+
     const imageSrc = '../../assets/img/logo.png';
     const response = await fetch(imageSrc);
     const buffer = await response.arrayBuffer();
@@ -81,7 +89,7 @@ export class ExportExcelService {
       buffer: buffer,
       extension: 'png',
     });
-    worksheet.addImage(logo, 'C4:D7');
+    worksheet.addImage(logo, 'C4:D8');
 
     worksheet.addRow('');
 
@@ -108,7 +116,6 @@ export class ExportExcelService {
         bottom: { style: 'thin' },
         right: { style: 'thin' }
       };
-      dataRow.getCell('A').value = dataRow.getCell('A').value.toString().slice(0, 4) + dataRow.getCell('A').value.toString().slice(4).replace(/./g, '*');
       dataRow.getCell('B').border = {
         top: { style: 'thin' },
         left: { style: 'thin' },

@@ -23,6 +23,8 @@ exports.getReportData = function (req, res) {
             request.output('admin', sql.Float)
             request.output('tds', sql.Float)
             request.output('gst', sql.Float)
+            request.output('digitalToken', sql.Float)
+            request.output('userEarnings', sql.Float)
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("GetReportData", function (err, result) {
                 if (err) {
@@ -38,6 +40,8 @@ exports.getReportData = function (req, res) {
                         admin: result.output.admin,
                         gst: result.output.gst,
                         tds: result.output.tds,
+                        digitalToken: result.output.digitalToken,
+                        userEarnings: result.output.userEarnings,
                         data: result.recordset
                     });
                 }

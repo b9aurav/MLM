@@ -508,6 +508,7 @@ exports.getDashboardData = function (req, res) {
             request.output('eduRank', sql.NVarChar(30));
             request.output('giftReward', sql.NVarChar(50));
             request.output('giftRewardRank', sql.NVarChar(30));
+            request.output('digitalToken', sql.Float)
             request.output('Message', sql.NVarChar(sql.MAX));
             request.execute("GetDashboardData", function (err, result) {
                 if (err) {
@@ -529,6 +530,7 @@ exports.getDashboardData = function (req, res) {
                         eduRank: result.output.eduRank,
                         giftReward: result.output.giftReward,
                         giftRewardRank: result.output.giftRewardRank,
+                        digitalToken: result.output.digitalToken,
                         data: result.recordsets[result.recordsets.length - 1]
                     });
                 }

@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   autopoolReward: HTMLParagraphElement;
   eduReward: HTMLParagraphElement;
   giftReward: HTMLParagraphElement;
+  digitalToken: HTMLParagraphElement;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
   
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit {
       this.autopoolReward = document.getElementById('autopool-reward') as HTMLParagraphElement;
       this.eduReward = document.getElementById('education-reward') as HTMLParagraphElement;
       this.giftReward = document.getElementById('gift-reward') as HTMLParagraphElement;
+      this.digitalToken = document.getElementById('digital-token') as HTMLParagraphElement;
       setTimeout(() => {
         this.getDashboardData();
       }, 100);
@@ -53,7 +55,7 @@ export class DashboardComponent implements OnInit {
         "user_id": this.authService.userData.user_id
       } 
     }
-    this.http.post<{ data: any, autopoolLevel: any, autopoolReward: any, availableBal: any, directEarnings: any, directMembers: any, eduRank: any, eduReward: any, giftReward: any, giftRewardRank: any, levelEarnings: any, message: string }>(environment.apiBaseUrl + '/api/GetDashboardData', param).subscribe(response => {
+    this.http.post<{ data: any, autopoolLevel: any, autopoolReward: any, availableBal: any, directEarnings: any, directMembers: any, eduRank: any, eduReward: any, giftReward: any, giftRewardRank: any, levelEarnings: any, digitalToken: any, message: string }>(environment.apiBaseUrl + '/api/GetDashboardData', param).subscribe(response => {
       response.availableBal != null ? this.availableBal.textContent = 'Rs. ' + response.availableBal : this.availableBal.textContent = '0'
       response.directEarnings != null ? this.directEarnings.textContent = 'Rs. ' + response.directEarnings : this.directEarnings.textContent = '0'
       response.levelEarnings != null ? this.levelEarnings.textContent = 'Rs. ' + response.levelEarnings : this.levelEarnings.textContent = '0'
@@ -64,6 +66,7 @@ export class DashboardComponent implements OnInit {
       response.autopoolReward != null ? this.autopoolReward.textContent = response.autopoolReward : this.autopoolReward.textContent = 'N/A'
       response.eduReward != null ? this.eduReward.textContent = response.eduReward : this.eduReward.textContent = 'N/A'
       response.giftReward != null ? this.giftReward.textContent = response.giftReward : this.giftReward.textContent = 'N/A'
+      response.digitalToken != null ? this.digitalToken.textContent = response.digitalToken + ' Points' : this.digitalToken.textContent = '0'
       this.totalEarnings.textContent = 'Rs. ' + (parseInt(response.directEarnings) + parseInt(response.levelEarnings)).toString()
     }, error => {
       console.error(error);
