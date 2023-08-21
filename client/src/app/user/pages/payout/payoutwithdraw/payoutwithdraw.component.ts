@@ -10,11 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./payoutwithdraw.component.css']
 })
 export class PayoutwithdrawComponent implements OnInit {
-  available_bal: HTMLParagraphElement;
   amountInput: HTMLInputElement;
-  admin: HTMLParagraphElement;
-  tds: HTMLParagraphElement;
-  dt: HTMLParagraphElement;
   withdrawable: HTMLParagraphElement;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
@@ -23,11 +19,7 @@ export class PayoutwithdrawComponent implements OnInit {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
     } else { 
-      this.available_bal = document.getElementById("avail_bal") as HTMLParagraphElement;
       this.amountInput = document.getElementById("amount-input") as HTMLInputElement;
-      this.admin = document.getElementById('admin-charge') as HTMLParagraphElement;
-      this.tds = document.getElementById('tds-charge') as HTMLParagraphElement;
-      this.dt = document.getElementById('dt-charge') as HTMLParagraphElement;
       this.withdrawable = document.getElementById('Withdrawable-bal') as HTMLParagraphElement;
       var param = {
         "param": {
@@ -35,12 +27,7 @@ export class PayoutwithdrawComponent implements OnInit {
         } 
       }
       this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsForAdmin', param).subscribe(response => {
-        console.log
-        this.available_bal.innerText = `Available Balance: Rs. ${response.data[0].available_balance}`
-        this.admin.textContent = `Admin Charge: Rs. ${response.data[0].available_balance * 10 / 100} (10%)`
-        this.tds.textContent = `TDS Charge: Rs. ${response.data[0].available_balance * 5 / 100} (5%)`
-        this.dt.textContent = `Digital Token Charge: Rs. ${response.data[0].available_balance * 10 / 100} (10%)`
-        this.withdrawable.textContent = `Rs. ${response.data[0].available_balance * 75 / 100}`
+        this.withdrawable.textContent = `Rs. ${response.data[0].available_balance}`
       }, error => {
         console.error(error);
         document.getElementsByTagName('form')[0].reset();

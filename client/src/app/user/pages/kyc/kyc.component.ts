@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from "@angular/common/http";
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
     templateUrl: 'kyc.component.html'
 })
 
-export class KYCComponent implements OnInit {
+export class KYCComponent implements OnInit, AfterViewInit {
   isUserActive: boolean
   bankACNoInput: HTMLInputElement;
   bankACHolderInput: HTMLInputElement;
@@ -20,6 +20,11 @@ export class KYCComponent implements OnInit {
   bankIFSCInput: HTMLInputElement;
   aadharNoInput: HTMLInputElement;
   panNoInput: HTMLInputElement;
+  photoFile: HTMLInputElement;
+  signatureFile: HTMLInputElement;
+  panFile: HTMLInputElement;
+  aadharFile: HTMLInputElement;
+  kycForm: HTMLFormElement;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
@@ -27,10 +32,6 @@ export class KYCComponent implements OnInit {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
     } else { 
-      $('input[type="file"]').on('change', function () {
-        var fileName = ($(this).val() as string).split("\\").pop();
-        $(this).prev('input[type="text"]').val(fileName);
-      });
       var param = {
         "param": {
           "user_id": this.authService.userData.user_id
@@ -44,6 +45,16 @@ export class KYCComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (!this.isUserActive) {
+      this.kycForm = document.getElementById('kyc-form') as HTMLFormElement;
+      $('input[type="file"]').on('change', function () {
+        var fileName = ($(this).val() as string).split("\\").pop(); 
+        $(this).prev('input[type="text"]').val(fileName);
+      });
+    }
+  }
+
   KYCRequest() {
     this.bankACNoInput = document.getElementById("bank-ac-no-input") as HTMLInputElement;
     this.bankACHolderInput = document.getElementById("bank-ac-holder-input") as HTMLInputElement;
@@ -52,8 +63,18 @@ export class KYCComponent implements OnInit {
     this.bankIFSCInput = document.getElementById("bank-ifsc-input") as HTMLInputElement;
     this.aadharNoInput = document.getElementById("aadhar-no-input") as HTMLInputElement;
     this.panNoInput = document.getElementById("pan-no-input") as HTMLInputElement;
+    this.photoFile = document.getElementById("photo-file") as HTMLInputElement;
+    this.signatureFile = document.getElementById("signature-file") as HTMLInputElement;
+    this.panFile = document.getElementById("pan-input-file") as HTMLInputElement;
+    this.aadharFile = document.getElementById("aadhar-input-file") as HTMLInputElement;
+
+    const formData = new FormData();
+    formData.append("files", this.photoFile.files[0]);
+    formData.append("files", this.signatureFile.files[0]);
+    formData.append("files", this.panFile.files[0]);
+    formData.append("files", this.aadharFile.files[0]);
+
     var param = {
-      "param": {
         "userid": this.authService.userData.user_id,
         "bank_ac_holder_name": this.bankACHolderInput.value,
         "ifsc": this.bankIFSCInput.value,
@@ -63,8 +84,7 @@ export class KYCComponent implements OnInit {
         "pan_no": this.panNoInput.value,
         "aadhar_no": this.aadharNoInput.value
       } 
-    }
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/KYCRequest', param).subscribe(response => {
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/KYCRequest', formData, { params: param }).subscribe(response => {
       alert(response.message);
       document.getElementsByTagName('form')[0].reset();
     }, error => {

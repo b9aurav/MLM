@@ -1,5 +1,33 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+const path = require('path');
+var multer = require("multer");
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        var userid = req.query.userid;
+        const dir = path.dirname(path.dirname(__dirname)) + `/KYC/Docs/${userid}`
+        fs.exists(dir, exist => {
+            if (!exist) {
+                fs.mkdir(dir, error => {
+                    if (error) {
+                        console.error('Error creating directory:', error);
+                        cb(error, dir);
+                    } else {
+                        cb(null, dir);
+                    }
+                });
+            }
+            return cb(null, dir)
+        })
+    },
+    filename: (req, file, cb) => {
+        var userid = req.query.userid;
+        cb(null, `UserId - ${ userid } - ${ Date.now() }.png`)
+    }
+})
+
+var upload = multer({ storage });
 
 var userController = require('../controllers/userController');
 var ticketController = require('../controllers/ticketController');
@@ -16,8 +44,9 @@ router.post("/api/GetUserDetails", userController.getUserDetails);
 router.post("/api/AddUser", userController.addUser);
 router.post("/api/ChangeUserPassword", userController.changeUserPassword);
 router.post("/api/ValidateUser", userController.validateUser);
-router.post("/api/KYCRequest", userController.KYCRequest);
+router.post("/api/KYCRequest", upload.array("files"), userController.KYCRequest);
 router.post("/api/GetDashboardData", userController.getDashboardData);
+router.post("/api/GetBalance", userController.getBalance);
 
 router.post("/api/GetTickets", ticketController.getTickets);
 router.post("/api/AddTicket", ticketController.addTicket);

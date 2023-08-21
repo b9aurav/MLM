@@ -10,7 +10,7 @@ export class ExportExcelService {
 
   constructor() { }
 
-  async export(excelData, total, gst, admin, tds, digitalToken, earnings) {
+  async export(excelData, total, gst, admin, tds, digitalToken, earnings, available, withdrawed) {
     const title = excelData.title;
     const header = excelData.headers
     const data = excelData.data;
@@ -96,6 +96,28 @@ export class ExportExcelService {
       }
     })
 
+    let availableRow;
+    available != null ? availableRow = worksheet.addRow(['Total Available Balance:', 'Rs. ' + available]) : availableRow = worksheet.addRow(['', '']);
+    availableRow.eachCell((cell, number) => {
+      if (number == 2) {
+        cell.alignment = { horizontal: 'right' };
+      }
+    })
+
+    let withdrawedRow;
+    withdrawed != null ? withdrawedRow = worksheet.addRow(['Total Withdrawed Balance:', 'Rs. ' + withdrawed]) : withdrawedRow = worksheet.addRow(['', '']);
+    withdrawedRow.eachCell((cell, number) => {
+      if (number == 2) {
+        cell.alignment = { horizontal: 'right' };
+      }
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'f0eeee' },
+        bgColor: { argb: '' }
+      }
+    })
+
     const imageSrc = '../../assets/img/logo.png';
     const response = await fetch(imageSrc);
     const buffer = await response.arrayBuffer();
@@ -103,7 +125,7 @@ export class ExportExcelService {
       buffer: buffer,
       extension: 'png',
     });
-    worksheet.addImage(logo, 'C5:D8');
+    worksheet.addImage(logo, 'C6:D9');
 
     worksheet.addRow('');
 
@@ -117,6 +139,8 @@ export class ExportExcelService {
     if (admin !== null) newRow.push(header[6]);
     if (tds !== null) newRow.push(header[7]);
     if (digitalToken !== null) newRow.push(header[8]);
+    if (withdrawed !== null) newRow.push(header[10]);
+    if (available !== null) newRow.push(header[9]);
 
     let headerRow = worksheet.addRow(newRow);
     headerRow.eachCell((cell, number) => {
@@ -150,6 +174,8 @@ export class ExportExcelService {
       if (admin !== null) newRow.push(d[6]);
       if (tds !== null) newRow.push(d[7]);
       if (digitalToken !== null) newRow.push(d[8]);
+      if (withdrawed !== null) newRow.push(d[10]);
+      if (available !== null) newRow.push(d[9]);
 
       let dataRow = worksheet.addRow(newRow);
 

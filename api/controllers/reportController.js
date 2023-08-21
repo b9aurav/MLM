@@ -25,6 +25,8 @@ exports.getReportData = function (req, res) {
             request.output('gst', sql.Float)
             request.output('digitalToken', sql.Float)
             request.output('userEarnings', sql.Float)
+            request.output('available_bal', sql.Float)
+            request.output('withdrawed_bal', sql.Float)
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("GetReportData", function (err, result) {
                 if (err) {
@@ -42,6 +44,8 @@ exports.getReportData = function (req, res) {
                         tds: result.output.tds,
                         digitalToken: result.output.digitalToken,
                         userEarnings: result.output.userEarnings,
+                        available_bal: result.output.available_bal,
+                        withdrawed_bal: result.output.withdrawed_bal,
                         data: result.recordsets.reverse()[1]
                     });
                 }

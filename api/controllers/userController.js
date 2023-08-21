@@ -223,7 +223,7 @@ PARAMETERS :
 }
 */
 exports.KYCRequest = function (req, res) {
-    var param = req.body.param;
+    param = req.query;
     sql.connect(serverConfig, function (err) {
         if (err) console.error(err);
         else {
@@ -531,6 +531,45 @@ exports.getDashboardData = function (req, res) {
                         giftReward: result.output.giftReward,
                         giftRewardRank: result.output.giftRewardRank,
                         digitalToken: result.output.digitalToken,
+                        data: result.recordsets[result.recordsets.length - 1]
+                    });
+                }
+            });
+        }
+    });
+};
+
+// Get User Balance
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+    }
+}
+*/
+exports.getBalance = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("user_id", sql.NVarChar, param.user_id);
+            request.output('withdrawableBalance', sql.BigInt)
+            request.output('available_balance', sql.BigInt)
+            request.output('Message', sql.NVarChar(sql.MAX))
+            request.execute("GetBalance", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        withdrawable_balance: result.output.withdrawableBalance,
+                        available_balance: result.output.available_balance, 
                         data: result.recordsets[result.recordsets.length - 1]
                     });
                 }

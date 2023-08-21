@@ -60,25 +60,47 @@
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-md-2" style="align-items: center; justify-content: center; display: flex;">
+    <div class="form-group col-md-6">
+      <div class="report-amount-div">
+        <label for="availablebalLabel">Total Available Balance: </label>
+        <label style="font-weight: bold; float: right;" id="availablebalLabel"></label>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <div class="report-amount-div">
+        <label for="WithdrawedbalLabel">Total Withdrawed Balance: </label>
+        <label style="font-weight: bold; float: right;" id="WithdrawedbalLabel"></label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-3" style="align-items: center; justify-content: center; display: flex;">
       <input type="checkbox" id="gstCheckbox" checked><span style="margin-left: 5px;">GST</span>
     </div>
-    <div class="form-group col-md-2" style="align-items: center; justify-content: center; display: flex;">
+    <div class="form-group col-md-3" style="align-items: center; justify-content: center; display: flex;">
       <input type="checkbox" id="earningsCheckbox" checked><span style="margin-left: 5px;">Earnings</span>
     </div>
-    <div class="form-group col-md-2" style="align-items: center; justify-content: center; display: flex;">
+    <div class="form-group col-md-3" style="align-items: center; justify-content: center; display: flex;">
       <input type="checkbox" id="adminCheckbox" checked><span style="margin-left: 5px;">Admin</span>
     </div>
-    <div class="form-group col-md-2" style="align-items: center; justify-content: center; display: flex;">
+    <div class="form-group col-md-3" style="align-items: center; justify-content: center; display: flex;">
       <input type="checkbox" id="tdsCheckbox" checked><span style="margin-left: 5px;">TDS</span>
     </div>
-    <div class="form-group col-md-2" style="align-items: center; justify-content: center; display: flex;">
+  </div>
+    <div class="row">
+    <div class="form-group col-md-4" style="align-items: center; justify-content: center; display: flex;">
       <input type="checkbox" id="DigitalTokenCheckbox" checked><span style="margin-left: 5px;">Digital Token</span>
+    </div>
+    <div class="form-group col-md-4" style="align-items: center; justify-content: center; display: flex;">
+      <input type="checkbox" id="AvaialbleCheckbox" checked><span style="margin-left: 5px;">Available Balance</span>
+    </div>
+    <div class="form-group col-md-4" style="align-items: center; justify-content: center; display: flex;">
+      <input type="checkbox" id="WithdrawedCheckbox" checked><span style="margin-left: 5px;">Withdrawed Balance</span>
     </div>
   </div>
   <div style="align-items: center; justify-content: center; display: flex;">
     <button class="btn btn-outline-danger btn-round" style="margin: 0;" (click)="exportToExcel()">Export to XLSX</button>
-  </div>
+  </div>  
 </div>
 <div class="table-responsive" style="max-height: 60vh;" *ngIf="dataFetched">
   <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
