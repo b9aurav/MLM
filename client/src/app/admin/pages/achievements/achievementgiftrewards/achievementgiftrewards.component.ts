@@ -25,14 +25,17 @@ export class AchievementgiftrewardsComponent implements OnInit {
     mode: 'external',
     selectedRowIndex: -1,
     columns: {
-      achievement_id: {
-        title: 'ID'
-      },
       user_id: {
         title: 'User ID'
       },
+      username: {
+        title: 'Username'
+      },
       achievement: {
         title: 'Achievement'
+      },
+      rank: {
+        title: 'Rank'
       },
       achievement_datetime: {
         title: 'Achieved On'
