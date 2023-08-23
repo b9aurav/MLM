@@ -1,6 +1,10 @@
 var serverConfig = require('../config.js')
 var sql = require("mssql");
 var auth = require('./authController.js')
+const path = require('path');
+var fs = require('fs');
+const { promisify } = require('util');
+const readFileAsync = promisify(fs.readFile);
 
 // Get Users
 exports.getUsers = function (req, res) {
@@ -278,6 +282,50 @@ exports.getPendingKYCRequests = function (req, res) {
                 }
             });
         }
+    });
+};
+
+// Get KYC Docs
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+    }
+}
+*/
+exports.getKYCDocuments = function (req, res) {
+    const directoryPath = path.join(path.dirname(path.dirname(__dirname)), `Docs/KYC/${req.body.param.user_id}`);
+    
+    fs.readdir(directoryPath, (error, fileNames) => {
+        if (error) {
+            res.status(400).json(error);
+            return;
+        }
+
+        const files = fileNames.filter(filename => filename.endsWith('.jpg'));
+        const promises = files.map(function (filename) {
+            const filepath = path.join(directoryPath, filename);
+            return readFileAsync(filepath)
+                .then(fileContent => {
+                    return {
+                        file: fileContent,
+                        document: filename,
+                    };
+                })
+                .catch(error => {
+                    console.error(`Error reading file ${filename}:`, error);
+                    return null;
+                });
+        });
+
+        Promise.all(promises)
+            .then(fileContents => {
+                res.json({ files: fileContents });
+            })
+            .catch(error => {
+                res.status(400).json(error);
+            });
     });
 };
 

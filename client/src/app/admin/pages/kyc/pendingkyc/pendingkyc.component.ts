@@ -29,6 +29,8 @@ export class PendingkycComponent {
   aadharNoInput: HTMLInputElement;
   panNoInput: HTMLInputElement;
 
+  images: any[] = [];
+
   requestSettings = {
     mode: 'external',
     selectedRowIndex: -1,
@@ -99,7 +101,7 @@ export class PendingkycComponent {
   ngOnInit() {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
-    } else { 
+    } else {
       this.loadKYCRequests();
       this.nameInput = document.getElementById("nameInput") as HTMLInputElement;
       this.useridInput = document.getElementById("useridInput") as HTMLInputElement;
@@ -139,28 +141,47 @@ export class PendingkycComponent {
     bank_name: string,
     branch: string,
     ac_no: string,
-    pan_no: string, 
+    pan_no: string,
     aadhar_no: string
-    ) {
+  ) {
 
-      $('.ui.modal.pending-kyc').modal({
-        closable: false, 
-      }).modal('show');
-      this.nameInput.value = name;
-      this.useridInput.value = user_id;
-      this.usernameInput.value = username;
-      this.phoneInput.value = phone;
-      this.emailInput.value = email;
-      this.registeredonInput.value = registered_on.split('T')[0];
-      this.sponsoridInput.value = sponsor;
-      this.bankAcNoInput.value = ac_no;
-      this.banknameInput.value = bank_name;
-      this.branchInput.value = branch;
-      this.ifscInput.value = ifsc_code;
-      this.acHolderNameInput.value = bank_ac_holder_name;
-      this.aadharNoInput.value = aadhar_no;
-      this.panNoInput.value = pan_no;
-      this.selectedRequest = user_id;
+    $('.ui.modal.pending-kyc').modal({
+      closable: false,
+    }).modal('show');
+    this.nameInput.value = name;
+    this.useridInput.value = user_id;
+    this.usernameInput.value = username;
+    this.phoneInput.value = phone;
+    this.emailInput.value = email;
+    this.registeredonInput.value = registered_on.split('T')[0];
+    this.sponsoridInput.value = sponsor;
+    this.bankAcNoInput.value = ac_no;
+    this.banknameInput.value = bank_name;
+    this.branchInput.value = branch;
+    this.ifscInput.value = ifsc_code;
+    this.acHolderNameInput.value = bank_ac_holder_name;
+    this.aadharNoInput.value = aadhar_no;
+    this.panNoInput.value = pan_no;
+    this.selectedRequest = user_id;
+
+    var param = {
+      "param": {
+        "user_id": this.selectedRequest
+      }
+    }
+    this.http.post<{ data: any, files: any }>(environment.apiBaseUrl + '/api/GetKYCDocuments', param).subscribe(response => {
+      response.files.forEach(fileContent => {
+        const blob = new Blob([new Uint8Array(fileContent.file.data)], { type: 'image/jpeg' });
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.images.push(event.target.result);
+        };
+        reader.readAsDataURL(blob);
+      });
+    }, error => {
+      console.error(error);
+      this.hidePopup();
+    });
   }
 
   hidePopup() {
@@ -172,7 +193,7 @@ export class PendingkycComponent {
     var param = {
       "param": {
         "user_id": this.selectedRequest
-      } 
+      }
     }
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/ApproveKYC', param).subscribe(response => {
       alert(response.message);

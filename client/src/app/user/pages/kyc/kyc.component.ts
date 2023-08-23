@@ -24,6 +24,8 @@ export class KYCComponent implements OnInit, AfterViewInit {
   signatureFile: HTMLInputElement;
   panFile: HTMLInputElement;
   aadharFile: HTMLInputElement;
+  aadharBack: HTMLInputElement;
+  passbookFile: HTMLInputElement;
   kycForm: HTMLFormElement;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
@@ -49,8 +51,18 @@ export class KYCComponent implements OnInit, AfterViewInit {
     if (!this.isUserActive) {
       this.kycForm = document.getElementById('kyc-form') as HTMLFormElement;
       $('input[type="file"]').on('change', function () {
-        var fileName = ($(this).val() as string).split("\\").pop(); 
-        $(this).prev('input[type="text"]').val(fileName);
+        const inputElement = this as HTMLInputElement;
+        if (typeof inputElement.files[0] !== 'undefined') {
+          const maxSize = parseInt($(inputElement).attr('data-max-size'), 10);
+          const size = inputElement.files[0].size;
+          const isOk = maxSize > size;
+          if (!isOk) {
+            alert('Error : File size should be less than 500 kb!')
+          } else {
+            var fileName = ($(this).val() as string).split("\\").pop(); 
+            $(this).prev('input[type="text"]').val(fileName);
+          }
+        }
       });
     }
   }
@@ -67,29 +79,49 @@ export class KYCComponent implements OnInit, AfterViewInit {
     this.signatureFile = document.getElementById("signature-file") as HTMLInputElement;
     this.panFile = document.getElementById("pan-input-file") as HTMLInputElement;
     this.aadharFile = document.getElementById("aadhar-input-file") as HTMLInputElement;
+    this.aadharBack = document.getElementById("aadhar-input-back-file") as HTMLInputElement;
+    this.passbookFile = document.getElementById("passbook-input-file") as HTMLInputElement;
 
-    const formData = new FormData();
-    formData.append("files", this.photoFile.files[0]);
-    formData.append("files", this.signatureFile.files[0]);
-    formData.append("files", this.panFile.files[0]);
-    formData.append("files", this.aadharFile.files[0]);
+    if (this.bankACNoInput.value == '' ||
+      this.bankACHolderInput.value == '' ||
+      this.bankIFSCInput.value == '' ||
+      this.bankNameInput.value == '' ||
+      this.bankBranchInput.value == '' ||
+      this.bankACNoInput.value == '' ||
+      this.panNoInput.value == '' ||
+      this.aadharNoInput.value == '') {
+      alert('Error : Enter required details!')
+      return;
+    }
 
-    var param = {
-        "userid": this.authService.userData.user_id,
-        "bank_ac_holder_name": this.bankACHolderInput.value,
-        "ifsc": this.bankIFSCInput.value,
-        "bank_name": this.bankNameInput.value,
-        "branch": this.bankBranchInput.value,
-        "ac_no": this.bankACNoInput.value,
-        "pan_no": this.panNoInput.value,
-        "aadhar_no": this.aadharNoInput.value
-      } 
-    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/KYCRequest', formData, { params: param }).subscribe(response => {
-      alert(response.message);
-      document.getElementsByTagName('form')[0].reset();
-    }, error => {
-      console.error(error);
-      document.getElementsByTagName('form')[0].reset();
-    });
+    try {
+      const formData = new FormData();
+      formData.append("files", this.photoFile.files[0], 'Photo.jpg');
+      formData.append("files", this.signatureFile.files[0], 'Signature.jpg');
+      formData.append("files", this.panFile.files[0], 'Pancard.jpg');
+      formData.append("files", this.aadharFile.files[0], 'Aadharcard-front.jpg');
+      formData.append("files", this.aadharBack.files[0], 'Aadharcard-back.jpg');
+      formData.append("files", this.passbookFile.files[0], 'Passbook.jpg')
+  
+      var param = {
+          "userid": this.authService.userData.user_id,
+          "bank_ac_holder_name": this.bankACHolderInput.value,
+          "ifsc": this.bankIFSCInput.value,
+          "bank_name": this.bankNameInput.value,
+          "branch": this.bankBranchInput.value,
+          "ac_no": this.bankACNoInput.value,
+          "pan_no": this.panNoInput.value,
+          "aadhar_no": this.aadharNoInput.value
+        } 
+      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/KYCRequest', formData, { params: param }).subscribe(response => {
+        alert(response.message);
+        document.getElementsByTagName('form')[0].reset();
+      }, error => {
+        console.error(error);
+        document.getElementsByTagName('form')[0].reset();
+      });
+    } catch (error) {
+      alert('Error : Upload required documents!');
+    }
   }
 }

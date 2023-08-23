@@ -3,31 +3,32 @@ var router = express.Router();
 var fs = require('fs');
 const path = require('path');
 var multer = require("multer");
-const storage = multer.diskStorage({
+const KYCStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         var userid = req.query.userid;
-        const dir = path.dirname(path.dirname(__dirname)) + `/KYC/Docs/${userid}`
-        fs.exists(dir, exist => {
-            if (!exist) {
-                fs.mkdir(dir, error => {
+        const dir = path.dirname(path.dirname(__dirname)) + `/Docs/KYC/${userid}`
+
+        fs.access(dir, (error) => {
+            if (error) {
+                fs.mkdir(dir, { recursive: true }, (error) => {
                     if (error) {
                         console.error('Error creating directory:', error);
-                        cb(error, dir);
+                        cb(error, dir)
                     } else {
-                        cb(null, dir);
+                        cb(null, dir)
                     }
                 });
+            } else {
+                cb(null, dir)
             }
-            return cb(null, dir)
-        })
+        });
     },
     filename: (req, file, cb) => {
-        var userid = req.query.userid;
-        cb(null, `UserId - ${ userid } - ${ Date.now() }.png`)
+        cb(null, file.originalname)
     }
 })
 
-var upload = multer({ storage });
+var upload = multer({ storage: KYCStorage });
 
 var userController = require('../controllers/userController');
 var ticketController = require('../controllers/ticketController');
@@ -76,6 +77,7 @@ router.post("/api/GetRespondedTickets", ticketController.getRespondedTickets);
 router.post("/api/respondTicket", ticketController.respondTicket);
 
 router.post("/api/GetPendingKYCRequests", userController.getPendingKYCRequests);
+router.post("/api/GetKYCDocuments", userController.getKYCDocuments);
 router.post("/api/ApproveKYC", userController.approveKYC);
 router.post("/api/RevokeKYC", userController.revokeKYC);
 router.post("/api/GetApprovedKYCRequests", userController.getApprovedKYCRequests);

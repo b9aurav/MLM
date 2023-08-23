@@ -40,6 +40,18 @@
               <label for="bank-ifsc-input">IFSC Code</label>
               <input type="text" class="form-control" id="bank-ifsc-input" placeholder="Enter IFSC Code">
             </div>
+            <div class="form-group">
+              <label for="pan-no-input">Passbook</label>
+              <div class="field" style="margin-top: 5px">
+                <div class="ui action input">
+                  <input type="text" id="passbook-input-txt" placeholder="Upload Passbook" disabled>
+                  <input type="file" id="passbook-input-file" name="Passbook" accept="image/jpeg" data-max-size="500000">
+                  <div class="ui icon button">
+                    <i class="attach icon"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card bg-body">
@@ -52,8 +64,15 @@
               <input type="number" class="form-control" id="aadhar-no-input" placeholder="Enter aadhar number">
               <div class="field" style="margin-top: 5px">
                 <div class="ui action input">
-                  <input type="text" id="aadhar-input-txt" placeholder="Upload Aadhar Card">
-                  <input type="file" id="aadhar-input-file">
+                  <input type="text" id="aadhar-input-txt" placeholder="Upload Aadhar Card (Front)" disabled>
+                  <input type="file" id="aadhar-input-file" name="Aadharcard-Front" accept="image/jpeg" data-max-size="500000">
+                  <div class="ui icon button">
+                    <i class="attach icon"></i>
+                  </div>
+                </div>
+                <div class="ui action input">
+                  <input type="text" id="aadhar-input-back-txt" placeholder="Upload Aadhar Card (Back)" disabled>
+                  <input type="file" id="aadhar-input-back-file" name="Aadharcard-Back" accept="image/jpeg" data-max-size="500000">
                   <div class="ui icon button">
                     <i class="attach icon"></i>
                   </div>
@@ -65,8 +84,8 @@
               <input type="text" class="form-control" id="pan-no-input" placeholder="Enter PAN Number">
               <div class="field" style="margin-top: 5px">
                 <div class="ui action input">
-                  <input type="text" id="pan-input-txt" placeholder="Upload PAN Card">
-                  <input type="file" id="pan-input-file">
+                  <input type="text" id="pan-input-txt" placeholder="Upload PAN Card" disabled>
+                  <input type="file" id="pan-input-file" name="PANCard" accept="image/jpeg" data-max-size="500000">
                   <div class="ui icon button">
                     <i class="attach icon"></i>
                   </div>
@@ -77,8 +96,8 @@
               <label for="photo-input">Photo</label>
               <div class="field">
                 <div class="ui action input">
-                  <input type="text" id="photo-txt" placeholder="Upload Photo">
-                  <input type="file" id="photo-file">
+                  <input type="text" id="photo-txt" placeholder="Upload Photo" disabled>
+                  <input type="file" id="photo-file" name="Photo" accept="image/jpeg" data-max-size="500000">
                   <div class="ui icon button">
                     <i class="attach icon"></i>
                   </div>
@@ -89,8 +108,8 @@
               <label for="signature-input">Signature</label>
               <div class="field">
                 <div class="ui action input">
-                  <input type="text" id="signature-txt" placeholder="Upload Signature">
-                  <input type="file" id="signature-file">
+                  <input type="text" id="signature-txt" placeholder="Upload Signature" disabled>
+                  <input type="file" id="signature-file" name="Signature" accept="image/jpeg" data-max-size="500000">
                   <div class="ui icon button">
                     <i class="attach icon"></i>
                   </div>

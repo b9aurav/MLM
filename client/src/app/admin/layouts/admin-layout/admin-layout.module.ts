@@ -52,6 +52,7 @@ import { EarninggiftrewardsComponent } from 'app/admin/pages/team/users/earning/
 import { UserDetails } from 'app/admin/pages/team/users/earning/userdetails/userdetails.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ImageViewerModule } from "ngx-image-viewer";
 import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedpins.component';
 
 @NgModule({
@@ -61,6 +62,7 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     FormsModule,
     NgbModule,
     Ng2SmartTableModule,
+    ImageViewerModule.forRoot()
   ],
   declarations: [
     DashboardComponent,
