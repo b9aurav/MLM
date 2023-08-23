@@ -18,8 +18,7 @@ export class DashboardComponent implements OnInit {
   totalEarnings: HTMLParagraphElement;
   directMembers: HTMLParagraphElement;
   autopoolLevel: HTMLParagraphElement;
-  giftRewardRank: HTMLParagraphElement;
-  eduRank: HTMLParagraphElement;
+  edGiftRewardRank: HTMLParagraphElement;
   autopoolReward: HTMLParagraphElement;
   eduReward: HTMLParagraphElement;
   giftReward: HTMLParagraphElement;
@@ -37,8 +36,7 @@ export class DashboardComponent implements OnInit {
       this.totalEarnings = document.getElementById('total-earnings') as HTMLParagraphElement;
       this.directMembers = document.getElementById('direct-members') as HTMLParagraphElement;
       this.autopoolLevel = document.getElementById('autopool-level') as HTMLParagraphElement;
-      this.giftRewardRank = document.getElementById('gift-reward-rank') as HTMLParagraphElement;
-      this.eduRank = document.getElementById('education-tour-rank') as HTMLParagraphElement;
+      this.edGiftRewardRank = document.getElementById('education-gift-reward-rank') as HTMLParagraphElement;
       this.autopoolReward = document.getElementById('autopool-reward') as HTMLParagraphElement;
       this.eduReward = document.getElementById('education-reward') as HTMLParagraphElement;
       this.giftReward = document.getElementById('gift-reward') as HTMLParagraphElement;
@@ -61,8 +59,15 @@ export class DashboardComponent implements OnInit {
       response.levelEarnings != null ? this.levelEarnings.textContent = 'Rs. ' + response.levelEarnings : this.levelEarnings.textContent = '0'
       response.directMembers != null ? this.directMembers.textContent = response.directMembers : this.directMembers.textContent = '0'
       response.autopoolLevel != null ? this.autopoolLevel.textContent = response.autopoolLevel : this.autopoolLevel.textContent = '0'
-      response.giftRewardRank != null ? this.giftRewardRank.textContent = response.giftRewardRank : this.giftRewardRank.textContent = 'N/A'
-      response.eduRank != null ? this.eduRank.textContent = response.eduRank : this.eduRank.textContent = 'N/A'
+      if (response.eduRank != null) {
+        if (response.giftRewardRank != null) {
+          this.edGiftRewardRank.textContent = response.giftRewardRank
+        } else {
+          this.edGiftRewardRank.textContent = response.eduRank
+        }
+      } else {
+        this.edGiftRewardRank.textContent = 'N/A'
+      }
       response.autopoolReward != null ? this.autopoolReward.textContent = response.autopoolReward : this.autopoolReward.textContent = 'N/A'
       response.eduReward != null ? this.eduReward.textContent = response.eduReward : this.eduReward.textContent = 'N/A'
       response.giftReward != null ? this.giftReward.textContent = response.giftReward : this.giftReward.textContent = 'N/A'
