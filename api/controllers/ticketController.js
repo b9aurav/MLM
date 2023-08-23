@@ -1,5 +1,9 @@
 var serverConfig = require('../config.js')
 var sql = require("mssql");
+const path = require('path');
+var fs = require('fs');
+const { promisify } = require('util');
+const readFileAsync = promisify(fs.readFile);
 
 // Get Tickets by User
 /*
@@ -62,6 +66,51 @@ exports.getPendingTickets = function (req, res) {
     });
 };
 
+// Get KYC Docs
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+        "date_time": "",
+    }
+}
+*/
+exports.getTicketImage = function (req, res) {
+    const directoryPath = path.join(path.dirname(path.dirname(__dirname)), `Docs/Ticket/${req.body.param.user_id}`);
+    
+    fs.readdir(directoryPath, (error, fileNames) => {
+        if (error) {
+            res.status(400).json(error);
+            return;
+        }
+
+        const files = fileNames.filter(filename => filename.startsWith('Ticket - ' + req.body.param.date_time.replace(/[\/:]/g, '_').replace(/ /g, '__')));
+        const promises = files.map(function (filename) {
+            const filepath = path.join(directoryPath, filename);
+            return readFileAsync(filepath)
+                .then(fileContent => {
+                    return {
+                        file: fileContent,
+                        document: filename,
+                    };
+                })
+                .catch(error => {
+                    console.error(`Error reading file ${filename}:`, error);
+                    return null;
+                });
+        });
+
+        Promise.all(promises)
+            .then(fileContents => {
+                res.json({ files: fileContents });
+            })
+            .catch(error => {
+                res.status(400).json(error);
+            });
+    });
+};
+
 // Add Ticket
 /*
 PARAMETERS :
@@ -69,12 +118,13 @@ PARAMETERS :
     "param": {
         "subject": "",
         "description": "",
-        "user_id": ""
+        "user_id": "",
+        "date_time": ""
     }
 } 
 */
 exports.addTicket = function (req, res) {
-    var param = req.body.param;
+    var param = req.query;
     sql.connect(serverConfig, function (err) {
         if (err) console.error(err);
         else {
@@ -82,6 +132,7 @@ exports.addTicket = function (req, res) {
             request.input("subject", sql.VarChar, param.subject);
             request.input("description", sql.VarChar, param.description);
             request.input("user_id", sql.VarChar, param.user_id);
+            request.input("date_time", sql.VarChar, param.date_time);
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("AddTicket", function (err, result) {
                 if (err) {

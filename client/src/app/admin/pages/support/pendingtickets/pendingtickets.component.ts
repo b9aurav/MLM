@@ -17,11 +17,13 @@ export class PendingticketsComponent implements OnInit {
   descriptionInput: HTMLTextAreaElement;
   responseInput: HTMLTextAreaElement;
 
+  images: any[] = [];
+
   requestSettings = {
     mode: 'external',
     selectedRowIndex: -1,
     columns: {
-      "Ticket No.": {
+      "User ID": {
         title: 'User ID',
         width: '80px'
       },
@@ -29,6 +31,10 @@ export class PendingticketsComponent implements OnInit {
         title: 'Name',
         width: '30%'
       },
+      Username: {
+        title: 'Username',
+        width: '30%',
+      },      
       Subject: {
         title: 'Subject',
         width: '30%',
@@ -59,6 +65,8 @@ export class PendingticketsComponent implements OnInit {
               instance.rowData["Ticket No."],
               instance.rowData.Subject,
               instance.rowData.Description,
+              instance.rowData["User ID"],
+              instance.rowData["Date Time"]
             );
           })
         },
@@ -96,13 +104,41 @@ export class PendingticketsComponent implements OnInit {
     });
   }
 
-  respondTicketPopup(ticket_no: string, subject: string, description: string) {
+  respondTicketPopup(ticket_no: string, subject: string, description: string, userid: string, datetime: string) {
     $('.ui.modal.pending').modal({
       closable: false, 
     }).modal('show');
     this.selectedTicket = ticket_no;
     this.descriptionInput.value = description;
     this.subjectInput.value = subject;
+
+    var param = {
+      "param": {
+        "user_id": userid,
+        "date_time": datetime,
+      }
+    }
+    this.http.post<{ data: any, files: any }>(environment.apiBaseUrl + '/api/GetTicketImage', param).subscribe(response => {
+      if (response.files.length !== 0) {
+        document.getElementById('image-viewer').style.display = 'block'
+        document.getElementById('form').classList.add('col-md-6');
+        response.files.forEach(fileContent => {
+          const blob = new Blob([new Uint8Array(fileContent.file.data)], { type: 'image/jpeg' });
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            this.images = [];
+            this.images.push(event.target.result);
+          };
+          reader.readAsDataURL(blob);
+        });
+      } else {
+        document.getElementById('image-viewer').style.display = 'none'
+        document.getElementById('form').classList.remove('col-md-6');
+      }
+    }, error => {
+      console.error(error);
+      this.hidePopup();
+    });
   }
 
   hidePopup() {

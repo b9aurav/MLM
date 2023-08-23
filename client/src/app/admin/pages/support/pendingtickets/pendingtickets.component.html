@@ -1,24 +1,29 @@
-<div class="ui tiny inverted modal pending">
+<div class="ui medium inverted modal pending">
   <i class="close icon"></i>
   <div class="header">
     Respond Ticket
   </div>
   <div class="content">
-    <div class="description">
-        <div class="form-group">
-          <label for="subjectInput">Subject</label>
-          <input type="text" class="form-control" id="subjectInput" disabled autocomplete="off">
-          <label for="descriptionTextarea">Description</label>
-          <textarea class="form-control" id="descriptionTextarea" rows="7" disabled></textarea>
+    <div class="row">
+      <div class="col-md-6" id="form">
+        <div class="description">
+          <div class="form-group">
+            <label for="subjectInput">Subject</label>
+            <input type="text" class="form-control" id="subjectInput" disabled autocomplete="off">
+            <label for="descriptionTextarea">Description</label>
+            <textarea class="form-control" id="descriptionTextarea" rows="7" disabled></textarea>
+          </div>
         </div>
-    </div>
-  </div>
-  <div class="content">
-    <div class="description">
-        <div class="form-group">
-          <label for="descriptionTextarea">Response</label>
-          <textarea class="form-control" id="responseTextarea" rows="7"></textarea>
+        <div class="content">
+          <div class="description">
+            <div class="form-group">
+              <label for="descriptionTextarea">Response</label>
+              <textarea class="form-control" id="responseTextarea" rows="7"></textarea>
+            </div>
+          </div>
         </div>
+      </div>
+      <ngx-image-viewer class="col-md-6 content" [src]="images" id="image-viewer"></ngx-image-viewer>
     </div>
   </div>
   <div class="actions">

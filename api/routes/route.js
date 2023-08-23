@@ -28,7 +28,33 @@ const KYCStorage = multer.diskStorage({
     }
 })
 
+const TicketStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        var userid = req.query.user_id;
+        const dir = path.dirname(path.dirname(__dirname)) + `/Docs/Ticket/${userid}`
+
+        fs.access(dir, (error) => {
+            if (error) {
+                fs.mkdir(dir, { recursive: true }, (error) => {
+                    if (error) {
+                        console.error('Error creating directory:', error);
+                        cb(error, dir)
+                    } else {
+                        cb(null, dir)
+                    }
+                });
+            } else {
+                cb(null, dir)
+            }
+        });
+    },
+    filename: (req, file, cb) => {
+        cb(null, 'Ticket - ' + req.query.date_time.replace(/[\/:]/g, '_').replace(/ /g, '__') + '.' + file.mimetype.split('/')[1])
+    }
+})
+
 var upload = multer({ storage: KYCStorage });
+var ticketFile = multer({ storage: TicketStorage });
 
 var userController = require('../controllers/userController');
 var ticketController = require('../controllers/ticketController');
@@ -50,7 +76,7 @@ router.post("/api/GetDashboardData", userController.getDashboardData);
 router.post("/api/GetBalance", userController.getBalance);
 
 router.post("/api/GetTickets", ticketController.getTickets);
-router.post("/api/AddTicket", ticketController.addTicket);
+router.post("/api/AddTicket", ticketFile.array("files"), ticketController.addTicket);
 router.post("/api/DeleteTicket", ticketController.deleteTicket);
 
 router.post("/api/GetWithdrawRequests", payoutController.getWithdrawRequests);
@@ -75,6 +101,7 @@ router.post("/api/GetGiftRewards", earningController.getGiftRewards);
 router.post("/api/GetPendingTickets", ticketController.getPendingTickets);
 router.post("/api/GetRespondedTickets", ticketController.getRespondedTickets);
 router.post("/api/respondTicket", ticketController.respondTicket);
+router.post("/api/getTicketImage", ticketController.getTicketImage);
 
 router.post("/api/GetPendingKYCRequests", userController.getPendingKYCRequests);
 router.post("/api/GetKYCDocuments", userController.getKYCDocuments);
