@@ -42,6 +42,9 @@ export class ExportReportComponent {
       "User ID": {
         title: 'ID'
       },
+      "Username": {
+        title: 'Username',
+      },
       "Name": {
         title: 'Name',
         width: '30%'

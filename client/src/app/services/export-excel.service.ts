@@ -134,13 +134,14 @@ export class ExportExcelService {
     newRow.push(header[1]);
     newRow.push(header[2]);
     newRow.push(header[3]);
-    if (gst !== null) newRow.push(header[4]);
-    if (earnings !== null) newRow.push(header[5]);
-    if (admin !== null) newRow.push(header[6]);
-    if (tds !== null) newRow.push(header[7]);
-    if (digitalToken !== null) newRow.push(header[8]);
-    if (withdrawed !== null) newRow.push(header[10]);
-    if (available !== null) newRow.push(header[9]);
+    newRow.push(header[4]);
+    if (gst !== null) newRow.push(header[5]);
+    if (earnings !== null) newRow.push(header[6]);
+    if (admin !== null) newRow.push(header[7]);
+    if (tds !== null) newRow.push(header[8]);
+    if (digitalToken !== null) newRow.push(header[9]);
+    if (withdrawed !== null) newRow.push(header[11]);
+    if (available !== null) newRow.push(header[10]);
 
     let headerRow = worksheet.addRow(newRow);
     headerRow.eachCell((cell, number) => {
@@ -169,13 +170,14 @@ export class ExportExcelService {
       newRow.push(d[1]);
       newRow.push(d[2]);
       newRow.push(d[3]);
-      if (gst !== null) newRow.push(d[4]);
-      if (earnings !== null) newRow.push(d[5]);
-      if (admin !== null) newRow.push(d[6]);
-      if (tds !== null) newRow.push(d[7]);
-      if (digitalToken !== null) newRow.push(d[8]);
-      if (withdrawed !== null) newRow.push(d[10]);
-      if (available !== null) newRow.push(d[9]);
+      newRow.push(d[4]);
+      if (gst !== null) newRow.push(d[5]);
+      if (earnings !== null) newRow.push(d[6]);
+      if (admin !== null) newRow.push(d[7]);
+      if (tds !== null) newRow.push(d[8]);
+      if (digitalToken !== null) newRow.push(d[9]);
+      if (withdrawed !== null) newRow.push(d[11]);
+      if (available !== null) newRow.push(d[10]);
 
       let dataRow = worksheet.addRow(newRow);
 
