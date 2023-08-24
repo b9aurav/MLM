@@ -170,8 +170,14 @@ export class PendingkycComponent {
       }
     }
     this.http.post<{ data: any, files: any }>(environment.apiBaseUrl + '/api/GetKYCDocuments', param).subscribe(response => {
+      const fileExtensionsToMimeTypes = {
+        'jpg': 'image/jpg',
+        'png': 'image/png',
+        'jpeg': 'image/jpeg'
+      };
       response.files.forEach(fileContent => {
-        const blob = new Blob([new Uint8Array(fileContent.file.data)], { type: 'image/jpeg' });
+        const fileMimeType = fileExtensionsToMimeTypes[fileContent.document.split('.')[1]];
+        const blob = new Blob([new Uint8Array(fileContent.file.data)], { type: fileMimeType });
         const reader = new FileReader();
         reader.onload = (event) => {
           this.images.push(event.target.result);

@@ -39,6 +39,8 @@ import { HistorydepositComponent } from '../../pages/deposit/historydeposit/hist
 
 import { ManagePinsComponent } from 'app/admin/pages/pin-management/managepins/managepins.component';
 import { GeneratePinsComponent } from 'app/admin/pages/pin-management/generatepins/generatepins.component';
+import { PendingPinRequestComponent } from 'app/admin/pages/pin-management/pendingrequest/pendingrequest.component';
+import { HistoryPinRequestComponent } from 'app/admin/pages/pin-management/historyrequest/historyrequest.component';
 
 import { ExportReportComponent } from 'app/admin/pages/report/export/export.component';
 
@@ -104,6 +106,8 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     GeneratePinsComponent,
     ManagePinsComponent,
     UsedPinsComponent,
+    PendingPinRequestComponent,
+    HistoryPinRequestComponent,
     
     ExportReportComponent,
 

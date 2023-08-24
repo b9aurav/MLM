@@ -96,12 +96,36 @@ export class KYCComponent implements OnInit, AfterViewInit {
 
     try {
       const formData = new FormData();
-      formData.append("files", this.photoFile.files[0], 'Photo.jpg');
-      formData.append("files", this.signatureFile.files[0], 'Signature.jpg');
-      formData.append("files", this.panFile.files[0], 'Pancard.jpg');
-      formData.append("files", this.aadharFile.files[0], 'Aadharcard-front.jpg');
-      formData.append("files", this.aadharBack.files[0], 'Aadharcard-back.jpg');
-      formData.append("files", this.passbookFile.files[0], 'Passbook.jpg')
+
+      var filename = this.photoFile.files[0].name;
+      var parts = filename.split('.');
+      var fileExtension = parts[parts.length - 1].toLowerCase();
+      formData.append("files", this.photoFile.files[0], 'Photo.' + fileExtension);
+
+      filename = this.signatureFile.files[0].name;
+      parts = filename.split('.');
+      fileExtension = parts[parts.length - 1].toLowerCase();
+      formData.append("files", this.signatureFile.files[0], 'Signature.' + fileExtension);
+      
+      filename = this.panFile.files[0].name;
+      parts = filename.split('.');
+      fileExtension = parts[parts.length - 1].toLowerCase();
+      formData.append("files", this.panFile.files[0], 'Pancard.' + fileExtension);
+      
+      filename = this.aadharFile.files[0].name;
+      parts = filename.split('.');
+      fileExtension = parts[parts.length - 1].toLowerCase();
+      formData.append("files", this.aadharFile.files[0], 'Aadharcard-front.' + fileExtension);
+      
+      filename = this.aadharBack.files[0].name;
+      parts = filename.split('.');
+      fileExtension = parts[parts.length - 1].toLowerCase();
+      formData.append("files", this.aadharBack.files[0], 'Aadharcard-back.' + fileExtension);
+      
+      filename = this.passbookFile.files[0].name;
+      parts = filename.split('.');
+      fileExtension = parts[parts.length - 1].toLowerCase();
+      formData.append("files", this.passbookFile.files[0], 'Passbook.' + fileExtension)
   
       var param = {
           "userid": this.authService.userData.user_id,

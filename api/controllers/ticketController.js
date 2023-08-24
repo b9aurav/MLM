@@ -66,7 +66,7 @@ exports.getPendingTickets = function (req, res) {
     });
 };
 
-// Get KYC Docs
+// Get Images
 /*
 PARAMETERS :
 {
@@ -231,6 +231,8 @@ exports.deleteTicket = function (req, res) {
         else {
             var request = new sql.Request();
             request.input("ticket_no", sql.VarChar, param.ticket_no);
+            request.output('user_id', sql.NVarChar(50))
+            request.output('datetime', sql.NVarChar(50))
             request.output('Message', sql.NVarChar(sql.MAX))
             request.execute("DeleteTicket", function (err, result) {
                 if (err) {
@@ -240,9 +242,33 @@ exports.deleteTicket = function (req, res) {
                 } else {
                     sql.close();
                     console.info(result.output.Message)
-                    return res.status(200).send({
-                        message: result.output.Message,
-                        data: result.recordset
+                    const filePath = path.join(path.dirname(path.dirname(__dirname)), `Docs/Ticket/` + result.output.user_id);
+
+                    fs.readdir(filePath, (readdirErr, files) => {
+                        if (readdirErr) {
+                            console.error(readdirErr);
+                            return res.status(500).send("Error reading directory.");
+                        }
+
+                        const matchingFiles = files.filter(file => file.startsWith('Ticket - ' + result.output.datetime.replace(/[\/:]/g, '_').replace(/ /g, '__')));
+                        
+                        if (matchingFiles.length !== 0) {
+                            matchingFiles.forEach(matchingFile => {
+                                const dirpath = path.join(filePath, matchingFile);
+    
+                                fs.unlink(dirpath, function (unlinkErr) {
+                                    if (unlinkErr) {
+                                        console.error(unlinkErr);
+                                    }
+                                });
+                            });
+                        }
+
+
+                        return res.status(200).send({
+                            message: result.output.Message,
+                            data: result.recordset
+                        });
                     });
                 }
             });

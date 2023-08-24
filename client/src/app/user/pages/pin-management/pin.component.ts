@@ -15,6 +15,7 @@ export class PinManagementComponent {
       active: 'active'
     },
     { name: 'Pin Request' },
+    { name: 'Request History' },
   ];
 
   changeMenu(menu) {

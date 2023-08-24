@@ -9,6 +9,8 @@
           <GeneratePins *ngIf="selectedMenu === 'Generate Pins'"></GeneratePins>
           <ManagePins *ngIf="selectedMenu === 'Manage Pins'"></ManagePins>
           <UsedPins *ngIf="selectedMenu === 'Used Pins'"></UsedPins>
+          <PendingRequest *ngIf="selectedMenu === 'Pin Requests'"></PendingRequest>
+          <HistoryRequest *ngIf="selectedMenu === 'Request History'"></HistoryRequest>
         </div>
       </div>
     </div>

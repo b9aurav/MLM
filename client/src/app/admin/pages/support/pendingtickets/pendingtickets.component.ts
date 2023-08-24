@@ -122,8 +122,14 @@ export class PendingticketsComponent implements OnInit {
       if (response.files.length !== 0) {
         document.getElementById('image-viewer').style.display = 'block'
         document.getElementById('form').classList.add('col-md-6');
+        const fileExtensionsToMimeTypes = {
+          'jpg': 'image/jpg',
+          'png': 'image/png',
+          'jpeg': 'image/jpeg'
+        };
         response.files.forEach(fileContent => {
-          const blob = new Blob([new Uint8Array(fileContent.file.data)], { type: 'image/jpeg' });
+          const fileMimeType = fileExtensionsToMimeTypes[fileContent.document.split('.')[1]];
+          const blob = new Blob([new Uint8Array(fileContent.file.data)], { type: fileMimeType });
           const reader = new FileReader();
           reader.onload = (event) => {
             this.images = [];

@@ -121,6 +121,7 @@ router.post("/api/GetAchievements", earningController.getAchievements);
 router.post("/api/GetPendingDepositRequests", depositController.getPendingDepositRequests);
 router.post("/api/RespondDepositRequest", depositController.respondDepositRequest);
 router.post("/api/GetRespondedDepositRequests", depositController.getRespondedDepositRequests);
+router.post("/api/GetTransactionImage", depositController.getTransactionImage);
 
 router.post("/api/GetAutopoolMembers", teamController.getAutopoolMembers);
 

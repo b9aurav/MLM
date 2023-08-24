@@ -303,7 +303,7 @@ exports.getKYCDocuments = function (req, res) {
             return;
         }
 
-        const files = fileNames.filter(filename => filename.endsWith('.jpg'));
+        const files = fileNames.filter(filename => filename.endsWith('.jpg') || filename.endsWith('.jpeg') || filename.endsWith('.png'));
         const promises = files.map(function (filename) {
             const filepath = path.join(directoryPath, filename);
             return readFileAsync(filepath)

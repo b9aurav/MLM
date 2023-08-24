@@ -20,7 +20,9 @@ export class PinManagementComponent {
       active: 'active'
     },
     { name: 'Manage Pins' },
-    { name: 'Used Pins' }
+    { name: 'Used Pins' },
+    { name: 'Pin Requests' },
+    { name: 'Request History' }
   ];
 
   changeMenu(menu) {

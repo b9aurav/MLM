@@ -42,6 +42,7 @@ import { LoginComponent } from '../../../pages/login/login.component';
 
 import { PinRequestComponent } from 'app/user/pages/pin-management/pinrequest/pinrequest.component';
 import { MyPinsComponent } from 'app/user/pages/pin-management/mypins/mypins.component';
+import { PinrequesthistoryComponent } from 'app/user/pages/pin-management/pinrequesthistory/pinrequesthistory.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -88,6 +89,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 
     PinRequestComponent,
     MyPinsComponent,
+    PinrequesthistoryComponent,
   ]
 })
 

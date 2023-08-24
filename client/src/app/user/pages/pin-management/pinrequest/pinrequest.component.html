@@ -1,17 +1,33 @@
 <div class="center-container">
   <div class="card">
     <div class="card-body">
-      <img src="../../../../assets/img/qr-code.png" width="250" height="250" style="" />
+      <img src="../../../../assets/img/qr-code.png" width="250" height="250" />
     </div>
   </div>
 </div>
 <div class="center-container" style="margin-bottom: 20px">
-  <small class="form-text text-muted">Pay through above QR Code using UPI and submit transaction number here after successful payment.</small>
+  <small class="form-text text-muted">Pay through above QR Code using UPI. Submit transaction number and screenshot here
+    after successful payment.</small>
 </div>
 <form>
   <div class="center-container">
     <div class="form-group" style="margin: 0">
       <input type="text" class="form-control" id="transaction-no-input" placeholder="Enter Transaction No">
+    </div>
+  </div>
+  <div class="center-container">
+    <div class="form-group">
+      <label for="payment-screenshot-file">Payment Screenshot</label>
+      <div class="field">
+        <div class="ui action input">
+          <input type="text" id="screenshot-txt" placeholder="Upload Screenshot" disabled>
+          <input type="file" id="payment-screenshot-file" name="payment-screenshot"
+            accept="image/png, image/jpeg, image/jpg" data-max-size="500000">
+          <div class="ui icon button">
+            <i class="attach icon"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="center-container">
