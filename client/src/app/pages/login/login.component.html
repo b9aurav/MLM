@@ -23,15 +23,16 @@
                 <input class="form-control" type="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Password"><br>
                 <div class=""><input type="checkbox" id="togglePasswordShow" [(ngModel)]="showPassword"> Show Password</div>
               </div>
-                <div class="alert alert-danger alert-dismissible fade show" style="float:left; width: 100%; display:none;" id="messagebox">
-                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="border: 0; background: inherit;" (click)="hideMessage()">
-                      <i class="nc-icon nc-simple-remove"></i>
-                    </button>
-                    <span id="message">Error!</span>
-                  </div>
-                  <div class="buttons" style="float:right">
-                <button (click)="redirectRegistration()" class="btn btn-block">Register</button>
-                <button (click)="validateUser()" class="btn btn-danger btn-block"><i class="sign-in icon"></i> Login</button>
+              <div class="alert alert-danger alert-dismissible fade show" style="float:left; width: 100%; display:none;" id="messagebox">
+                <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="border: 0; background: inherit;" (click)="hideMessage()">
+                  <i class="nc-icon nc-simple-remove"></i>
+                </button>
+                <span id="message">Error!</span>
+              </div>
+              <div class="buttons" style="width: 100%; position: relative;">
+                <a href="#/forgot-password" style="float:left; position: absolute; top: 50%; transform: translateY(-50%);">Forgot password?</a>
+                <button (click)="validateUser()" class="btn btn-danger btn-block" style="float:right"><i class="sign-in icon"></i> Login</button>
+                <button (click)="redirectRegistration()" style="float:right" class="btn btn-block">Register</button>
               </div>
             </form>
           </div>

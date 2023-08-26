@@ -23,6 +23,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginRoutingModule } from './pages/login/login-routing.module';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationRoutingModule } from './pages/registration/registration-routing.module';
+import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password.component";
+import { ForgotPasswordRoutingModule } from "./pages/forgot-password/forgot-password-routing.module";
 
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './loading.interceptor';
@@ -39,6 +41,7 @@ import { TableButtonComponent } from './components/table-button/table-button.com
     RegistrationComponent,
     SpinnerComponent,
     TableButtonComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     FormsModule,
@@ -58,6 +61,7 @@ import { TableButtonComponent } from './components/table-button/table-button.com
     HttpClientModule,
     LoginRoutingModule,
     RegistrationRoutingModule,
+    ForgotPasswordRoutingModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true

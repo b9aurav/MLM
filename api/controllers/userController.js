@@ -31,6 +31,38 @@ exports.getUsers = function (req, res) {
     });
 };
 
+// Get User Email
+/*
+PARAMETERS :
+{
+    "param": {
+        "username": ""
+    }
+}
+*/
+exports.getUserEmail = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input('username', sql.NVarChar(50), param.username)
+            request.execute("GetUserEmail", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    return res.status(200).send({
+                        data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};
+
 // Get User Details
 /*
 PARAMETERS :
@@ -141,6 +173,42 @@ exports.addUser = function (req, res) {
                     return res.status(200).send({
                         message: result.output.Message,
                         data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};
+
+// Update Password
+/*
+PARAMETERS :
+{
+    "param": {
+        "username": "",
+        "password": "",
+    }
+}
+*/
+exports.updatePassword = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("username", sql.VarChar, param.username);
+            request.input("password", sql.VarChar, param.password);
+            request.output('Message', sql.NVarChar(sql.MAX))
+            request.execute("UpdatePassword", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message
                     });
                 }
             });

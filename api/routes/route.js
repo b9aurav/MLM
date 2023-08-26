@@ -64,11 +64,17 @@ var depositController = require('../controllers/depositController');
 var earningController = require('../controllers/earningController');
 var pinController = require('../controllers/pinController');
 var reportController = require('../controllers/reportController');
+var authController = require('../controllers/authController');
 
 // Users
+router.post("/api/SendOTP", authController.sendOTP);
+router.post("/api/VerifyOTP", authController.verifyOTP);
+
 router.post("/api/GetUsers", userController.getUsers);
+router.post("/api/GetUserEmail", userController.getUserEmail);
 router.post("/api/GetUserDetails", userController.getUserDetails);
 router.post("/api/AddUser", userController.addUser);
+router.post("/api/UpdatePassword", userController.updatePassword);
 router.post("/api/ChangeUserPassword", userController.changeUserPassword);
 router.post("/api/ValidateUser", userController.validateUser);
 router.post("/api/KYCRequest", upload.array("files"), userController.KYCRequest);
