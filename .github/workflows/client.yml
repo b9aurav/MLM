@@ -42,3 +42,6 @@ jobs:
     
     - run: ng build
       working-directory: client
+
+    - run: pm2 delete pm-client
+    - run: pm2 serve dist 4200 --name pm-client
