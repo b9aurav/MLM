@@ -26,8 +26,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd client
     - run: npm install --force
+      working-directory: client
+    
     - run: ng build
-    - run: cd ../api
+      working-directory: client
+  
     - run: npm install --force
+      working-directory: api
