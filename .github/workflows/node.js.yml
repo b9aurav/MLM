@@ -32,9 +32,11 @@ jobs:
         cache: 'npm'
         cache-dependency-path: './client/package-lock.json'
         
+    - run: npm install --global @angular/cli --force
+      working-directory: client
+      
     - run: npm install --force
       working-directory: client
     
     - run: ng build
       working-directory: client
-
