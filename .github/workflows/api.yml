@@ -32,7 +32,19 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: './api/package-lock.json'
-      
+    
+    
+    - name: Set up environment
+      env:
+        MSSQL_USER: ${{ secrets.MSSQL_USER }}
+        MSSQL_SA_PASSWORD: ${{ secrets.MSSQL_SA_PASSWORD }}
+        MSSQL_SERVER: ${{ secrets.MSSQL_SERVER }}
+      run: |
+        echo "MSSQL_USER=$MSSQL_USER" >> .env
+        echo "MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD" >> .env
+        echo "MSSQL_SERVER=$MSSQL_SERVER" >> .env
+      working-directory: api
+
     - run: npm install --force
       working-directory: api
 
