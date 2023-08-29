@@ -1,7 +1,11 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
+<<<<<<< HEAD:.github/workflows/api.yml
 name: Api CI
+=======
+name: Client CI
+>>>>>>> refs/remotes/origin/master:.github/workflows/node.js.yml
 
 on:
   push:
@@ -16,7 +20,11 @@ jobs:
     
     defaults:
       run:
+<<<<<<< HEAD:.github/workflows/api.yml
         working-directory: ./api/
+=======
+        working-directory: ./client/
+>>>>>>> refs/remotes/origin/master:.github/workflows/node.js.yml
 
     strategy:
       matrix:
@@ -30,8 +38,20 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+<<<<<<< HEAD:.github/workflows/api.yml
         cache-dependency-path: './api/package-lock.json'
+=======
+        cache-dependency-path: './client/package-lock.json'
+        
+    - run: npm install --global @angular/cli --force
+      working-directory: client
+>>>>>>> refs/remotes/origin/master:.github/workflows/node.js.yml
       
     - run: npm install --force
       working-directory: api
     
+<<<<<<< HEAD:.github/workflows/api.yml
+=======
+    - run: ng build
+      working-directory: client
+>>>>>>> refs/remotes/origin/master:.github/workflows/node.js.yml
