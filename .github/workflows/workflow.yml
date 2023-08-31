@@ -1,0 +1,62 @@
+name: Production CI
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        clean: false
+      
+    - name: Installing client packages
+      run: npm install --force
+      working-directory: client
+    
+    - name: Building Client Project
+      run: ng build --configuration production --output-path=build
+      working-directory: client
+
+    - name: Deleting old serving process
+      run: pm2 delete pm-client
+      working-directory: client
+
+    - name: Serving latest build
+      run: pm2 serve build 4200 --name pm-client
+      working-directory: client
+
+    - name: Set up API environment
+      env:
+        MSSQL_USER: ${{ secrets.MSSQL_USER }}
+        MSSQL_SA_PASSWORD: ${{ secrets.MSSQL_SA_PASSWORD }}
+        MSSQL_SERVER: ${{ secrets.MSSQL_SERVER }}
+      run: |
+        echo "MSSQL_USER=$MSSQL_USER" >> .env
+        echo "MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD" >> .env
+        echo "MSSQL_SERVER=$MSSQL_SERVER" >> .env
+      working-directory: api
+
+    - name: Installing API packages.
+      run: npm install --force
+      working-directory: api
+
+    - name: Deleting old api process.
+      run: pm2 delete pm-api
+      working-directory: api
+    
+    - name: Serving latest API changes
+      run: pm2 start server.js --name pm-api
+      working-directory: api
