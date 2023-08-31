@@ -22,23 +22,23 @@ jobs:
       with:
         clean: false
       
-    - name: Installing client packages
+    - name: Install client packages
       run: npm install --force
       working-directory: client
     
-    - name: Building Client Project
+    - name: Build Client Project
       run: ng build --configuration production --output-path=build
       working-directory: client
 
-    - name: Deleting old serving process
+    - name: Delete old serving process
       run: pm2 delete pm-client
       working-directory: client
 
-    - name: Serving latest build
+    - name: Serve latest build
       run: pm2 serve build 4200 --name pm-client
       working-directory: client
 
-    - name: Set up API environment
+    - name: Setup API environment
       env:
         MSSQL_USER: ${{ secrets.MSSQL_USER }}
         MSSQL_SA_PASSWORD: ${{ secrets.MSSQL_SA_PASSWORD }}
@@ -49,14 +49,14 @@ jobs:
         echo "MSSQL_SERVER=$MSSQL_SERVER" >> .env
       working-directory: api
 
-    - name: Installing API packages.
+    - name: Install API packages
       run: npm install --force
       working-directory: api
 
-    - name: Deleting old api process.
+    - name: Delete old api process
       run: pm2 delete pm-api
       working-directory: api
     
-    - name: Serving latest API changes
+    - name: Serve latest API changes
       run: pm2 start server.js --name pm-api
       working-directory: api
