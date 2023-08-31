@@ -33,15 +33,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: './client/package-lock.json'
-        
-    - run: npm install --global @angular/cli --force
-      working-directory: client
       
     - run: npm install --force
       working-directory: client
     
-    - run: ng build --configuration production
+    - run: ng build --configuration production --output-path=build
       working-directory: client
 
     - run: pm2 delete pm-client
-    - run: pm2 serve dist 4200 --name pm-client
+      working-directory: client
+
+    - run: pm2 serve build 4200 --name pm-client
+      working-directory: client
