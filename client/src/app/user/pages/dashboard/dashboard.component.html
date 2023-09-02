@@ -1,4 +1,20 @@
 <div class="row">
+  <div class="card card-stats">
+    <div class="card-body ">
+      <div class="row">
+        <p class="card-category" style="font-size: large;"><i class="bi bi-link"></i> Your referral link</p>
+        <div>
+          
+            <div class="ui action input" style="border: 1px solid darkgray; border-radius: 25px; display: flex; align-items: center; justify-content: center;">
+              <label id="referral-link" disabled style="margin: 0 15px; padding: 0; width: 100%;"></label>
+                <button (click)="copyReferralLink()" style="margin: 0;" class="btn btn-outline-danger btn-round"><i class="bi bi-clipboard-check-fill"></i></button>
+            </div>
+          
+        </div>
+        <div class="card-footer "></div>
+      </div>
+    </div>
+  </div>
   <div class="col-lg-4 col-md-6 col-sm-6">
     <div class="card card-stats">
       <div class="card-body ">

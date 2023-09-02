@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
 import { AuthService } from 'app/services/auth.service';
@@ -21,13 +21,18 @@ export class RegistrationComponent implements OnInit {
   pinInput: HTMLInputElement;
   sponsor_id: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.showPassword = false;
     this.password = "" 
   }
 
   ngOnInit(): void {
     this.pinInput = document.getElementById('pin') as HTMLInputElement;
+    if (this.route.snapshot.queryParams.sponsor) {
+      this.sponsorInput = document.getElementById("sponsor") as HTMLInputElement;
+      this.sponsorInput.value = this.route.snapshot.queryParams.sponsor
+      this.getSponsorDetails()
+    }
   }
 
   hideMessage() {

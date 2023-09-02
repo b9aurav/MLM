@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { UserLayoutComponent } from './user/layouts/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './admin/layouts/admin-layout/admin-layout.component';
+import { AppComponent } from './app.component';
 
 export const AppRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ export const AppRoutes: Routes = [
   }]},
   {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'dashboard',
+    component: AppComponent
   }
 ]

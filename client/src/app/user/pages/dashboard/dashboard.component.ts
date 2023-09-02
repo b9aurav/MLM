@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class DashboardComponent implements OnInit {
+  username: string = '';
 
   availableBal: HTMLParagraphElement;
   directEarnings: HTMLParagraphElement;
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
   eduReward: HTMLParagraphElement;
   giftReward: HTMLParagraphElement;
   digitalToken: HTMLParagraphElement;
+  referralLink: HTMLLabelElement;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
   
@@ -44,7 +46,23 @@ export class DashboardComponent implements OnInit {
       setTimeout(() => {
         this.getDashboardData();
       }, 100);
+      var param = {
+        "param": {
+          "user_id": this.authService.userData.user_id
+        } 
+      }
+      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsByUserID', param).subscribe(response => {
+        
+      }, error => {
+        console.error(error);
+      });
     }
+  }
+
+  copyReferralLink() {
+    navigator.clipboard.writeText(document.getElementById('referral-link').textContent).catch(() => {
+      console.error("Unable to copy text");
+    });
   }
 
   getDashboardData() {
@@ -53,7 +71,10 @@ export class DashboardComponent implements OnInit {
         "user_id": this.authService.userData.user_id
       } 
     }
-    this.http.post<{ data: any, autopoolLevel: any, autopoolReward: any, availableBal: any, directEarnings: any, directMembers: any, eduRank: any, eduReward: any, giftReward: any, giftRewardRank: any, levelEarnings: any, digitalToken: any, message: string }>(environment.apiBaseUrl + '/api/GetDashboardData', param).subscribe(response => {
+    this.http.post<{ data: any, autopoolLevel: any, autopoolReward: any, availableBal: any, directEarnings: any, directMembers: any, eduRank: any, eduReward: any, giftReward: any, giftRewardRank: any, levelEarnings: any, digitalToken: any, username: any, message: string }>(environment.apiBaseUrl + '/api/GetDashboardData', param).subscribe(response => {
+      const parsedUrl = new URL(window.location.href);
+      const baseUrl = parsedUrl.origin;
+      document.getElementById('referral-link').textContent = baseUrl + '/#/registration?sponsor=' + response.username;
       response.availableBal != null ? this.availableBal.textContent = 'Rs. ' + response.availableBal : this.availableBal.textContent = '0'
       response.directEarnings != null ? this.directEarnings.textContent = 'Rs. ' + response.directEarnings : this.directEarnings.textContent = '0'
       response.levelEarnings != null ? this.levelEarnings.textContent = 'Rs. ' + response.levelEarnings : this.levelEarnings.textContent = '0'

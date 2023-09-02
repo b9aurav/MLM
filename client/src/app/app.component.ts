@@ -10,17 +10,28 @@ import { Router } from '@angular/router';
 
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   async ngOnInit() {
-    if (await this.authService.isAuthenticated()) {
-      if (this.authService.isUserAdmin()) {
-        this.router.navigate(['/admin-dashboard']);
+    let url = window.location.href;
+    console.log(url);
+    let tail = url.split('#')[1];
+    console.log(tail);
+    if (tail == undefined || !tail.startsWith('/registration')) {
+      if (await this.authService.isAuthenticated()) {
+        if (this.authService.isUserAdmin()) {
+          this.router.navigate(['/admin-dashboard']);
+          return;
+        } else {
+          this.router.navigate(['/dashboard']);
+          return;
+        }
       } else {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']);
+        return;
       }
-    } else {
-      this.router.navigate(['/login']);
+    } else if (window.location.href.split('#')[1].startsWith('/registration')) {
+      return;
     }
   }
 }
