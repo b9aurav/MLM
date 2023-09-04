@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class PinRequestComponent implements OnInit, AfterViewInit {
   transactionNoInput: HTMLInputElement;
   screenshotInput: HTMLInputElement;
+  qtyInput: HTMLInputElement;
+  calculatedAmount: HTMLLabelElement;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
@@ -21,6 +23,8 @@ export class PinRequestComponent implements OnInit, AfterViewInit {
     } else {
       this.transactionNoInput = document.getElementById("transaction-no-input") as HTMLInputElement;
       this.screenshotInput = document.getElementById("payment-screenshot-file") as HTMLInputElement;
+      this.qtyInput = document.getElementById('qtyInput') as HTMLInputElement;
+      this.calculatedAmount = document.getElementById('calcualtedAmount') as HTMLLabelElement;
     }
   }
 
@@ -39,6 +43,16 @@ export class PinRequestComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  calculateAmount() {
+    if (parseInt(this.qtyInput.value) > 0) {
+      var amt = parseInt(this.qtyInput.value) * 5900
+      this.calculatedAmount.textContent = 'Rs. ' + amt + '/-'
+    } else {
+      this.qtyInput.value = '1';
+      this.calculatedAmount.textContent = 'Rs. 5900/-'
+    }
   }
 
   depositRequest() {

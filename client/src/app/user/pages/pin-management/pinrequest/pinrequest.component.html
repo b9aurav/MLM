@@ -1,8 +1,14 @@
+<div class="row center-container">
+</div>
 <div class="row">
   <div class="col-md-4"></div>
   <div class="center-container col-md-4">
     <div class="card" style="width: 100%;">
       <div class="card-body">
+        <p>The amount is Rs. 5900/- per pin.</p>
+        <p>To calculate amount based on quantity, enter quantity : </p>
+        <input type="number" class="form-control" value="1" min="1" (change)="calculateAmount()" id="qtyInput">
+        <label style="font-size: x-large; color: gray; width: 100%; text-align: center; margin: 20px 0;" id="calcualtedAmount">Rs. 5900/-</label>
         <div class="center-container">
           <img src="../../../../assets/img/qr-code.png" width="250" height="250" style="padding: 15px; border-radius: 15px; box-shadow: 0px 0px 5px 5px darkgray;" />
         </div>
