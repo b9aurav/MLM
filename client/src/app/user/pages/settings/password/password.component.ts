@@ -30,7 +30,7 @@ export class PasswordComponent implements OnInit {
     if (this.newPasswordInput.value == this.confirmPasswordInput.value) {
       var params = {
         "param": {
-            "username": this.authService.userData.username,
+            "user_id": this.authService.userData.user_id,
             "OldPassword": this.oldPasswordInput.value,
             "NewPassword": this.newPasswordInput.value
         }

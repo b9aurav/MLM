@@ -43,10 +43,14 @@ jobs:
         MSSQL_USER: ${{ secrets.MSSQL_USER }}
         MSSQL_SA_PASSWORD: ${{ secrets.MSSQL_SA_PASSWORD }}
         MSSQL_SERVER: ${{ secrets.MSSQL_SERVER }}
+        EMAIL_ID: ${{ secrets.EMAIL_ID }}
+        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       run: |
         echo "MSSQL_USER=$MSSQL_USER" >> .env
         echo "MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD" >> .env
         echo "MSSQL_SERVER=$MSSQL_SERVER" >> .env
+        echo "EMAIL_ID=$EMAIL_ID" >> .env
+        echo "EMAIL_PASS=$EMAIL_PASS" >> .env
       working-directory: api
 
     - name: Install API packages

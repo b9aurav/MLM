@@ -221,7 +221,7 @@ exports.updatePassword = function (req, res) {
 PARAMETERS :
 {
     "param": {
-        "username": "",
+        "user_id": "",
         "OldPassword": "",
         "NewPassword": ""
     }
@@ -233,7 +233,7 @@ exports.changeUserPassword = function (req, res) {
         if (err) console.error(err);
         else {
             var request = new sql.Request();
-            request.input("username", sql.VarChar, param.username);
+            request.input("user_id", sql.VarChar, param.user_id);
             request.input("OldPassword", sql.VarChar, param.OldPassword);
             request.input("NewPassword", sql.VarChar, param.NewPassword);
             request.output('Message', sql.NVarChar(sql.MAX))

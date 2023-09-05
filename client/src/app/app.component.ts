@@ -14,9 +14,7 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     let url = window.location.href;
-    console.log(url);
     let tail = url.split('#')[1];
-    console.log(tail);
     if (tail == undefined || !tail.startsWith('/registration')) {
       if (await this.authService.isAuthenticated()) {
         if (this.authService.isUserAdmin()) {
