@@ -1,3 +1,9 @@
 p {
   line-height: 0 !important;
 }
+
+.modal {
+  top: unset;
+  left: unset;
+  height: unset;
+}

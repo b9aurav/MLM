@@ -143,4 +143,7 @@ router.post("/api/ValidatePin", pinController.validatePin);
 
 router.post("/api/GetReportData", reportController.getReportData);
 
+router.post("/api/UpdateGeneralSettings", userController.updateGeneralSettings);
+router.post("/api/GetGeneralSettings", userController.getGeneralSettings);
+
 module.exports = router;

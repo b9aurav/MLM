@@ -695,3 +695,73 @@ exports.getBalance = function (req, res) {
         }
     });
 };
+
+// Get General Setting
+/*
+PARAMETERS :
+{
+    "param": {
+        "type": "",
+    }
+}
+*/
+exports.getGeneralSettings = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("type", sql.NVarChar, param.type);
+            request.execute("getGeneralSettings", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};
+
+// Update General Setting
+/*
+PARAMETERS :
+{
+    "param": {
+        "type": "",
+        "message": "",
+        "status": "",
+    }
+}
+*/
+exports.updateGeneralSettings = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("type", sql.NVarChar, param.type);
+            request.input('message', sql.NVarChar(sql.MAX), param.message)
+            request.input('status', sql.Bit, param.status)
+            request.execute("UpdateGeneralSettings", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};

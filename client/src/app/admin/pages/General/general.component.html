@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-body">
+      <form class="ui form" id="kyc-form">
+        <div class="card bg-body">
+          <div class="card-header">
+            <h6><input type="checkbox" (change)="onCheck($event)" id="web_news_checkbox" style="margin: 1px 5px;">Web News</h6>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="web-news-input">News</label>
+              <input type="text" class="form-control" id="web-news-input" style="width: 100%;" />
+            </div>
+          </div>
+          <div class="container-fluid btn-center">
+            <button type="submit" (click)="updateSettings('web_news', 'web-news-input', 'web_news_checkbox')" class="btn btn-outline-danger btn-round">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-body">
+      <form class="ui form" id="kyc-form">
+        <div class="card bg-body">
+          <div class="card-header">
+            <h6><input type="checkbox" (change)="onCheck($event)" id="web_popup_checkbox" style="margin: 1px 5px;">Web Popup</h6>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="web-popup-message">Message</label>
+              <textarea id="web-popup-message" class="form-control" style="width: 100%;" rows="10"></textarea>
+            </div>
+          </div>
+          <div class="container-fluid btn-center">
+            <button type="submit" (click)="updateSettings('web_popup', 'web-popup-message', 'web_popup_checkbox')" class="btn btn-outline-danger btn-round">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-body">
+      <form class="ui form" id="kyc-form">
+        <div class="card bg-body">
+          <div class="card-header">
+            <h6><input type="checkbox" (change)="onCheck($event)" id="portal_popup_checkbox" style="margin: 1px 5px;">Portal Popup</h6>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="user-popup-message">Message</label>
+              <textarea id="user-popup-message" class="form-control" style="width: 100%;" rows="10"></textarea>
+            </div>
+          </div>
+          <div class="container-fluid btn-center">
+            <button type="submit" (click)="updateSettings('user_popup', 'user-popup-message', 'portal_popup_checkbox')" class="btn btn-outline-danger btn-round">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<style>
+  textarea.form-control {
+    max-height: unset !important;
+  }
+  .btn-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .center-container {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 5px;
+  }
+</style>

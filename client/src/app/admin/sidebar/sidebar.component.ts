@@ -15,6 +15,7 @@ export interface RouteInfo {
 
 export const ROUTES = [
   { path: '/admin-dashboard', title: 'Dashboard', icon: 'bi bi-speedometer', class: '' },
+  { path: '/admin-general', title: 'General', icon: 'bi bi-sliders', class: '' },
   { path: '/admin-team', title: 'Teams', icon: 'bi bi-people-fill', class: '' },
   { path: '/admin-achievements', title: 'Achievements', icon: 'bi bi-gift', class: '' },
   { path: '/admin-payout', title: 'Payout', icon: 'bi bi-cash-coin', class: '' },

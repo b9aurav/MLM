@@ -10,6 +10,7 @@ import { DepositComponent } from '../../pages/deposit/deposit.component';
 import { PinManagementComponent } from 'app/admin/pages/pin-management/pin.component';
 import { ReportComponent } from 'app/admin/pages/report/report.component';
 import { AchievementComponent } from 'app/admin/pages/achievements/achievement.component';
+import { GeneralComponent } from 'app/admin/pages/General/general.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'admin-dashboard', component: DashboardComponent },
@@ -21,5 +22,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'admin-deposit', component: DepositComponent},
     { path: 'admin-manage-pins', component: PinManagementComponent },
     { path: 'admin-settings', component: SettingsComponent },
-    { path: 'admin-report', component: ReportComponent }
+    { path: 'admin-report', component: ReportComponent },
+    { path: 'admin-general', component: GeneralComponent}
 ];

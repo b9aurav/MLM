@@ -52,6 +52,7 @@ import { EarningautopoolComponent } from 'app/admin/pages/team/users/earning/ear
 import { EarningedntourComponent } from 'app/admin/pages/team/users/earning/earningedntour/earningedntour.component';
 import { EarninggiftrewardsComponent } from 'app/admin/pages/team/users/earning/earninggiftrewards/earninggiftrewards.component';
 import { UserDetails } from 'app/admin/pages/team/users/earning/userdetails/userdetails.component';
+import { GeneralComponent } from 'app/admin/pages/General/general.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ImageViewerModule } from "ngx-image-viewer";
@@ -108,6 +109,7 @@ import { UsedPinsComponent } from 'app/admin/pages/pin-management/usedpins/usedp
     UsedPinsComponent,
     PendingPinRequestComponent,
     HistoryPinRequestComponent,
+    GeneralComponent,
     
     ExportReportComponent,
 
