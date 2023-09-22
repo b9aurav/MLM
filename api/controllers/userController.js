@@ -705,29 +705,26 @@ PARAMETERS :
     }
 }
 */
-exports.getGeneralSettings = function (req, res) {
-    var param = req.body.param;
-    sql.connect(serverConfig, function (err) {
-        if (err) console.error(err);
-        else {
-            var request = new sql.Request();
-            request.input("type", sql.NVarChar, param.type);
-            request.execute("getGeneralSettings", function (err, result) {
-                if (err) {
-                    console.error(err);
-                    sql.close();
-                    return res.status(500).send(err);
-                } else {
-                    sql.close();
-                    return res.status(200).send({
-                        message: result.output.Message,
-                        data: result.recordset
-                    });
-                }
-            });
-        }
-    });
-};
+exports.getGeneralSettings = async function (req, res) {
+    try {
+      const param = req.body.param;
+      await sql.connect(serverConfig);
+      const request = new sql.Request();
+      request.input('type', sql.NVarChar, param.type);
+      const result = await request.execute("getGeneralSettings");
+      sql.close();
+
+      return res.status(200).send({
+        message: result.output.Message,
+        data: result.recordset,
+        count: result.output.memberCount
+      });
+    } catch (err) {
+      console.error(err);
+      sql.close();
+      return res.status(500).send(err);
+    }
+  };
 
 // Update General Setting
 /*

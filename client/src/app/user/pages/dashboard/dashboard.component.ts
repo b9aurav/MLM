@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   digitalToken: HTMLParagraphElement;
   referralLink: HTMLLabelElement;
 
+  static firstTime: boolean = true;
+
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
   
   ngOnInit() {
@@ -43,20 +45,41 @@ export class DashboardComponent implements OnInit {
       this.eduReward = document.getElementById('education-reward') as HTMLParagraphElement;
       this.giftReward = document.getElementById('gift-reward') as HTMLParagraphElement;
       this.digitalToken = document.getElementById('digital-token') as HTMLParagraphElement;
+      if (DashboardComponent.firstTime) {
+        var param = {
+          "param": {
+            "type": 'user_popup'
+          }
+        }
+        this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetGeneralSettings', param).subscribe(response => {
+          console.log('here'+response)
+          if (response.data[0].status) {
+            document.getElementById('message').textContent = response.data[0].message
+            $('.ui.modal').modal('show');
+          }
+        }, error => {
+          console.error(error);
+        });
+      }
+      DashboardComponent.firstTime = false;
       setTimeout(() => {
         this.getDashboardData();
       }, 100);
-      var param = {
+      var parameters = {
         "param": {
           "user_id": this.authService.userData.user_id
         } 
       }
-      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsByUserID', param).subscribe(response => {
+      this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/GetUserDetailsByUserID', parameters).subscribe(response => {
         
       }, error => {
         console.error(error);
       });
     }
+  }
+  
+  closePopup() {
+    $('.ui.modal').modal('hide');
   }
 
   copyReferralLink() {
