@@ -66,7 +66,9 @@
     <input type="text" class="form-control" id="userdetails-panInput" disabled />
   </div>
   <div class="form-group">
-    <div class="ui red button" *ngIf="isKYCActive" (click)="deactivateUser()">De-activate User</div>
-    <div class="ui green button" *ngIf="!isKYCActive" (click)="activateUser()">Activate User</div>
+    <div class="ui red button" *ngIf="isKYCActive && !editMode" (click)="deactivateUser()">De-activate User</div>
+    <div class="ui green button" *ngIf="!isKYCActive && !editMode" (click)="activateUser()">Activate User</div>
+    <div class="ui blue button" *ngIf="!editMode" (click)="editUser()">Edit User</div>
+    <div class="ui green button" *ngIf="editMode" (click)="saveUser()">Save User</div>
   </div>
 </div>

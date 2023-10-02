@@ -133,6 +133,7 @@ router.post("/api/GetAutopoolMembers", teamController.getAutopoolMembers);
 
 router.post("/api/GetUserDetailsByUserID", userController.getUserDetailsByUserID);
 router.post("/api/GetUserDetailsForAdmin", userController.getUserDetailsForAdmin);
+router.post("/api/EditUser", userController.editUser);
 
 router.post("/api/GeneratePins", pinController.generatePins);
 router.post("/api/GetUsedPins", pinController.getUsedPins);

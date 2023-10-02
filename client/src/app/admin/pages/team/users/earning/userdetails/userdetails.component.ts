@@ -13,6 +13,7 @@ import { UserService } from '../../user.service';
 export class UserDetails implements OnInit {
   userInfo: any;
   isKYCActive: boolean;
+  editMode: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient, private selectedUser: UserService) { }
 
@@ -79,6 +80,49 @@ export class UserDetails implements OnInit {
     this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/ActivateUser', param).subscribe(response => {
       alert(response.message);
       this.ngOnInit();
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  editUser() {
+    this.editMode = true;
+    document.getElementById("userdetails-nameInput").removeAttribute('disabled');
+    document.getElementById("userdetails-usernameInput").removeAttribute('disabled');
+    document.getElementById("userdetails-phoneInput").removeAttribute('disabled');
+    document.getElementById("userdetails-emailInput").removeAttribute('disabled');
+  }
+
+  saveUser() {
+    var nameinput = document.getElementById("userdetails-nameInput") as HTMLInputElement
+    var usernameinput = document.getElementById("userdetails-usernameInput") as HTMLInputElement
+    var phoneinput = document.getElementById("userdetails-phoneInput") as HTMLInputElement
+    var emailinput = document.getElementById("userdetails-emailInput") as HTMLInputElement
+
+    if (nameinput.value == "" ||
+        usernameinput.value == "" ||
+        phoneinput.value == "" ||
+        emailinput.value == "") {
+          alert('Error: Values cannot be empty!');
+          return;
+        }
+
+    var param = {
+      "param": {
+        "user_id": this.selectedUser.getUser(),
+        "name": nameinput.value,
+        "username": usernameinput.value,
+        "phone": phoneinput.value,
+        "email": emailinput.value
+      }
+    }
+    this.http.post<{ data: any, message: string }>(environment.apiBaseUrl + '/api/EditUser', param).subscribe(response => {
+      alert(response.data[0][""]);
+      this.editMode = false;
+      nameinput.setAttribute('disabled', 'disabled');
+      usernameinput.setAttribute('disabled', 'disabled');
+      phoneinput.setAttribute('disabled', 'disabled');
+      emailinput.setAttribute('disabled', 'disabled');
     }, error => {
       console.error(error);
     });

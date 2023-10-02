@@ -598,6 +598,49 @@ exports.getUserDetailsForAdmin = function (req, res) {
     });
 };
 
+// Edit User
+/*
+PARAMETERS :
+{
+    "param": {
+        "user_id": "",
+        "name": "",
+        "username": "",
+        "phone": "",
+        "email": ""
+    }
+}
+*/
+exports.editUser = function (req, res) {
+    var param = req.body.param;
+    sql.connect(serverConfig, function (err) {
+        if (err) console.error(err);
+        else {
+            var request = new sql.Request();
+            request.input("user_id", sql.NVarChar, param.user_id);
+            request.input("name", sql.NVarChar, param.name);
+            request.input("username", sql.NVarChar, param.username);
+            request.input("phone", sql.NVarChar, param.phone);
+            request.input("email", sql.NVarChar, param.email);
+            request.output('message', sql.NVarChar(sql.MAX))
+            request.execute("EditUser", function (err, result) {
+                if (err) {
+                    console.error(err);
+                    sql.close();
+                    return res.status(500).send(err);
+                } else {
+                    sql.close();
+                    console.info(result.output.Message)
+                    return res.status(200).send({
+                        message: result.output.Message,
+                        data: result.recordset
+                    });
+                }
+            });
+        }
+    });
+};
+
 // Fetch Dashboard Info
 /*
 PARAMETERS :
